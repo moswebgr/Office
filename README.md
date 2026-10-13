@@ -35,11 +35,11 @@ Names are working titles and should be checked for trademark/domain conflicts be
 
 ## Current status
 
-This repository contains the public landing page, project roadmap, and the first functional WriteFlow browser editor. WriteFlow supports rich-text editing, headings, lists, alignment, links, word/character counts, local browser autosave, opening plain-text/Markdown files, HTML export, and printing. It is a local-first prototype, not a cloud document service; drafts stay in the current browser. The other application cards remain planned scope, not completed applications.
+This repository contains the public landing page and browser-based first prototypes for all ten MosSuite apps. These are useful starting implementations, not production-ready substitutes for commercial office/collaboration suites. Features are local-first where practical; hosted services, shared accounts, real-time collaboration, and cloud sync are not implemented.
 
 ## Run locally
 
-Open `index.html` in a modern browser to view the landing page. Open `writeflow/index.html` to use WriteFlow. Both are static HTML files and do not require a build step. WriteFlow saves drafts to the browser's local storage; export documents regularly as backups.
+Open `index.html` in a modern browser to view the landing page. Each application has its own static HTML page: `writeflow/`, `gridforge/`, `slidespark/`, `mailnest/`, `noteharbor/`, `cloudshelf/`, `meetmesh/`, `planpilot/`, `diagramdock/`, and `datanest/`. No build step is required. Storage is local to the browser where supported; export backups regularly.
 
 ## Publish with GitHub Pages
 
