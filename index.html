@@ -12,7 +12,7 @@
     a{color:inherit} .wrap{width:min(1120px,calc(100% - 40px));margin:auto}
     header{display:flex;align-items:center;justify-content:space-between;padding:24px 0;border-bottom:1px solid #ffffff12}
     .brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:800;font-size:1.25rem;letter-spacing:-.04em}
-    .logo{display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#8ab4ff,#7cebd0);color:#101525;font-weight:900}
+    .logo{display:block;width:42px;height:42px;object-fit:contain}
     nav{display:flex;gap:24px;color:var(--muted);font-size:.93rem}nav a{text-decoration:none}nav a:hover{color:white}
     .hero{padding:84px 0 64px;max-width:850px}.eyebrow{color:var(--mint);font-size:.8rem;text-transform:uppercase;letter-spacing:.16em;font-weight:800}
     h1{font-size:clamp(2.8rem,7vw,5.6rem);line-height:1.02;letter-spacing:-.065em;margin:18px 0 24px}
@@ -37,7 +37,7 @@
 </head>
 <body>
   <header class="wrap">
-    <a class="brand" href="#" aria-label="MosSuite home"><span class="logo">M</span><span>MosSuite</span></a>
+    <a class="brand" href="#" aria-label="MosSuite home"><img class="logo" src="assets/mossuite-logo.svg" alt=""><span>MosSuite</span></a>
     <nav aria-label="Main navigation"><a href="#apps">Apps</a><a href="#values">Our values</a><a href="https://github.com/moswebgr/Office">GitHub</a></nav>
   </header>
   <main class="wrap">
