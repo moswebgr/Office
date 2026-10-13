@@ -20,19 +20,22 @@ This roadmap is intentionally incremental. A feature is not considered complete 
 ## Phase 3 — Documents and data
 - [x] WriteFlow first milestone: editing, local save/load, plain-text/Markdown import and HTML export.
 - [ ] WriteFlow next: robust Markdown export, undo/redo review, accessibility and browser tests.
-- [ ] GridForge: editable grid, basic formulas, CSV import/export.
-- [ ] NoteHarbor: notebooks, tags, search, export/import.
+- [x] GridForge prototype: editable grid, basic arithmetic formula evaluation and CSV import/export.
+- [x] NoteHarbor prototype: searchable notes, tags, local storage and JSON export.
 
 ## Phase 4 — Presentations and planning
-- [ ] SlideSpark: create, edit, reorder and present slides.
-- [ ] PlanPilot: tasks, due dates, board and calendar views.
-- [ ] DiagramDock: shapes, connectors, save/load and export.
+- [x] SlideSpark prototype: create/edit/reorder slides, presentation view and HTML export.
+- [x] PlanPilot prototype: tasks, priorities, due dates, completion status and JSON export.
+- [x] DiagramDock prototype: movable shapes, connectors and SVG export.
 
 ## Phase 5 — Collaboration and integrations
+- [x] MailNest local prototype: inbox, archive and draft interface (no actual sending).
 - [ ] MailNest: documented email-provider support and secure credential handling.
+- [x] CloudShelf local prototype: file index and notes (no cloud upload).
 - [ ] CloudShelf: storage provider integrations and clear data ownership controls.
-- [ ] MeetMesh: chat prototype, then real-time infrastructure and security review.
-- [ ] DataNest: tables, forms, CSV import/export and data validation.
+- [x] MeetMesh local chat-room prototype.
+- [ ] MeetMesh: real-time infrastructure and security review.
+- [x] DataNest prototype: editable fields/records and CSV import/export.
 
 ## Definition of done
 A feature is done only when it has:
