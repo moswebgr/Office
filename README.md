@@ -35,11 +35,11 @@ Names are working titles and should be checked for trademark/domain conflicts be
 
 ## Current status
 
-This repository starts with the public-facing landing page and project roadmap. The application cards describe the **planned scope**, not completed or production-ready applications. Each app will be built and tested incrementally.
+This repository contains the public landing page, project roadmap, and the first functional WriteFlow browser editor. WriteFlow supports rich-text editing, headings, lists, alignment, links, word/character counts, local browser autosave, opening plain-text/Markdown files, HTML export, and printing. It is a local-first prototype, not a cloud document service; drafts stay in the current browser. The other application cards remain planned scope, not completed applications.
 
 ## Run locally
 
-Open `index.html` in a modern browser. The landing page is static and does not require a build step.
+Open `index.html` in a modern browser to view the landing page. Open `writeflow/index.html` to use WriteFlow. Both are static HTML files and do not require a build step. WriteFlow saves drafts to the browser's local storage; export documents regularly as backups.
 
 ## Publish with GitHub Pages
 
