@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b1020">
+<title>MosSuite Workspace — Όλες οι εφαρμογές</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1020;--panel:#121a2e;--panel2:#1a2742;--line:#293550;--text:#f4f7ff;--muted:#aab5cc;--blue:#8ab4ff;--mint:#7cebd0}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}button,a{font:inherit}button{cursor:pointer}
+.layout{display:grid;grid-template-columns:255px minmax(0,1fr);height:100dvh}.sidebar{background:#0e1628;border-right:1px solid var(--line);padding:18px 13px;display:flex;flex-direction:column;min-height:0}
+.brand{display:flex;align-items:center;gap:11px;padding:4px 8px 20px;text-decoration:none;color:var(--text);font-weight:850;font-size:1.2rem;letter-spacing:-.04em}.logo{width:38px;height:38px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(135deg,var(--blue),var(--mint));color:#0b1020}
+.small{color:var(--muted);font-size:.78rem;padding:7px 10px;text-transform:uppercase;letter-spacing:.12em;font-weight:800}.nav{display:grid;gap:5px;overflow:auto}.nav button{display:flex;align-items:center;gap:12px;text-align:left;border:1px solid transparent;background:transparent;color:var(--muted);padding:10px 11px;border-radius:11px}.nav button:hover{background:#ffffff08;color:var(--text)}.nav button.active{background:#8ab4ff18;border-color:#8ab4ff44;color:var(--text)}.ico{width:25px;text-align:center;font-size:1.12rem}
+.sidebottom{margin-top:auto;border-top:1px solid var(--line);padding:14px 8px 3px;color:var(--muted);font-size:.8rem}.sidebottom a{color:var(--blue)}
+.main{display:flex;flex-direction:column;min-width:0;min-height:0}.topbar{display:flex;align-items:center;gap:12px;padding:13px 20px;border-bottom:1px solid var(--line);background:#0b1020e8}.current{font-weight:800;font-size:1.02rem}.sub{color:var(--muted);font-size:.82rem}.spacer{flex:1}.topbtn{border:1px solid var(--line);background:var(--panel);color:var(--text);padding:8px 12px;border-radius:10px;text-decoration:none}.topbtn:hover{border-color:var(--blue)}
+.home{padding:clamp(20px,4vw,46px);overflow:auto}.hero{padding:28px;border-radius:22px;border:1px solid #33476b;background:radial-gradient(ellipse at 90% 0,#274274 0,transparent 52%),linear-gradient(130deg,#172640,#10182a);margin-bottom:26px}.eyebrow{color:var(--mint);font-size:.75rem;font-weight:850;letter-spacing:.14em;text-transform:uppercase}.hero h1{font-size:clamp(2.2rem,5vw,4rem);letter-spacing:-.06em;line-height:1.05;margin:12px 0}.hero p{max-width:650px;color:var(--muted);margin:0 0 20px}.launch{border:0;background:var(--text);color:#0b1020;padding:11px 15px;border-radius:10px;font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.appcard{border:1px solid var(--line);background:linear-gradient(145deg,var(--panel),#0f1729);border-radius:16px;padding:18px;display:flex;flex-direction:column;min-height:160px}.appcard:hover{border-color:#718bbd}.cardtop{display:flex;justify-content:space-between;align-items:center}.appicon{font-size:1.35rem;background:var(--panel2);width:42px;height:42px;border-radius:13px;display:grid;place-items:center}.appcard h3{margin:14px 0 5px}.appcard p{margin:0 0 14px;color:var(--muted);font-size:.88rem}.open{margin-top:auto;border:1px solid var(--line);background:#ffffff08;color:var(--text);border-radius:9px;padding:8px 10px;text-align:left}.open:hover{border-color:var(--blue)}.badge{font-size:.68rem;color:var(--mint);border:1px solid #7cebd044;padding:3px 7px;border-radius:99px}
+.framewrap{display:none;flex:1;min-height:0}.framewrap.show{display:flex}.framewrap iframe{width:100%;height:100%;border:0;background:#fff}.home.hide{display:none}.mobilemenu{display:none}
+@media(max-width:900px){.layout{grid-template-columns:210px minmax(0,1fr)}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sidebar{padding:14px 8px}}
+@media(max-width:620px){.layout{display:block;height:100dvh}.sidebar{position:fixed;z-index:5;left:0;right:0;bottom:0;height:68px;padding:5px 8px;border-right:0;border-top:1px solid var(--line);background:#0e1628}.brand,.small,.sidebottom{display:none}.nav{display:flex;overflow-x:auto;gap:4px}.nav button{flex:0 0 auto;display:grid;justify-items:center;gap:1px;padding:6px 9px;font-size:.68rem}.ico{font-size:1.05rem;width:auto}.main{height:calc(100dvh - 68px)}.topbar{padding:10px 12px}.grid{grid-template-columns:1fr}.home{padding:15px}.hero{padding:22px}.topbtn{padding:7px 9px;font-size:.8rem}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+<a class="brand" href="index.html"><span class="logo">M</span><span>MosSuite</span></a>
+<div class="small">Χώρος εργασίας</div>
+<nav class="nav" id="nav" aria-label="Εφαρμογές">
+<button class="active" data-app="home"><span class="ico">⌂</span><span>Αρχική</span></button>
+</nav>
+<div class="sidebottom">MosSuite by MosWeb<br><a href="https://github.com/moswebgr/Office" target="_blank" rel="noopener">Κώδικας στο GitHub ↗</a></div>
+</aside>
+<main class="main">
+<div class="topbar"><div><div class="current" id="current">MosSuite Workspace</div><div class="sub" id="subtitle">Όλα τα εργαλεία σε ένα μέρος</div></div><div class="spacer"></div><button class="topbtn" id="homeBtn">⌂ Αρχική</button><a class="topbtn" href="https://github.com/moswebgr/Office" target="_blank" rel="noopener">GitHub ↗</a></div>
+<section class="home" id="home">
+<div class="hero"><div class="eyebrow">MOSWEB · PRODUCTIVITY SUITE</div><h1>Η δουλειά σου.<br><span style="color:var(--mint)">Ένας χώρος.</span></h1><p>Άνοιξε οποιαδήποτε εφαρμογή από το μενού. Όλα φορτώνουν μέσα στο ίδιο περιβάλλον, χωρίς να χάνεις την πλοήγηση μεταξύ των εργαλείων.</p><button class="launch" id="launchFirst">Άνοιγμα WriteFlow →</button></div>
+<div class="small" style="padding-left:0">Οι εφαρμογές σου</div><div class="grid" id="cards"></div>
+</section>
+<div class="framewrap" id="framewrap"><iframe id="appframe" title="MosSuite app" loading="eager"></iframe></div>
+</main>
+</div>
+<script>
+const apps=[
+{id:'writeflow',name:'WriteFlow',icon:'✍️',desc:'Σύνταξη και μορφοποίηση εγγράφων.',status:'ΠΡΩΤΗ ΕΚΔΟΣΗ',path:'writeflow/index.html'},
+{id:'gridforge',name:'GridForge',icon:'▦',desc:'Υπολογιστικά φύλλα, βασικοί τύποι και CSV.',status:'ΠΡΩΤΗ ΕΚΔΟΣΗ',path:'gridforge/index.html'},
+{id:'slidespark',name:'SlideSpark',icon:'▱',desc:'Δημιουργία και παρουσίαση διαφανειών.',status:'ΠΡΩΤΗ ΕΚΔΟΣΗ',path:'slidespark/index.html'},
+{id:'mailnest',name:'MailNest',icon:'✉️',desc:'Δοκιμαστικά εισερχόμενα και τοπικά πρόχειρα.',status:'ΠΡΩΤΟΤΥΠΟ',path:'mailnest/index.html'},
+{id:'noteharbor',name:'NoteHarbor',icon:'▤',desc:'Σημειώσεις με αναζήτηση και ετικέτες.',status:'ΠΡΩΤΗ ΕΚΔΟΣΗ',path:'noteharbor/index.html'},
+{id:'cloudshelf',name:'CloudShelf',icon:'☁️',desc:'Κατάλογος αρχείων και γρήγορες σημειώσεις.',status:'ΠΡΩΤΟΤΥΠΟ',path:'cloudshelf/index.html'},
+{id:'meetmesh',name:'MeetMesh',icon:'◉',desc:'Τοπικό περιβάλλον συνομιλίας και ιστορικό.',status:'ΠΡΩΤΟΤΥΠΟ',path:'meetmesh/index.html'},
+{id:'planpilot',name:'PlanPilot',icon:'✓',desc:'Εργασίες, προτεραιότητες και ημερομηνίες.',status:'ΠΡΩΤΗ ΕΚΔΟΣΗ',path:'planpilot/index.html'},
+{id:'diagramdock',name:'DiagramDock',icon:'◇',desc:'Σχήματα, συνδέσεις και εξαγωγή SVG.',status:'ΠΡΩΤΗ ΕΚΔΟΣΗ',path:'diagramdock/index.html'},
+{id:'datanest',name:'DataNest',icon:'▥',desc:'Πίνακες δεδομένων και εισαγωγή/εξαγωγή CSV.',status:'ΠΡΩΤΗ ΕΚΔΟΣΗ',path:'datanest/index.html'}
+];
+const nav=document.getElementById('nav'),cards=document.getElementById('cards'),home=document.getElementById('home'),framewrap=document.getElementById('framewrap'),frame=document.getElementById('appframe'),current=document.getElementById('current'),subtitle=document.getElementById('subtitle');
+function openApp(id){const app=apps.find(a=>a.id===id);if(!app)return;frame.src=app.path;home.classList.add('hide');framewrap.classList.add('show');current.textContent=app.name;subtitle.textContent='Εφαρμογή MosSuite';document.querySelectorAll('[data-app]').forEach(b=>b.classList.toggle('active',b.dataset.app===id));history.replaceState(null,'','?app='+encodeURIComponent(id));}
+function goHome(){frame.src='about:blank';framewrap.classList.remove('show');home.classList.remove('hide');current.textContent='MosSuite Workspace';subtitle.textContent='Όλα τα εργαλεία σε ένα μέρος';document.querySelectorAll('[data-app]').forEach(b=>b.classList.toggle('active',b.dataset.app==='home'));history.replaceState(null,'',location.pathname);}
+nav.innerHTML='<button class="active" data-app="home"><span class="ico">⌂</span><span>Αρχική</span></button>'+apps.map(a=>'<button data-app="'+a.id+'" title="'+a.name+'"><span class="ico">'+a.icon+'</span><span>'+a.name+'</span></button>').join('');
+cards.innerHTML=apps.map(a=>'<article class="appcard"><div class="cardtop"><span class="appicon">'+a.icon+'</span><span class="badge">'+a.status+'</span></div><h3>'+a.name+'</h3><p>'+a.desc+'</p><button class="open" data-open="'+a.id+'">Άνοιγμα εφαρμογής →</button></article>').join('');
+nav.addEventListener('click',e=>{const b=e.target.closest('[data-app]');if(!b)return;b.dataset.app==='home'?goHome():openApp(b.dataset.app)});
+cards.addEventListener('click',e=>{const b=e.target.closest('[data-open]');if(b)openApp(b.dataset.open)});
+document.getElementById('homeBtn').addEventListener('click',goHome);document.getElementById('launchFirst').addEventListener('click',()=>openApp('writeflow'));
+const requested=new URLSearchParams(location.search).get('app');if(apps.some(a=>a.id===requested))openApp(requested);
+</script>
+</body></html>
