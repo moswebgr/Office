@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101525">
+<meta name="description" content="WriteFlow — a free, local-first document editor from MosSuite."><title>WriteFlow — MosSuite</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1020;--panel:#121a2e;--panel2:#18223a;--text:#f4f7ff;--muted:#aab5cc;--line:#293550;--mint:#7cebd0;--blue:#a7c6ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select{font:inherit}button,a{touch-action:manipulation}a{color:var(--blue)}.top{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:14px 22px;border-bottom:1px solid var(--line);background:#101729;position:sticky;top:0;z-index:3}.brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--text);font-weight:800}.logo{display:grid;place-items:center;width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#8ab4ff,#7cebd0);color:#101525}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn,.tool{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:8px 12px;cursor:pointer}.btn:hover,.tool:hover{border-color:var(--blue)}.primary{background:#eaf0ff;color:#11182a;font-weight:750}.layout{max-width:1100px;margin:28px auto;padding:0 18px}.intro{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:18px}.eyebrow{color:var(--mint);text-transform:uppercase;letter-spacing:.13em;font-size:.75rem;font-weight:800}h1{font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.1;letter-spacing:-.05em;margin:6px 0}.muted{color:var(--muted)}.editor-card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel);box-shadow:0 16px 60px #0002}.docbar{display:flex;align-items:center;gap:12px;padding:12px;border-bottom:1px solid var(--line)}#docTitle{min-width:0;flex:1;background:transparent;border:1px solid transparent;color:var(--text);font-size:1.1rem;font-weight:700;padding:8px;border-radius:8px}#docTitle:focus{outline:2px solid #8ab4ff66;border-color:var(--blue)}.toolbar{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;border-bottom:1px solid var(--line);background:#0f1729}.tool{min-width:36px;padding:7px 10px;font-weight:700}.tool[aria-pressed=true]{background:#314665;border-color:var(--blue)}select.tool{font-weight:500}.page{padding:clamp(18px,5vw,54px);background:#fff;color:#202534;min-height:540px}.page #editor{min-height:500px;outline:none;font:16px/1.8 Georgia,"Times New Roman",serif;overflow-wrap:anywhere}.page #editor:empty:before{content:"Start writing your document…";color:#9298a5}.page #editor h1,.page #editor h2,.page #editor h3{color:#18233a;letter-spacing:normal}.page #editor a{color:#225db5}.page #editor blockquote{border-left:3px solid #8aa5d8;padding-left:16px;color:#4e5870}.page #editor table{border-collapse:collapse;width:100%}.page #editor td,.page #editor th{border:1px solid #cbd2de;padding:6px}.foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:11px 14px;color:var(--muted);font-size:.84rem;border-top:1px solid var(--line)}.saved{color:var(--mint)}.notice{padding:12px 14px;border:1px solid #7cebd044;background:#7cebd00c;color:var(--muted);border-radius:12px;margin:16px 0;font-size:.9rem}.hidden{display:none!important}input[type=file]{display:none}@media(max-width:650px){.top{padding:10px 12px;align-items:flex-start}.top .actions{justify-content:flex-end}.layout{margin:20px auto;padding:0 10px}.intro{display:block}.intro p{margin-bottom:0}.docbar{flex-wrap:wrap}#docTitle{flex-basis:100%;order:2}.page{padding:18px;min-height:430px}.page #editor{min-height:400px}.toolbar{gap:5px}.tool{padding:7px 9px}}@media print{body{background:white;color:black}.top,.intro,.toolbar,.docbar,.foot,.notice{display:none!important}.layout{margin:0;padding:0;max-width:none}.editor-card{border:0;box-shadow:none}.page{padding:0;min-height:0}.page #editor{min-height:0}}
+</style></head>
+<body>
+<header class="top"><a class="brand" href="../index.html"><span class="logo">M</span><span>MosSuite <span class="muted">/ WriteFlow</span></span></a><div class="actions"><button class="btn" id="newBtn">New</button><button class="btn" id="openBtn">Open text</button><input id="fileInput" type="file" accept=".txt,.md,text/plain,text/markdown"><button class="btn" id="saveBtn">Save locally</button><button class="btn primary" id="exportBtn">Export HTML</button></div></header>
+<main class="layout"><div class="intro"><div><div class="eyebrow">Free · Local-first · Open source</div><h1>Your writing space.</h1><p class="muted">A practical document editor. Your draft stays in this browser unless you export it.</p></div></div>
+<div class="editor-card"><div class="docbar"><input id="docTitle" aria-label="Document title" maxlength="160" value="Untitled document"><span class="muted" id="autosaveLabel">Autosave on</span></div>
+<div class="toolbar" role="toolbar" aria-label="Text formatting">
+<button class="tool" data-cmd="bold" aria-label="Bold" title="Bold (Ctrl+B)"><b>B</b></button><button class="tool" data-cmd="italic" aria-label="Italic" title="Italic (Ctrl+I)"><i>I</i></button><button class="tool" data-cmd="underline" aria-label="Underline" title="Underline (Ctrl+U)"><u>U</u></button><button class="tool" data-cmd="insertUnorderedList" aria-label="Bulleted list" title="Bulleted list">• List</button><button class="tool" data-cmd="insertOrderedList" aria-label="Numbered list" title="Numbered list">1. List</button>
+<select class="tool" id="blockFormat" aria-label="Paragraph style"><option value="P">Paragraph</option><option value="H1">Heading 1</option><option value="H2">Heading 2</option><option value="H3">Heading 3</option><option value="BLOCKQUOTE">Quote</option></select>
+<button class="tool" data-cmd="justifyLeft" aria-label="Align left" title="Align left">⇤</button><button class="tool" data-cmd="justifyCenter" aria-label="Center" title="Center">≡</button><button class="tool" data-cmd="justifyRight" aria-label="Align right" title="Align right">⇥</button><button class="tool" data-cmd="removeFormat" title="Clear formatting">Clear</button><button class="tool" id="linkBtn" title="Insert link">Link</button><button class="tool" id="printBtn" title="Print document">Print</button></div>
+<div class="page"><div id="editor" contenteditable="true" role="textbox" aria-label="Document content" aria-multiline="true" spellcheck="true"><h1>Welcome to WriteFlow</h1><p>This is your document. Click here and start writing.</p><p><strong>Useful things to try</strong></p><ul><li>Format text with the toolbar.</li><li>Create headings and lists.</li><li>Save automatically in this browser, or export your work.</li></ul></div></div>
+<div class="foot"><span id="wordCount">0 words · 0 characters</span><span id="saveStatus" class="saved" role="status" aria-live="polite">Ready</span></div></div>
+<div class="notice"><strong>Privacy note:</strong> WriteFlow stores drafts in this browser's local storage. Clearing browser data can remove them. Use Export HTML or download a text copy for a separate backup. This first version does not upload documents to a server or provide cloud sync.</div>
+<p class="muted"><a href="https://github.com/moswebgr/Office">View source and roadmap on GitHub</a></p></main>
+<script>
+(() => {
+const editor = document.getElementById('editor'), title = document.getElementById('docTitle');
+const status = document.getElementById('saveStatus'), count = document.getElementById('wordCount');
+const STORAGE_KEY = 'mossuite.writeflow.document.v1';
+let dirty = false, saveHandle = null;
+const setStatus = (message, saved=false) => { status.textContent = message; status.classList.toggle('saved', saved); };
+const slug = s => (s || 'document').trim().replace(/[^a-z0-9-_]+/gi,'-').replace(/^-+|-+$/g,'').slice(0,70) || 'document';
+function updateCount() {
+ const text = editor.innerText || '';
+ const words = text.trim() ? (text.trim().match(/\S+/g) || []).length : 0;
+ count.textContent = words + ' words · ' + text.length + ' characters';
+}
+function saveLocal(show=true) {
+ try {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({title:title.value,html:editor.innerHTML,updatedAt:new Date().toISOString()}));
+  dirty=false;
+  if(show) setStatus('Saved in this browser',true);
+ } catch (e) { setStatus('Could not save locally — export a backup',false); }
+}
+function scheduleSave() {
+ dirty=true; setStatus('Unsaved changes…');
+ clearTimeout(saveHandle); saveHandle=setTimeout(()=>saveLocal(),500);
+ updateCount();
+}
+function download(name, content, type) {
+ const blob = new Blob([content],{type});
+ const url = URL.createObjectURL(blob), a=document.createElement('a');
+ a.href=url; a.download=name; document.body.appendChild(a); a.click(); a.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+function escapeHtml(s) { return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function exportHtml() {
+ const safeTitle=escapeHtml(title.value || 'Untitled document');
+ const doc='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+safeTitle+'</title><style>body{max-width:800px;margin:40px auto;padding:0 20px;font:16px/1.7 Georgia,serif;color:#202534}img{max-width:100%}table{border-collapse:collapse}td,th{border:1px solid #bbb;padding:6px}blockquote{border-left:3px solid #9ab;padding-left:16px}</style></head><body><h1>'+safeTitle+'</h1>'+editor.innerHTML+'</body></html>';
+ download(slug(title.value)+'.html',doc,'text/html;charset=utf-8'); setStatus('HTML exported',true);
+}
+function markdownFromEditor() {
+ const clone=editor.cloneNode(true);
+ const convert = node => {
+  if(node.nodeType===Node.TEXT_NODE) return node.nodeValue;
+  if(node.nodeType!==Node.ELEMENT_NODE) return '';
+  const tag=node.tagName, inner=Array.from(node.childNodes).map(convert).join('');
+  if(tag==='H1') return '# '+inner+'\n\n';
+  if(tag==='H2') return '## '+inner+'\n\n';
+  if(tag==='H3') return '### '+inner+'\n\n';
+  if(tag==='STRONG'||tag==='B') return '**'+inner+'**';
+  if(tag==='EM'||tag==='I') return '*'+inner+'*';
+  if(tag==='U') return inner;
+  if(tag==='A') return '['+inner+']('+node.getAttribute('href')+')';
+  if(tag==='BR') return '\n';
+  if(tag==='LI') return '- '+inner+'\n';
+  if(tag==='UL'||tag==='OL') return inner+'\n';
+  if(tag==='BLOCKQUOTE') return inner.split('\n').filter(Boolean).map(x=>'> '+x).join('\n')+'\n\n';
+  if(tag==='P'||tag==='DIV') return inner+'\n\n';
+  return inner;
+ };
+ return '# '+(title.value||'Untitled document')+'\n\n'+Array.from(clone.childNodes).map(convert).join('').replace(/\n{3,}/g,'\n\n').trim()+'\n';
+}
+document.querySelectorAll('[data-cmd]').forEach(btn=>btn.addEventListener('click',()=>{editor.focus();document.execCommand(btn.dataset.cmd,false,null);scheduleSave();}));
+document.getElementById('blockFormat').addEventListener('change',e=>{editor.focus();document.execCommand('formatBlock',false,e.target.value);scheduleSave();});
+document.getElementById('linkBtn').addEventListener('click',()=>{editor.focus();const url=prompt('Enter a link URL (https://…)');if(!url)return;try{const parsed=new URL(url);if(!['https:','http:','mailto:'].includes(parsed.protocol))throw new Error();document.execCommand('createLink',false,parsed.href);scheduleSave();}catch{alert('Please enter a valid http, https, or mailto URL.');}});
+document.getElementById('printBtn').addEventListener('click',()=>window.print());
+document.getElementById('saveBtn').addEventListener('click',()=>saveLocal());
+document.getElementById('exportBtn').addEventListener('click',exportHtml);
+editor.addEventListener('input',scheduleSave);title.addEventListener('input',scheduleSave);
+document.getElementById('newBtn').addEventListener('click',()=>{if(dirty&&!confirm('You have unsaved changes. Start a new document?'))return;title.value='Untitled document';editor.innerHTML='<p><br></p>';scheduleSave();editor.focus();});
+const input=document.getElementById('fileInput');
+document.getElementById('openBtn').addEventListener('click',()=>input.click());
+input.addEventListener('change',async()=>{const file=input.files&&input.files[0];if(!file)return;if(file.size>2*1024*1024){alert('Please choose a text file smaller than 2 MB.');input.value='';return;}if(!confirm('Open this file and replace the current editor content? Export a backup first if needed.')){input.value='';return;}const text=await file.text();title.value=file.name.replace(/\.(txt|md)$/i,'')||'Imported document';editor.textContent=text;const lines=text.split(/\r?\n/);editor.innerHTML=lines.map(line=>line.trim()?'<p>'+escapeHtml(line)+'</p>':'<p><br></p>').join('');scheduleSave();setStatus('Text file opened — save or export a backup');input.value='';});
+try {const raw=localStorage.getItem(STORAGE_KEY);if(raw){const saved=JSON.parse(raw);if(saved&&typeof saved.html==='string'&&typeof saved.title==='string'){title.value=saved.title;editor.innerHTML=saved.html;setStatus('Previous draft restored',true);}}}catch(e){setStatus('Local draft could not be restored');}
+updateCount();
+window.addEventListener('beforeunload',e=>{if(dirty){saveLocal(false);}});
+})();
+</script></body></html>
