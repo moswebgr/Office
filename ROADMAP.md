@@ -11,14 +11,15 @@ This roadmap is intentionally incremental. A feature is not considered complete 
 - [ ] Decide on the first app based on the smallest useful end-to-end milestone.
 
 ## Phase 2 — First working application
-- [ ] Build a responsive app shell and shared navigation.
-- [ ] Add keyboard-accessible interactions and empty/error states.
-- [ ] Persist user work locally before introducing accounts or cloud sync.
+- [x] Build a responsive first WriteFlow editor shell.
+- [x] Add rich-text formatting, title editing, word/character counts, text import, HTML export and print.
+- [x] Persist user work locally before introducing accounts or cloud sync.
 - [ ] Add automated checks and a documented manual test checklist.
-- [ ] Publish a demo and screenshots only after the app actually works.
+- [ ] Test across browsers and mobile devices; publish a demo only after verification.
 
 ## Phase 3 — Documents and data
-- [ ] WriteFlow: editing, local save/load, Markdown and HTML export.
+- [x] WriteFlow first milestone: editing, local save/load, plain-text/Markdown import and HTML export.
+- [ ] WriteFlow next: robust Markdown export, undo/redo review, accessibility and browser tests.
 - [ ] GridForge: editable grid, basic formulas, CSV import/export.
 - [ ] NoteHarbor: notebooks, tags, search, export/import.
 
