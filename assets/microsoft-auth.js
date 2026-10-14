@@ -5,7 +5,7 @@
     ? document.currentScript.src : new URL('assets/microsoft-auth.js', location.href).href;
   const siteBase = new URL('../', scriptUrl);
   const redirectUri = new URL('auth-callback.html', siteBase).href;
-  const clientId = 'f8cdef31-a31e-4b4a-93e4-5f571e91255a';
+  const clientId = 'bb80cbb4-e711-42b9-96df-9b3eb0d85e94';
   const msalUrl = 'https://alcdn.msauth.net/browser/2.39.0/js/msal-browser.min.js';
   const css = document.createElement('style');
   css.textContent = `
@@ -36,6 +36,7 @@
   const action = root.querySelector('#mos-auth-action');
   let client = null;
   let busy = false;
+  let initError = '';
   function currentAccount(){return client && (client.getActiveAccount() || client.getAllAccounts()[0]) || null;}
   function showAccount(account){
     if(account){
@@ -57,7 +58,12 @@
     main.style.opacity=value?'.7':'1';
   }
   main.addEventListener('click',async function(){
-    if(!client||busy)return;
+    if(busy)return;
+    if(!client){
+      status.textContent=initError||'Microsoft sign-in is still loading. Refresh the page and try again.';
+      menu.classList.add('open');
+      return;
+    }
     const account=currentAccount();
     if(account){menu.classList.toggle('open');return;}
     try{
@@ -91,7 +97,7 @@
     if(window.msal && window.msal.PublicClientApplication){init();return;}
     const s=document.createElement('script');s.src=msalUrl;s.async=true;
     s.onload=init;
-    s.onerror=function(){setBusy(false,'Microsoft sign-in library could not be loaded. Check your connection.');};
+    s.onerror=function(){initError='Microsoft sign-in library could not be loaded. Check your connection or content blockers.';setBusy(false,initError);menu.classList.add('open');};
     document.head.appendChild(s);
   }
   async function init(){
@@ -105,7 +111,9 @@
       if(result&&result.account)client.setActiveAccount(result.account);
       showAccount(currentAccount());
     }catch(error){
-      setBusy(false,'Microsoft sign-in setup needs configuration.');
+      initError='Microsoft sign-in setup failed. Verify the Client ID, supported account types, and SPA redirect URI in Microsoft Entra. Open the sign-in menu for details.';
+      setBusy(false,initError);
+      menu.classList.add('open');
       console.error('MosSuite MSAL initialization error:',error);
     }
   }
