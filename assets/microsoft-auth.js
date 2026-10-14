@@ -36,7 +36,7 @@
   document.head.appendChild(css);
   const root = document.createElement('div');
   root.id = 'mos-ms-auth';
-  root.innerHTML = '<button class="mos-auth-btn" type="button" id="mos-auth-main" aria-label="Profile and settings" aria-haspopup="true" aria-expanded="false" title="Profile & settings"><svg class="mos-profile-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20c.6-3.4 3.1-5.2 7-5.2s6.4 1.8 7 5.2"></path></svg><span id="mos-auth-label">Profile</span></button><section class="mos-auth-menu" id="mos-auth-menu" aria-label="Account and settings"><div class="mos-profile-title">Profile & settings</div><p id="mos-auth-account">Not signed in</p><div class="mos-auth-status" id="mos-auth-status" role="status"></div><div class="mos-menu-actions"><button type="button" id="mos-auth-action"><span class="mos-ms-logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>Sign in with Microsoft</span></button></div><div class="mos-settings"><div class="mos-profile-title">MosSuite settings</div><label>Appearance <select id="mos-pref-theme"><option value="system">System</option><option value="dark">Dark</option><option value="light">Light</option></select></label><label>Language <select id="mos-pref-language"><option value="en">English</option><option value="el">Ελληνικά</option></select></label><button type="button" id="mos-pref-save">Save preferences</button><p id="mos-pref-status" aria-live="polite"></p></div></section>';
+  root.innerHTML = '<button class="mos-auth-btn" type="button" id="mos-auth-main" aria-label="Profile and settings" aria-haspopup="true" aria-expanded="false" title="Profile & settings"><svg class="mos-profile-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20c.6-3.4 3.1-5.2 7-5.2s6.4 1.8 7 5.2"></path></svg><span id="mos-auth-label">Profile</span></button><section class="mos-auth-menu" id="mos-auth-menu" aria-label="Account and settings"><div class="mos-profile-title">Profile & settings</div><p id="mos-auth-account">Not signed in</p><div class="mos-auth-status" id="mos-auth-status" role="status"></div><div class="mos-menu-actions"><button type="button" id="mos-auth-action"><span class="mos-ms-logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>Sign in with Microsoft</span></button></div><div class="mos-settings"><div class="mos-profile-title">MosSuite settings</div><label>Language <select id="mos-pref-language"><option value="en">English</option><option value="el">Ελληνικά</option></select></label><button type="button" id="mos-pref-save">Save preferences</button><p id="mos-pref-status" aria-live="polite"></p></div></section>';
   const headerTarget = document.querySelector('.header-inner') ||
     document.querySelector('.topbar') ||
     document.querySelector('.app-header') ||
@@ -64,7 +64,6 @@
   const accountText = root.querySelector('#mos-auth-account');
   const status = root.querySelector('#mos-auth-status');
   const action = root.querySelector('#mos-auth-action');
-  const prefTheme = root.querySelector('#mos-pref-theme');
   const prefLanguage = root.querySelector('#mos-pref-language');
   const prefSave = root.querySelector('#mos-pref-save');
   const prefStatus = root.querySelector('#mos-pref-status');
@@ -75,15 +74,13 @@
   function currentAccount(){return client && (client.getActiveAccount() || client.getAllAccounts()[0]) || null;}
   function applyPreferences(){
     let prefs={};try{prefs=JSON.parse(localStorage.getItem('mossuite-preferences')||'{}');}catch(_){}
-    prefTheme.value=prefs.theme||'system';prefLanguage.value=prefs.language||'en';
-    document.documentElement.dataset.mosTheme=prefTheme.value;
+    prefLanguage.value=prefs.language||'en';
+    document.documentElement.removeAttribute('data-mos-theme');
+    document.documentElement.style.colorScheme='';
     document.documentElement.lang=prefLanguage.value;
-    if(prefTheme.value==='light'){document.documentElement.style.colorScheme='light';}
-    else if(prefTheme.value==='dark'){document.documentElement.style.colorScheme='dark';}
-    else{document.documentElement.style.colorScheme='';}
   }
   prefSave.addEventListener('click',function(){
-    const prefs={theme:prefTheme.value,language:prefLanguage.value};
+    const prefs={language:prefLanguage.value};
     localStorage.setItem('mossuite-preferences',JSON.stringify(prefs));
     applyPreferences();prefStatus.textContent='Preferences saved on this device.';
   });
