@@ -36,7 +36,14 @@
 const editor = document.getElementById('editor'), title = document.getElementById('docTitle');
 const status = document.getElementById('saveStatus'), count = document.getElementById('wordCount');
 const STORAGE_KEY = 'mossuite.writeflow.document.v1';
-let dirty = false, saveHandle = null, history = [], historyIndex = -1, historyTimer = null, restoringHistory = false;\nfunction snapshot(){return {title:title.value,html:editor.innerHTML};}\nfunction sameSnapshot(a,b){return !!a&&!!b&&a.title===b.title&&a.html===b.html;}\nfunction recordHistory(force=false){if(restoringHistory)return;const s=snapshot();if(sameSnapshot(history[historyIndex],s))return;if(!force&&historyTimer){clearTimeout(historyTimer);historyTimer=null;}history=history.slice(0,historyIndex+1);history.push(s);if(history.length>100)history.shift();historyIndex=history.length-1;updateHistoryButtons();}\nfunction updateHistoryButtons(){document.getElementById('undoBtn').disabled=historyIndex<=0;document.getElementById('redoBtn').disabled=historyIndex<0||historyIndex>=history.length-1;}\nfunction applyHistory(index){if(index<0||index>=history.length)return;historyIndex=index;restoringHistory=true;title.value=history[index].title;editor.innerHTML=history[index].html;restoringHistory=false;updateCount();updateHistoryButtons();scheduleSave();}\nfunction undo(){if(historyIndex>0)applyHistory(historyIndex-1);}\nfunction redo(){if(historyIndex<history.length-1)applyHistory(historyIndex+1);}
+let dirty = false, saveHandle = null, history = [], historyIndex = -1, historyTimer = null, restoringHistory = false;
+function snapshot(){return {title:title.value,html:editor.innerHTML};}
+function sameSnapshot(a,b){return !!a&&!!b&&a.title===b.title&&a.html===b.html;}
+function recordHistory(force=false){if(restoringHistory)return;const s=snapshot();if(sameSnapshot(history[historyIndex],s))return;if(!force&&historyTimer){clearTimeout(historyTimer);historyTimer=null;}history=history.slice(0,historyIndex+1);history.push(s);if(history.length>100)history.shift();historyIndex=history.length-1;updateHistoryButtons();}
+function updateHistoryButtons(){document.getElementById('undoBtn').disabled=historyIndex<=0;document.getElementById('redoBtn').disabled=historyIndex<0||historyIndex>=history.length-1;}
+function applyHistory(index){if(index<0||index>=history.length)return;historyIndex=index;restoringHistory=true;title.value=history[index].title;editor.innerHTML=history[index].html;restoringHistory=false;updateCount();updateHistoryButtons();scheduleSave();}
+function undo(){if(historyIndex>0)applyHistory(historyIndex-1);}
+function redo(){if(historyIndex<history.length-1)applyHistory(historyIndex+1);}
 const setStatus = (message, saved=false) => { status.textContent = message; status.classList.toggle('saved', saved); };
 const slug = s => (s || 'document').trim().replace(/[^a-z0-9-_]+/gi,'-').replace(/^-+|-+$/g,'').slice(0,70) || 'document';
 function updateCount() {
@@ -96,7 +103,10 @@ document.getElementById('blockFormat').addEventListener('change',e=>{editor.focu
 document.getElementById('linkBtn').addEventListener('click',()=>{editor.focus();const url=prompt('Enter a link URL (https://…)');if(!url)return;try{const parsed=new URL(url);if(!['https:','http:','mailto:'].includes(parsed.protocol))throw new Error();document.execCommand('createLink',false,parsed.href);scheduleSave();}catch{alert('Please enter a valid http, https, or mailto URL.');}});
 document.getElementById('printBtn').addEventListener('click',()=>window.print());
 document.getElementById('saveBtn').addEventListener('click',()=>saveLocal());
-document.getElementById('exportBtn').addEventListener('click',exportHtml);\ndocument.getElementById('undoBtn').addEventListener('click',undo);document.getElementById('redoBtn').addEventListener('click',redo);\ndocument.getElementById('markdownBtn').addEventListener('click',()=>{download(slug(title.value)+'.md',markdownFromEditor(),'text/markdown;charset=utf-8');setStatus('Markdown exported',true);});\ndocument.addEventListener('keydown',e=>{const mod=e.ctrlKey||e.metaKey;if(!mod)return;const k=e.key.toLowerCase();if(k==='z'&&!e.shiftKey){e.preventDefault();undo();}else if(k==='y'||(k==='z'&&e.shiftKey)){e.preventDefault();redo();}else if(k==='s'){e.preventDefault();saveLocal();}});
+document.getElementById('exportBtn').addEventListener('click',exportHtml);
+document.getElementById('undoBtn').addEventListener('click',undo);document.getElementById('redoBtn').addEventListener('click',redo);
+document.getElementById('markdownBtn').addEventListener('click',()=>{download(slug(title.value)+'.md',markdownFromEditor(),'text/markdown;charset=utf-8');setStatus('Markdown exported',true);});
+document.addEventListener('keydown',e=>{const mod=e.ctrlKey||e.metaKey;if(!mod)return;const k=e.key.toLowerCase();if(k==='z'&&!e.shiftKey){e.preventDefault();undo();}else if(k==='y'||(k==='z'&&e.shiftKey)){e.preventDefault();redo();}else if(k==='s'){e.preventDefault();saveLocal();}});
 editor.addEventListener('input',scheduleSave);title.addEventListener('input',scheduleSave);
 document.getElementById('newBtn').addEventListener('click',()=>{if(dirty&&!confirm('You have unsaved changes. Start a new document?'))return;title.value='Untitled document';editor.innerHTML='<p><br></p>';scheduleSave();editor.focus();});
 const input=document.getElementById('fileInput');
