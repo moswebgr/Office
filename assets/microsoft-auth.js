@@ -12,7 +12,7 @@
   const msalUrl = 'https://alcdn.msauth.net/browser/2.39.0/js/msal-browser.min.js';
   const css = document.createElement('style');
   css.textContent = `
-    #mos-ms-auth{position:fixed;z-index:99999;right:16px;top:12px;font:14px/1.4 "Segoe UI",system-ui,sans-serif;color:#f5f5f5}
+    #mos-ms-auth{position:fixed;z-index:99999;right:max(16px,calc((100vw - 1200px)/2));top:16px;font:14px/1.4 "Segoe UI",system-ui,sans-serif;color:#f5f5f5}
     #mos-ms-auth *{box-sizing:border-box}
     #mos-ms-auth .mos-auth-btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:44px;padding:10px 15px;border:1px solid #555;border-radius:8px;background:#212121;color:#fff;box-shadow:0 4px 18px #0008;cursor:pointer;font:600 14px "Segoe UI",system-ui,sans-serif}
     #mos-ms-auth .mos-auth-btn:hover{background:#303030}
