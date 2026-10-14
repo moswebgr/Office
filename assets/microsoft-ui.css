@@ -35,7 +35,8 @@ a{ text-underline-offset:3px }
   body{font-size:15px}
   header,.topbar,.toolbar,.app-header{padding-left:14px!important;padding-right:14px!important}
   button,.btn,input[type=button],input[type=submit]{min-height:40px}
-  .sidebar{max-width:86vw}
+  .sidebar{left:0;right:0;width:100%;max-width:none}
+  .sidebar .nav{width:100%;max-width:none}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 
