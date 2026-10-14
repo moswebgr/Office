@@ -1,8 +1,7 @@
 import { generateText } from 'ai';
-import { createOpenAI } from '@ai-sdk/openai';
 
-// PlanPilot serverless AI endpoint.
-// Prefer AI Gateway when configured; otherwise use the project's existing OpenAI key.
+// PlanPilot serverless AI endpoint. On Vercel, AI SDK can authenticate with
+// Vercel OIDC, so an exhausted unrelated OPENAI_API_KEY must not be used as fallback.
 export default async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
   const origin = req.headers.origin || '';
@@ -17,14 +16,6 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Use POST for chat requests.' });
-  }
-
-  const useGateway = Boolean(process.env.AI_GATEWAY_API_KEY);
-  const useOpenAI = Boolean(process.env.OPENAI_API_KEY);
-  if (!useGateway && !useOpenAI) {
-    return res.status(503).json({
-      error: 'AI is not configured. Add AI_GATEWAY_API_KEY or OPENAI_API_KEY in Vercel.'
-    });
   }
 
   try {
@@ -42,12 +33,8 @@ export default async function handler(req, res) {
       done: Boolean(t.done)
     })) : [];
 
-    const model = useGateway
-      ? 'moonshotai/kimi-k3'
-      : createOpenAI({ apiKey: process.env.OPENAI_API_KEY })('gpt-4o-mini');
-
     const { text } = await generateText({
-      model,
+      model: 'moonshotai/kimi-k3',
       system: 'You are PlanPilot, a helpful productivity and planning assistant inside MosSuite. Answer in the same language as the user. Use the provided task list to make practical suggestions. Be concise, structured, and honest. You may suggest tasks but do not claim to have changed the task list; the website handles task creation separately. Do not claim to be Microsoft Copilot.',
       prompt: 'User task list (JSON):\n' + JSON.stringify(tasks) + '\n\nUser request:\n' + prompt,
       maxOutputTokens: 700
@@ -58,14 +45,14 @@ export default async function handler(req, res) {
     }
     return res.status(200).json({ answer: text.trim() });
   } catch (error) {
-    console.error('PlanPilot AI provider error:', error);
+    console.error('PlanPilot AI Gateway error:', error);
     const message = String(error?.message || '');
     if (/unauthorized|invalid api key|authentication/i.test(message)) {
-      return res.status(502).json({ error: 'AI authentication failed. Check the configured API key in Vercel.' });
+      return res.status(502).json({ error: 'Vercel AI Gateway authentication failed. Check AI Gateway availability and project access.' });
     }
     if (/quota|credit|billing|rate.?limit|too many requests/i.test(message)) {
-      return res.status(429).json({ error: 'AI quota or rate limit reached. Check the provider usage and billing.' });
+      return res.status(429).json({ error: 'Vercel AI Gateway quota or rate limit reached. Check AI Gateway usage and billing.' });
     }
-    return res.status(502).json({ error: 'Could not generate an AI response. Check the Vercel function logs for details.' });
+    return res.status(502).json({ error: 'Could not generate a response through Vercel AI Gateway. Check the Vercel function logs for details.' });
   }
 }
