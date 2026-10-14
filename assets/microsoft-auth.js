@@ -72,6 +72,48 @@
   let busy = false;
   let initError = '';
   function currentAccount(){return client && (client.getActiveAccount() || client.getAllAccounts()[0]) || null;}
+  async function graphAccessToken(){
+    if(!client || !initialized) throw new Error('Microsoft sign-in is not ready. Please sign in first.');
+    let account=currentAccount();
+    if(!account) throw new Error('Sign in with Microsoft before sharing an event.');
+    const request={account,scopes:['Calendars.ReadWrite']};
+    try{
+      const result=await client.acquireTokenSilent(request);
+      return result.accessToken;
+    }catch(error){
+      const result=await client.acquireTokenPopup({...request,prompt:'select_account'});
+      if(result&&result.account)client.setActiveAccount(result.account);
+      return result.accessToken;
+    }
+  }
+  async function createOutlookInvite(event,email){
+    const token=await graphAccessToken();
+    const body={
+      subject:event.title,
+      body:{contentType:'text',content:[event.notes||'',event.location?'Location: '+event.location:''].filter(Boolean).join('\\n\\n')},
+      start:{dateTime:(event.start||'')+'T'+(event.startTime||'09:00')+':00',timeZone:'GTB Standard Time'},
+      end:{dateTime:(event.end||event.start||'')+'T'+(event.endTime||'10:00')+':00',timeZone:'GTB Standard Time'},
+      location:event.location?{displayName:event.location}:undefined,
+      attendees:[{emailAddress:{address:email,name:email},type:'required'}],
+      allowNewTimeProposals:true
+    };
+    const response=await fetch('https://graph.microsoft.com/v1.0/me/events',{
+      method:'POST',
+      headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},
+      body:JSON.stringify(body)
+    });
+    if(!response.ok){
+      let detail='Microsoft Graph request failed ('+response.status+').';
+      try{const data=await response.json();detail=data.error&&data.error.message||detail}catch(_){}
+      throw new Error(detail+' Verify that Calendars.ReadWrite is enabled for the Microsoft app.');
+    }
+    return response.json();
+  }
+  window.MosSuiteMicrosoftCalendar={
+    isSignedIn:()=>!!currentAccount(),
+    account:()=>currentAccount(),
+    createInvite:createOutlookInvite
+  };
   function applyPreferences(){
     let prefs={};try{prefs=JSON.parse(localStorage.getItem('mossuite-preferences')||'{}');}catch(_){}
     prefLanguage.value=prefs.language||'en';
