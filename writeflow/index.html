@@ -54,7 +54,7 @@ function download(name, content, type) {
 function escapeHtml(s) { return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 function exportHtml() {
  const safeTitle=escapeHtml(title.value || 'Untitled document');
- const doc='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+safeTitle+'</title><style>body{max-width:800px;margin:40px auto;padding:0 20px;font:16px/1.7 Georgia,serif;color:#202534}img{max-width:100%}table{border-collapse:collapse}td,th{border:1px solid #bbb;padding:6px}blockquote{border-left:3px solid #9ab;padding-left:16px}</style></head><body><h1>'+safeTitle+'</h1>'+editor.innerHTML+'<script src="../assets/microsoft-auth.js" defer></script>
+ const doc='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+safeTitle+'</title><style>body{max-width:800px;margin:40px auto;padding:0 20px;font:16px/1.7 Georgia,serif;color:#202534}img{max-width:100%}table{border-collapse:collapse}td,th{border:1px solid #bbb;padding:6px}blockquote{border-left:3px solid #9ab;padding-left:16px}</style></head><body><h1>'+safeTitle+'</h1>'+editor.innerHTML+'
 </body></html>';
  download(slug(title.value)+'.html',doc,'text/html;charset=utf-8'); setStatus('HTML exported',true);
 }
@@ -95,4 +95,5 @@ try {const raw=localStorage.getItem(STORAGE_KEY);if(raw){const saved=JSON.parse(
 updateCount();
 window.addEventListener('beforeunload',e=>{if(dirty){saveLocal(false);}});
 })();
-</script></body></html>
+</script><script src="../assets/microsoft-auth.js" defer></script>
+</body></html>
