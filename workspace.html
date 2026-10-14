@@ -40,7 +40,7 @@
 <main class="main">
 <div class="topbar"><div><div class="current" id="current">MosSuite Workspace</div><div class="sub" id="subtitle">Όλα τα εργαλεία σε ένα μέρος</div></div><div class="spacer"></div><button class="topbtn" id="homeBtn">⌂ Αρχική</button><a class="topbtn" href="https://github.com/moswebgr/Office" target="_blank" rel="noopener">GitHub ↗</a></div>
 <section class="home" id="home">
-<div class="hero"><div class="eyebrow">MOSWEB · PRODUCTIVITY SUITE</div><h1>Η δουλειά σου.<br><span style="color:var(--mint)">Ένας χώρος.</span></h1><p>Άνοιξε οποιαδήποτε εφαρμογή από το μενού. Όλα φορτώνουν μέσα στο ίδιο περιβάλλον, χωρίς να χάνεις την πλοήγηση μεταξύ των εργαλείων.</p><button class="launch" id="launchFirst">Άνοιγμα WriteFlow →</button></div>
+<div class="hero"><div class="eyebrow">MOSWEB · PRODUCTIVITY SUITE</div><h1>Η δουλειά σου.<br><span style="color:var(--mint)">Ένας χώρος.</span></h1><p>Άνοιξε οποιαδήποτε εφαρμογή από το μενού. Όλα φορτώνουν μέσα στο ίδιο περιβάλλον, χωρίς να χάνεις την πλοήγηση μεταξύ των εργαλείων.</p><button class="launch" id="launchFirst">Άνοιγμα GridForge →</button></div>
 <div class="small" style="padding-left:0">Οι εφαρμογές σου</div><div class="grid" id="cards"></div>
 </section>
 <div class="framewrap" id="framewrap"><iframe id="appframe" title="MosSuite app" loading="eager"></iframe></div>
@@ -48,16 +48,11 @@
 </div>
 <script>
 const apps=[
-{id:'writeflow',name:'WriteFlow',icon:'✍️',desc:'Σύνταξη και μορφοποίηση εγγράφων.',status:'ΠΡΩΤΗ ΕΚΔΟΣΗ',path:'writeflow/index.html'},
 {id:'gridforge',name:'GridForge',icon:'▦',desc:'Υπολογιστικά φύλλα, βασικοί τύποι και CSV.',status:'ΠΡΩΤΗ ΕΚΔΟΣΗ',path:'gridforge/index.html'},
 {id:'slidespark',name:'SlideSpark',icon:'▱',desc:'Δημιουργία και παρουσίαση διαφανειών.',status:'ΠΡΩΤΗ ΕΚΔΟΣΗ',path:'slidespark/index.html'},
-{id:'mailnest',name:'MailNest',icon:'✉️',desc:'Δοκιμαστικά εισερχόμενα και τοπικά πρόχειρα.',status:'ΠΡΩΤΟΤΥΠΟ',path:'mailnest/index.html'},
-{id:'noteharbor',name:'NoteHarbor',icon:'▤',desc:'Σημειώσεις με αναζήτηση και ετικέτες.',status:'ΠΡΩΤΗ ΕΚΔΟΣΗ',path:'noteharbor/index.html'},
-{id:'cloudshelf',name:'CloudShelf',icon:'☁️',desc:'Κατάλογος αρχείων και γρήγορες σημειώσεις.',status:'ΠΡΩΤΟΤΥΠΟ',path:'cloudshelf/index.html'},
-{id:'meetmesh',name:'MeetMesh',icon:'◉',desc:'Τοπικό περιβάλλον συνομιλίας και ιστορικό.',status:'ΠΡΩΤΟΤΥΠΟ',path:'meetmesh/index.html'},
 {id:'planpilot',name:'PlanPilot',icon:'✓',desc:'Εργασίες, προτεραιότητες και ημερομηνίες.',status:'ΠΡΩΤΗ ΕΚΔΟΣΗ',path:'planpilot/index.html'},
-{id:'diagramdock',name:'DiagramDock',icon:'◇',desc:'Σχήματα, συνδέσεις και εξαγωγή SVG.',status:'ΠΡΩΤΗ ΕΚΔΟΣΗ',path:'diagramdock/index.html'},
-{id:'datanest',name:'DataNest',icon:'▥',desc:'Πίνακες δεδομένων και εισαγωγή/εξαγωγή CSV.',status:'ΠΡΩΤΗ ΕΚΔΟΣΗ',path:'datanest/index.html'}
+{id:'datanest',name:'DataNest',icon:'▥',desc:'Πίνακες δεδομένων και εισαγωγή/εξαγωγή CSV.',status:'ΠΡΩΤΗ ΕΚΔΟΣΗ',path:'datanest/index.html'},
+{id:'mailnest',name:'MailNest',icon:'✉️',desc:'Περιβάλλον email και τοπικά πρόχειρα.',status:'ΠΡΩΤΟΤΥΠΟ',path:'mailnest/index.html'}
 ];
 const nav=document.getElementById('nav'),cards=document.getElementById('cards'),home=document.getElementById('home'),framewrap=document.getElementById('framewrap'),frame=document.getElementById('appframe'),current=document.getElementById('current'),subtitle=document.getElementById('subtitle');
 function openApp(id){const app=apps.find(a=>a.id===id);if(!app)return;frame.src=app.path;home.classList.add('hide');framewrap.classList.add('show');current.textContent=app.name;subtitle.textContent='Εφαρμογή MosSuite';document.querySelectorAll('[data-app]').forEach(b=>b.classList.toggle('active',b.dataset.app===id));history.replaceState(null,'','?app='+encodeURIComponent(id));}
@@ -66,7 +61,7 @@ nav.innerHTML='<button class="active" data-app="home"><span class="ico">⌂</spa
 cards.innerHTML=apps.map(a=>'<article class="appcard"><div class="cardtop"><span class="appicon">'+a.icon+'</span><span class="badge">'+a.status+'</span></div><h3>'+a.name+'</h3><p>'+a.desc+'</p><button class="open" data-open="'+a.id+'">Άνοιγμα εφαρμογής →</button></article>').join('');
 nav.addEventListener('click',e=>{const b=e.target.closest('[data-app]');if(!b)return;b.dataset.app==='home'?goHome():openApp(b.dataset.app)});
 cards.addEventListener('click',e=>{const b=e.target.closest('[data-open]');if(b)openApp(b.dataset.open)});
-document.getElementById('homeBtn').addEventListener('click',goHome);document.getElementById('launchFirst').addEventListener('click',()=>openApp('writeflow'));
+document.getElementById('homeBtn').addEventListener('click',goHome);document.getElementById('launchFirst').addEventListener('click',()=>openApp('gridforge'));
 const requested=new URLSearchParams(location.search).get('app');if(apps.some(a=>a.id===requested))openApp(requested);
 </script>
 <script src="assets/microsoft-auth.js?v=20261015-01" defer></script>
