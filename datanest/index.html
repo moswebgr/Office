@@ -11,6 +11,29 @@
 @media(max-width:440px){.topbar-links a:nth-child(2){display:none}.filebar{gap:6px}.file-name-input{width:100px}.tabs .tab{padding:0 12px}.rbutton .label{display:none}.rbutton .ico{font-size:19px}.rgroup-label{font-size:9px}.formula-bar{padding:6px}.name-box{width:58px}}
 
 
+
+/* The Import control is a label linked to a hidden file input; style it explicitly. */
+body .filebar .file-actions > label[for="import"] {
+  display: flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  background-color: #252525 !important;
+  background-image: none !important;
+  border: 1px solid #4a4a4a !important;
+  color: #fff !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
+body .filebar .file-actions > label[for="import"] *,
+body .filebar .file-actions > label[for="import"] .label,
+body .filebar .file-actions > label[for="import"] .ico {
+  color: #fff !important;
+  opacity: 1 !important;
+}
+body .filebar .file-actions > label[for="import"]:hover {
+  background-color: #383838 !important;
+  border-color: #6a6a6a !important;
+}
 /* Give Import/Export controls a deliberate dark surface, not default grey styling. */
 body .file-actions .rbutton,
 body .ribbon .rbutton:not(.primary),
