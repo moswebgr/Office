@@ -6,22 +6,17 @@ MosSuite is a planned family of independent, interoperable productivity tools wi
 
 🌐 **Website:** GitHub Pages can publish `index.html` from the `main` branch once Pages is enabled in repository settings.
 
-## Planned applications
+## Applications
 
-| App | Purpose | First milestone |
+MosSuite focuses on five apps:
+
+| App | Purpose | Current foundation |
 |---|---|---|
-| **WriteFlow** | Documents, rich text, export to Markdown/HTML, later DOCX | Browser-based editor with local saving |
-| **GridForge** | Spreadsheets, formulas, CSV import/export, charts | Editable grid and CSV support |
+| **GridForge** | Spreadsheets, formulas, CSV import/export | Editable spreadsheet and CSV support |
 | **SlideSpark** | Presentations and slide layouts | Create, reorder and present slides |
-| **MailNest** | Email client interface for user-configured providers | Responsive inbox UI; no mail service included initially |
-| **NoteHarbor** | Notes, notebooks, tags and search | Local-first notes and full-text search |
-| **CloudShelf** | File library, sharing concepts and storage integrations | File dashboard UI; storage backend later |
-| **MeetMesh** | Team chat and video-meeting entry point | Chat prototype; real-time server later |
-| **PlanPilot** | Tasks, calendars and project planning | Tasks, due dates and board view |
-| **DiagramDock** | Flowcharts, diagrams and whiteboards | Canvas with basic shapes and connectors |
-| **DataNest** | Lightweight database and form builder | Tables, fields and CSV import/export |
-
-Names are working titles and should be checked for trademark/domain conflicts before public commercial launch.
+| **PlanPilot** | Tasks and project planning | Tasks, due dates and priorities |
+| **DataNest** | Lightweight database and data tables | Tables, records and CSV import/export |
+| **MailNest** | Email workspace | Inbox interface and local drafts; mail sending/provider integration is not enabled by default |
 
 ## Principles
 
@@ -35,11 +30,11 @@ Names are working titles and should be checked for trademark/domain conflicts be
 
 ## Current status
 
-This repository contains the public landing page and browser-based first prototypes for all ten MosSuite apps. These are useful starting implementations, not production-ready substitutes for commercial office/collaboration suites. Features are local-first where practical; hosted services, shared accounts, real-time collaboration, and cloud sync are not implemented.
+This repository contains the public landing page and browser-based foundations for the five MosSuite apps. These are useful starting implementations, not production-ready substitutes for commercial office/collaboration suites. Features are local-first where practical; hosted services, shared accounts, real-time collaboration, and cloud sync are not implemented.
 
 ## Run locally
 
-Open `index.html` in a modern browser to view the landing page. Each application has its own static HTML page: `writeflow/`, `gridforge/`, `slidespark/`, `mailnest/`, `noteharbor/`, `cloudshelf/`, `meetmesh/`, `planpilot/`, `diagramdock/`, and `datanest/`. No build step is required. Storage is local to the browser where supported; export backups regularly.
+Open `index.html` in a modern browser to view the landing page. The selected applications live in `gridforge/`, `slidespark/`, `planpilot/`, `datanest/`, and `mailnest/`. No build step is required. Storage is local to the browser where supported; export backups regularly.
 
 ## Publish with GitHub Pages
 
