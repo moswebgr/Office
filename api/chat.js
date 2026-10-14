@@ -86,7 +86,10 @@ export default async function handler(req, res) {
       return res.status(502).json({ error: 'Vercel AI Gateway authentication failed. Check AI Gateway availability and project access.' });
     }
     if (/quota|credit|billing|rate.?limit|too many requests/i.test(message)) {
-      const fallbackBody = req.body || {};\n      const fallbackPrompt = typeof fallbackBody.prompt === 'string' ? fallbackBody.prompt.trim() : '';\n      const fallbackTasks = Array.isArray(fallbackBody.tasks) ? fallbackBody.tasks.slice(0, 100).map(t => ({ title: String(t.title || '').slice(0, 180), due: String(t.due || ''), priority: ['High', 'Normal', 'Low'].includes(t.priority) ? t.priority : 'Normal', done: Boolean(t.done) })) : [];\n      return res.status(200).json({ answer: localFallback(fallbackPrompt, fallbackTasks), mode: 'local-fallback', notice: 'Cloud AI quota is unavailable; using built-in planning rules.' });
+      const fallbackBody = req.body || {};
+      const fallbackPrompt = typeof fallbackBody.prompt === 'string' ? fallbackBody.prompt.trim() : '';
+      const fallbackTasks = Array.isArray(fallbackBody.tasks) ? fallbackBody.tasks.slice(0, 100).map(t => ({ title: String(t.title || '').slice(0, 180), due: String(t.due || ''), priority: ['High', 'Normal', 'Low'].includes(t.priority) ? t.priority : 'Normal', done: Boolean(t.done) })) : [];
+      return res.status(200).json({ answer: localFallback(fallbackPrompt, fallbackTasks), mode: 'local-fallback', notice: 'Cloud AI quota is unavailable; using built-in planning rules.' });
     }
     return res.status(502).json({ error: 'Could not generate a response through Vercel AI Gateway. Check the Vercel function logs for details.' });
   }
