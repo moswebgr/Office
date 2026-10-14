@@ -27,6 +27,12 @@ main{min-width:0;display:flex;flex-direction:column}.topbar{height:60px;display:
 @media(max-width:900px){.app{grid-template-columns:205px minmax(0,1fr)}.content{padding:18px}.layout{grid-template-columns:1fr}.chat{min-height:0}.greeting{margin:16px 0 22px}}
 @media(max-width:620px){.app{grid-template-columns:1fr}.sidebar{padding:10px 12px;border-right:0;border-bottom:1px solid var(--line);gap:10px}.brand{font-size:15px}.sidebar .newplan{display:none}.nav{display:flex;overflow-x:auto}.nav button{white-space:nowrap;width:auto;padding:8px 10px}.nav button span:last-child{font-size:12px}.side-bottom{display:none}.topbar{height:50px;padding:0 14px}.content{padding:12px}.greeting{margin:18px 0}.greeting h1{font-size:27px}.suggestions{grid-template-columns:1fr 1fr;padding-inline:12px}.suggestion{padding:10px}.panel-head,.panel-body{padding:13px}.chat-intro{padding:18px 13px 8px}.messages{padding:0 13px}.composer-wrap{padding:13px}.task-form{grid-template-columns:1fr 1fr}.task-form #taskTitle{grid-column:1/-1}.task-form .primary{grid-column:1/-1}.hint{max-width:190px}.pill{display:none}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+
+.ai-modal-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.42);display:none;align-items:center;justify-content:center;padding:18px;z-index:1000}
+.ai-modal-backdrop.open{display:flex}.ai-modal{width:min(520px,100%);background:var(--panel,#fff);color:var(--text,#1f2937);border:1px solid var(--line,#e5e7eb);border-radius:18px;padding:24px;box-shadow:0 24px 80px #0003}
+.ai-modal h2{margin:0 0 8px;font-size:21px}.ai-modal p{line-height:1.55;color:var(--muted,#64748b);font-size:14px}
+.ai-modal label{display:block;font-weight:600;font-size:13px;margin:18px 0 7px}.ai-modal input{width:100%;box-sizing:border-box;padding:12px;border:1px solid var(--line,#cbd5e1);border-radius:10px;background:var(--bg,#fff);color:inherit;font:inherit}
+.ai-modal-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}.ai-modal-actions button{border:1px solid var(--line,#d1d5db);border-radius:10px;padding:10px 14px;background:var(--bg,#fff);color:inherit;cursor:pointer;font:inherit}.ai-modal-actions .primary{background:#2563eb;color:white;border-color:#2563eb}.ai-status{font-size:13px;margin-top:12px;white-space:pre-wrap}.ai-status.error{color:#b91c1c}.ai-status.ok{color:#15803d}
 </style>
 </head>
 <body>
@@ -73,6 +79,15 @@ main{min-width:0;display:flex;flex-direction:column}.topbar{height:60px;display:
 </main>
 </div>
 <div class="toast" id="toast" role="status"></div>
+<div class="ai-modal-backdrop" id="aiModal" role="dialog" aria-modal="true" aria-labelledby="aiModalTitle">
+ <div class="ai-modal"><h2 id="aiModalTitle">Connect PlanPilot AI</h2>
+ <p>This button configures a live AI connection. The AI service must first be deployed on a backend such as Vercel and have an <code>OPENAI_API_KEY</code> environment variable. Do not paste the API key here.</p>
+ <label for="aiEndpointInput">Backend URL ending in /api/chat</label>
+ <input id="aiEndpointInput" type="url" placeholder="https://your-project.vercel.app/api/chat" autocomplete="url">
+ <div class="ai-status" id="aiStatus" aria-live="polite"></div>
+ <div class="ai-modal-actions"><button class="primary" id="saveAiEndpoint">Save connection</button><button id="testAiEndpoint">Test connection</button><button id="disconnectAiEndpoint">Disconnect</button><button id="closeAiModal">Close</button></div>
+ </div>
+</div>
 <script>
 (()=>{'use strict';
 const KEY='mos.planpilot', AI_URL_KEY='mos.planpilot.aiEndpoint';let tasks=[],view='all';
@@ -98,7 +113,18 @@ $$('[data-view]').forEach(b=>b.onclick=()=>{view=b.dataset.view;$('#filter').val
 $('#clearDone').onclick=()=>{const n=tasks.filter(t=>t.done).length;if(!n){toast('No completed tasks to clear');return}if(confirm('Delete '+n+' completed task(s)?')){tasks=tasks.filter(t=>!t.done);save();toast('Completed tasks cleared')}};
 function exportTasks(){const blob=new Blob([JSON.stringify({exportedAt:new Date().toISOString(),tasks},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='planpilot-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Backup exported')}
 $('#exportBtn').onclick=exportTasks;
-$('#connectAiBtn').onclick=()=>{const current=localStorage.getItem(AI_URL_KEY)||'';const endpoint=prompt('Paste your deployed Vercel API endpoint (must end with /api/chat). Example: https://your-project.vercel.app/api/chat',current);if(endpoint===null)return;const clean=endpoint.trim();if(!clean){localStorage.removeItem(AI_URL_KEY);toast('AI endpoint disconnected');return;}try{const u=new URL(clean);if(!['https:','http:'].includes(u.protocol)||!u.pathname.endsWith('/api/chat'))throw new Error();localStorage.setItem(AI_URL_KEY,u.href.replace(/\\/$/,''));toast('AI endpoint saved');}catch{toast('Enter a valid URL ending in /api/chat');}};
+const aiModal=$('#aiModal'),aiInput=$('#aiEndpointInput'),aiStatus=$('#aiStatus');
+function setAiStatus(text,kind=''){aiStatus.textContent=text;aiStatus.className='ai-status '+kind}
+function openAiModal(){aiInput.value=localStorage.getItem(AI_URL_KEY)||'';setAiStatus(aiInput.value?'Saved endpoint is loaded. Test it to check the connection.':'No AI endpoint is configured yet.');aiModal.classList.add('open');aiInput.focus()}
+function closeAiModal(){aiModal.classList.remove('open')}
+function validAiEndpoint(){try{const u=new URL(aiInput.value.trim());if(!['https:','http:'].includes(u.protocol)||!u.pathname.endsWith('/api/chat'))return null;return u.href.replace(/\\/$/,'')}catch{return null}}
+$('#connectAiBtn').onclick=openAiModal;
+$('#closeAiModal').onclick=closeAiModal;
+aiModal.addEventListener('click',e=>{if(e.target===aiModal)closeAiModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAiModal()});
+$('#saveAiEndpoint').onclick=()=>{const endpoint=validAiEndpoint();if(!endpoint){setAiStatus('Enter a valid backend URL ending in /api/chat.','error');return}localStorage.setItem(AI_URL_KEY,endpoint);setAiStatus('Endpoint saved in this browser. Click “Test connection” to verify it.','ok');toast('AI endpoint saved')};
+$('#disconnectAiEndpoint').onclick=()=>{localStorage.removeItem(AI_URL_KEY);aiInput.value='';setAiStatus('AI endpoint disconnected.');toast('AI disconnected')};
+$('#testAiEndpoint').onclick=async()=>{const endpoint=validAiEndpoint();if(!endpoint){setAiStatus('Enter a valid backend URL ending in /api/chat first.','error');return}setAiStatus('Testing connection…');try{const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:'Reply with exactly: PlanPilot connection successful.',tasks:[]})});const data=await response.json().catch(()=>({}));if(!response.ok)throw new Error(data.error||('Server returned HTTP '+response.status));if(!data.answer)throw new Error('The server responded but did not return an AI answer.');localStorage.setItem(AI_URL_KEY,endpoint);setAiStatus('Connection successful! AI replied:\\n'+data.answer,'ok')}catch(err){setAiStatus('Connection failed: '+(err.message||'network error')+'\\n\\nIf you have not deployed the backend yet, the button cannot connect to AI by itself. Deploy the repository on Vercel and set OPENAI_API_KEY in its environment variables.','error')}};
 function assistantReply(text){const lower=text.toLowerCase(),open=tasks.filter(t=>!t.done),urgent=open.filter(t=>t.priority==='High'),overdue=open.filter(t=>t.due&&t.due<today()),dueToday=open.filter(t=>t.due===today());
 if(/^(add task|create task|new task)\s*:/i.test(text.trim())||/add (a )?task/i.test(lower)){
 let title=text.replace(/^(please\s+)?(add|create|new)\s+(a\s+)?task\s*:?\s*/i,'').trim(),priority='Normal',due='';
