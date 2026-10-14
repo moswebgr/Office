@@ -9,6 +9,26 @@
 .sheet-tabs{height:35px;border-top:1px solid #d0d0d0;background:#252525;display:flex;align-items:center;gap:0;padding:0 12px}.sheet-nav{color:#aaa;padding:0 8px}.sheet-tab{height:35px;padding:0 22px;border:0;border-bottom:3px solid var(--excel-green);background:#1e1e1e;color:#75c99a;font-weight:600}.sheet-add{border:0;background:transparent;font-size:19px;padding:0 12px;color:#ccc}.statusbar{height:26px;background:var(--excel-green);color:#fff;display:flex;align-items:center;padding:0 14px;font-size:11px;gap:18px}.statusbar .spacer{flex:1}.notice{padding:8px 14px;color:#666;background:#252525;border-top:1px solid #3b3b3b;font-size:11px}
 @media(max-width:700px){.topbar{padding:8px 10px;gap:8px}.topbar-links{gap:10px;padding-right:48px}.brand-text small{display:none}.filebar{padding:7px 10px}.saved{display:none}.tabs{padding:0 6px}.ribbon{padding:7px 8px;min-height:74px}.rgroup{padding:0 7px}.rbutton{padding:6px 7px}.workspace{min-height:calc(100vh - 220px)}th,td{min-width:125px}.file-name-input{width:125px}}
 @media(max-width:440px){.topbar-links a:nth-child(2){display:none}.filebar{gap:6px}.file-name-input{width:100px}.tabs .tab{padding:0 12px}.rbutton .label{display:none}.rbutton .ico{font-size:19px}.rgroup-label{font-size:9px}.formula-bar{padding:6px}.name-box{width:58px}}
+
+/* DataNest dark mode: keep all button labels and interactive text white. */
+body button,
+body .btn,
+body [role="button"],
+body input[type="button"],
+body input[type="submit"],
+body select,
+body .ribbon button,
+body .filebar button,
+body .tabs button,
+body .sheet-tabs button,
+body .toolbar button {
+  color: #fff !important;
+}
+body button svg,
+body .btn svg,
+body [role="button"] svg { color: #fff !important; }
+body button:disabled,
+body input:disabled { color: #d0d0d0 !important; }
 </style><link rel="stylesheet" href="../assets/microsoft-ui.css">
 
 <link rel="stylesheet" href="../assets/responsive.css">
