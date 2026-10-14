@@ -1,4 +1,4 @@
-/* MosSuite Fluent-inspired dark UI: inspired by the Microsoft 365 mobile layout */
+/* MosSuite Fluent-inspired shared UI. Independent project, not affiliated with Microsoft. */
 :root{
   color-scheme:dark;
   --ms-bg:#000;--ms-bar:#212121;--ms-panel:#151515;--ms-panel-2:#252525;
@@ -38,3 +38,48 @@ a{ text-underline-offset:3px }
   .sidebar{max-width:86vw}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+/* Fluent-style polish shared across MosSuite apps */
+:root{--ms-radius:8px;--ms-focus:#60a5fa}
+header,.topbar,.toolbar,.app-header,.header,.menubar{
+  min-height:52px;
+}
+.card,.app-card,.appcard,.app,.panel,.modal,dialog{
+  border-radius:10px!important;
+  box-shadow:none;
+}
+button,.btn,input[type=button],input[type=submit],select{
+  border-radius:6px;
+}
+button:hover,.btn:hover,input[type=button]:hover,input[type=submit]:hover{
+  filter:brightness(1.12);
+}
+button:disabled{opacity:.55;cursor:not-allowed}
+[role=tab],.tab{border-radius:6px}
+hr{border-color:var(--ms-line)}
+::selection{background:#264f78;color:#fff}
+html[data-mos-theme="light"]{
+  color-scheme:light;
+  --ms-bg:#f5f5f5;--ms-bar:#fff;--ms-panel:#fff;--ms-panel-2:#f0f0f0;
+  --ms-line:#d6d6d6;--ms-text:#242424;--ms-muted:#616161;--ms-accent:#0f6cbd;
+}
+html[data-mos-theme="light"],html[data-mos-theme="light"] body{
+  background:var(--ms-bg)!important;color:var(--ms-text)!important;
+}
+html[data-mos-theme="light"] header,html[data-mos-theme="light"] .topbar,
+html[data-mos-theme="light"] .toolbar,html[data-mos-theme="light"] .app-header,
+html[data-mos-theme="light"] .header,html[data-mos-theme="light"] .menubar,
+html[data-mos-theme="light"] aside,html[data-mos-theme="light"] .sidebar,
+html[data-mos-theme="light"] .panel,html[data-mos-theme="light"] .card,
+html[data-mos-theme="light"] .app-card,html[data-mos-theme="light"] .appcard,
+html[data-mos-theme="light"] .app{
+  background:var(--ms-panel)!important;color:var(--ms-text)!important;border-color:var(--ms-line)!important;
+}
+html[data-mos-theme="light"] input,html[data-mos-theme="light"] select,
+html[data-mos-theme="light"] textarea,html[data-mos-theme="light"] [contenteditable=true]{
+  background:#fff!important;color:#242424!important;border-color:#bdbdbd!important;
+}
+@media(max-width:640px){
+  /* Keep the existing compact mobile navigation/layout intact. */
+  .mobile-nav,.bottom-nav,.nav-bottom{max-width:100%}
+}
