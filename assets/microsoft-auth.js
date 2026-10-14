@@ -35,6 +35,7 @@
   const status = root.querySelector('#mos-auth-status');
   const action = root.querySelector('#mos-auth-action');
   let client = null;
+  let initialized = false;
   let busy = false;
   let initError = '';
   function currentAccount(){return client && (client.getActiveAccount() || client.getAllAccounts()[0]) || null;}
@@ -59,8 +60,8 @@
   }
   main.addEventListener('click',async function(){
     if(busy)return;
-    if(!client){
-      status.textContent=initError||'Microsoft sign-in is still loading. Refresh the page and try again.';
+    if(!client || !initialized){
+      status.textContent=initError||'Microsoft sign-in is still loading. Please wait a moment and click again.';
       menu.classList.add('open');
       return;
     }
@@ -73,7 +74,8 @@
       showAccount(currentAccount());
       setBusy(false,'');
     }catch(error){
-      setBusy(false,error && error.errorCode==='user_cancelled'?'Sign-in cancelled.':'Sign-in failed. Check the Microsoft app registration and redirect URI.');
+      setBusy(false,error && error.errorCode==='user_cancelled'?'Sign-in cancelled.':'Sign-in failed: '+(error && (error.errorMessage||error.message)||'check the Microsoft app registration and redirect URI'));
+      menu.classList.add('open');
       console.error('MosSuite Microsoft sign-in error:',error);
     }
   });
@@ -109,9 +111,11 @@
       await client.initialize();
       const result=await client.handleRedirectPromise();
       if(result&&result.account)client.setActiveAccount(result.account);
+      initialized=true;
+      initError='';
       showAccount(currentAccount());
     }catch(error){
-      initError='Microsoft sign-in setup failed. Verify the Client ID, supported account types, and SPA redirect URI in Microsoft Entra. Open the sign-in menu for details.';
+      initError='Microsoft sign-in setup failed: '+(error && (error.errorMessage||error.message)||'verify the Client ID, supported account types, and SPA redirect URI in Microsoft Entra.');
       setBusy(false,initError);
       menu.classList.add('open');
       console.error('MosSuite MSAL initialization error:',error);
