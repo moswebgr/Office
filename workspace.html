@@ -16,6 +16,12 @@
 .framewrap{display:none;flex:1;min-height:0}.framewrap.show{display:flex}.framewrap iframe{width:100%;height:100%;border:0;background:#fff}.home.hide{display:none}.mobilemenu{display:none}
 @media(max-width:900px){.layout{grid-template-columns:210px minmax(0,1fr)}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sidebar{padding:14px 8px}}
 @media(max-width:620px){.layout{display:block;height:100dvh;height:100svh}.sidebar{position:fixed;z-index:50;left:0;right:0;bottom:0;width:100%;height:calc(70px + env(safe-area-inset-bottom));padding:5px 0 calc(5px + env(safe-area-inset-bottom));border:0;border-top:1px solid var(--line);background:#0e1628;box-shadow:0 -8px 24px #0003}.brand,.small,.sidebottom{display:none}.nav{display:flex;align-items:stretch;width:100%;height:100%;gap:2px;padding:0 5px;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scrollbar-width:thin;-webkit-overflow-scrolling:touch}.nav button{flex:0 0 66px;min-width:66px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:5px 3px;font-size:.66rem;line-height:1.15;white-space:nowrap;border-radius:9px}.nav button span:last-child{max-width:100%;overflow:hidden;text-overflow:ellipsis}.ico{font-size:1.05rem;width:auto;line-height:1.1}.main{height:calc(100dvh - 70px - env(safe-area-inset-bottom));height:calc(100svh - 70px - env(safe-area-inset-bottom))}.topbar{padding:10px 12px;flex-wrap:wrap}.grid{grid-template-columns:1fr}.home{padding:15px}.hero{padding:22px}.topbtn{padding:7px 9px;font-size:.8rem}}
+/* Mobile: hide the bottom app-button menu completely. */
+@media(max-width:620px){
+  .sidebar{display:none!important}
+  .main{height:100dvh!important;height:100svh!important}
+  .topbar{padding-bottom:12px}
+}
 </style>
 <link rel="stylesheet" href="assets/microsoft-ui.css">
 
