@@ -1,6 +1,7 @@
 /* MosSuite Microsoft account sign-in (client-side MSAL). */
 (function(){
   'use strict';
+  function start(){
   const scriptUrl = document.currentScript && document.currentScript.src
     ? document.currentScript.src : new URL('assets/microsoft-auth.js', location.href).href;
   const siteBase = new URL('../', scriptUrl);
@@ -97,10 +98,15 @@
   document.addEventListener('click',function(event){if(!root.contains(event.target))menu.classList.remove('open');});
   function loadMsal(){
     if(window.msal && window.msal.PublicClientApplication){init();return;}
-    const s=document.createElement('script');s.src=msalUrl;s.async=true;
-    s.onload=init;
-    s.onerror=function(){initError='Microsoft sign-in library could not be loaded. Check your connection or content blockers.';setBusy(false,initError);menu.classList.add('open');};
-    document.head.appendChild(s);
+    const urls=[msalUrl,'https://cdn.jsdelivr.net/npm/@azure/msal-browser@2.39.0/lib/msal-browser.min.js'];
+    function tryLoad(index){
+      const s=document.createElement('script');s.src=urls[index];s.async=true;
+      s.onload=function(){if(window.msal&&window.msal.PublicClientApplication)init();else if(index+1<urls.length)tryLoad(index+1);else failLoad();};
+      s.onerror=function(){if(index+1<urls.length)tryLoad(index+1);else failLoad();};
+      document.head.appendChild(s);
+    }
+    function failLoad(){initError='Microsoft sign-in library could not be loaded. Check your connection or content blockers.';setBusy(false,initError);menu.classList.add('open');}
+    tryLoad(0);
   }
   async function init(){
     try{
@@ -122,4 +128,7 @@
     }
   }
   loadMsal();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start,{once:true});
+  else start();
 })();
