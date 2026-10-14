@@ -21,7 +21,14 @@
     #mos-ms-auth .mos-auth-name{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
     #mos-ms-auth .mos-auth-menu{display:none;position:absolute;right:0;top:52px;width:min(320px,calc(100vw - 24px));padding:14px;background:#212121;border:1px solid #444;border-radius:12px;box-shadow:0 8px 28px #0009;max-height:calc(100dvh - 82px);overflow:auto}
     #mos-ms-auth .mos-auth-menu.open{display:block}
-    #mos-ms-auth .mos-auth-menu p{margin:4px 4px 12px;color:#ddd;overflow-wrap:anywhere}\n    #mos-ms-auth .mos-profile-title{font-weight:700;margin:0 4px 4px}\n    #mos-ms-auth .mos-settings{border-top:1px solid #444;margin-top:12px;padding-top:12px}\n    #mos-ms-auth .mos-settings label{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 4px;color:#eee}\n    #mos-ms-auth .mos-settings select{max-width:145px;padding:6px;border:1px solid #555;border-radius:6px;background:#303030;color:#fff}\n    #mos-ms-auth .mos-menu-actions{display:grid;gap:8px}\n    #mos-ms-auth .mos-menu-actions button{min-height:38px}\n    #mos-ms-auth .mos-auth-btn:focus-visible,#mos-ms-auth button:focus-visible{outline:2px solid #60a5fa;outline-offset:2px}
+    #mos-ms-auth .mos-auth-menu p{margin:4px 4px 12px;color:#ddd;overflow-wrap:anywhere}
+    #mos-ms-auth .mos-profile-title{font-weight:700;margin:0 4px 4px}
+    #mos-ms-auth .mos-settings{border-top:1px solid #444;margin-top:12px;padding-top:12px}
+    #mos-ms-auth .mos-settings label{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 4px;color:#eee}
+    #mos-ms-auth .mos-settings select{max-width:145px;padding:6px;border:1px solid #555;border-radius:6px;background:#303030;color:#fff}
+    #mos-ms-auth .mos-menu-actions{display:grid;gap:8px}
+    #mos-ms-auth .mos-menu-actions button{min-height:38px}
+    #mos-ms-auth .mos-auth-btn:focus-visible,#mos-ms-auth button:focus-visible{outline:2px solid #60a5fa;outline-offset:2px}
     #mos-ms-auth .mos-auth-menu button{width:100%;padding:9px 10px;border:1px solid #555;border-radius:7px;background:#303030;color:white;cursor:pointer}
     #mos-ms-auth .mos-auth-status{font-size:12px;color:#ddd;margin:0 4px 8px}
     @media(max-width:640px){#mos-ms-auth{right:10px;top:8px}#mos-ms-auth .mos-auth-btn{min-height:40px;padding:8px 10px;font-size:12px}#mos-ms-auth .mos-auth-menu{top:48px}}
@@ -36,7 +43,11 @@
   const menu = root.querySelector('#mos-auth-menu');
   const accountText = root.querySelector('#mos-auth-account');
   const status = root.querySelector('#mos-auth-status');
-  const action = root.querySelector('#mos-auth-action');\n  const prefTheme = root.querySelector('#mos-pref-theme');\n  const prefLanguage = root.querySelector('#mos-pref-language');\n  const prefSave = root.querySelector('#mos-pref-save');\n  const prefStatus = root.querySelector('#mos-pref-status');
+  const action = root.querySelector('#mos-auth-action');
+  const prefTheme = root.querySelector('#mos-pref-theme');
+  const prefLanguage = root.querySelector('#mos-pref-language');
+  const prefSave = root.querySelector('#mos-pref-save');
+  const prefStatus = root.querySelector('#mos-pref-status');
   let client = null;
   let initialized = false;
   let busy = false;
