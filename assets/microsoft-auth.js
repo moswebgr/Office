@@ -46,12 +46,8 @@
   if(headerTarget){
     headerTarget.appendChild(root);
     if(getComputedStyle(headerTarget).position==='static') headerTarget.style.position='relative';
-    const stickyHeader=headerTarget.matches('.header-inner') ? headerTarget.closest('.site-header') : headerTarget;
-    if(stickyHeader){
-      stickyHeader.style.position='sticky';
-      stickyHeader.style.top='0';
-      stickyHeader.style.zIndex='1000';
-    }
+    /* Keep the profile button in the normal page header flow.
+       Do not make the header sticky: it should scroll away with the page. */
     if(headerTarget.matches('.header-inner')){
       headerTarget.style.minHeight='76px';
     }else{
