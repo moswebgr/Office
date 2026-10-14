@@ -197,7 +197,7 @@
   async function init(){
     try{
       client=new window.msal.PublicClientApplication({
-        auth:{clientId,authority:'https://login.microsoftonline.com/consumers',redirectUri,postLogoutRedirectUri:redirectUri},
+        auth:{clientId,authority:'https://login.microsoftonline.com/common',redirectUri,postLogoutRedirectUri:redirectUri},
         cache:{cacheLocation:'localStorage',storeAuthStateInCookie:false}
       });
       await client.initialize();
