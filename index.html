@@ -10,7 +10,7 @@
     :root{color-scheme:dark;--bg:#0b1020;--panel:#121a2e;--panel2:#18223a;--text:#f4f7ff;--muted:#aab5cc;--line:#293550;--blue:#8ab4ff;--mint:#7cebd0}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 75% -10%,#233b70 0,transparent 40%),var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
     a{color:inherit} .wrap{width:min(1120px,calc(100% - 40px));margin:auto}
-    header{display:flex;align-items:center;justify-content:space-between;padding:24px 0;border-bottom:1px solid #ffffff12}
+    .site-header{width:100%;background:#171717;border-bottom:1px solid #383838}\n    .header-inner{width:min(1200px,calc(100% - 40px));min-height:76px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:16px 0}\n    .site-header nav{padding-right:230px}\n    .site-header .brand{flex:none}
     .brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:800;font-size:1.25rem;letter-spacing:-.04em}
     .logo{display:block;width:42px;height:42px;object-fit:contain}
     nav{display:flex;gap:24px;color:var(--muted);font-size:.93rem}nav a{text-decoration:none}nav a:hover{color:white}
@@ -30,8 +30,8 @@
     .principles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:25px 0 80px}.principle{border-top:1px solid var(--line);padding:20px 0}.principle h3{margin:0 0 8px}.principle p{color:var(--muted);margin:0}
     .cta{padding:32px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(120deg,#182847,#111a2c);margin-bottom:72px}.cta h2{font-size:2rem;letter-spacing:-.04em;margin:0 0 8px}.cta p{color:var(--muted);margin:0 0 20px}
     footer{border-top:1px solid #ffffff12;padding:24px 0 36px;color:var(--muted);font-size:.9rem;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-    @media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.principles{grid-template-columns:1fr}.hero{padding-top:60px}}
-    @media(max-width:540px){.wrap{width:min(100% - 28px,1120px)}nav{gap:12px;font-size:.82rem}.grid{grid-template-columns:1fr}.hero{padding:52px 0 42px}.section-head{display:block}.section-head p{margin-top:10px}.app{min-height:0}}
+    @media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.principles{grid-template-columns:1fr}.hero{padding-top:60px}.site-header nav{padding-right:0}}
+    @media(max-width:540px){.wrap{width:min(100% - 28px,1120px)}.header-inner{width:calc(100% - 28px);align-items:flex-start;flex-direction:column;gap:8px;padding:12px 0}.site-header nav{gap:12px;font-size:.82rem;padding-right:0}.grid{grid-template-columns:1fr}.hero{padding:52px 0 42px}.section-head{display:block}.section-head p{margin-top:10px}.app{min-height:0}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
   </style>
 <link rel="stylesheet" href="assets/microsoft-ui.css">
@@ -76,6 +76,6 @@
     </section>
   </main>
   <footer class="wrap"><span>© MosWeb · MosSuite is an independent open-source project.</span><span>Not affiliated with Microsoft. App names are working titles.</span></footer>
-<script src="assets/microsoft-auth.js?v=20261014-8" defer></script>
+<script src="assets/microsoft-auth.js?v=20261014-10" defer></script>
 </body>
 </html>
