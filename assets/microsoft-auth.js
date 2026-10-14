@@ -12,7 +12,7 @@
   const msalUrl = 'https://alcdn.msauth.net/browser/2.39.0/js/msal-browser.min.js';
   const css = document.createElement('style');
   css.textContent = `
-    #mos-ms-auth{position:fixed;z-index:99999;right:max(16px,calc((100vw - 1200px)/2));top:16px;font:14px/1.4 "Segoe UI",system-ui,sans-serif;color:#f5f5f5}
+    #mos-ms-auth{position:absolute;z-index:99999;right:16px;top:50%;transform:translateY(-50%);font:14px/1.4 "Segoe UI",system-ui,sans-serif;color:#f5f5f5}
     #mos-ms-auth *{box-sizing:border-box}
     #mos-ms-auth .mos-auth-btn{display:flex;align-items:center;justify-content:center;width:44px;height:44px;min-height:44px;padding:0;border:1px solid #555;border-radius:50%;background:#212121;color:#fff;box-shadow:0 4px 18px #0008;cursor:pointer;font:600 14px "Segoe UI",system-ui,sans-serif}
     #mos-ms-auth .mos-auth-btn:hover{background:#303030}#mos-ms-auth .mos-profile-icon{width:21px;height:21px;display:block}#mos-ms-auth #mos-auth-label{display:none}
@@ -31,13 +31,37 @@
     #mos-ms-auth .mos-auth-btn:focus-visible,#mos-ms-auth button:focus-visible{outline:2px solid #60a5fa;outline-offset:2px}
     #mos-ms-auth .mos-auth-menu button{width:100%;padding:9px 10px;border:1px solid #555;border-radius:7px;background:#303030;color:white;cursor:pointer}#mos-ms-auth #mos-auth-action{display:flex;align-items:center;justify-content:center;gap:10px;background:#fff;color:#242424;border-color:#fff;font-weight:650}#mos-ms-auth #mos-auth-action .mos-ms-logo{width:18px;height:18px;grid-template-columns:repeat(2,8px);grid-template-rows:repeat(2,8px)}
     #mos-ms-auth .mos-auth-status{font-size:12px;color:#ddd;margin:0 4px 8px}
-    @media(max-width:640px){#mos-ms-auth{right:10px;top:8px}#mos-ms-auth .mos-auth-btn{width:40px;height:40px;min-height:40px;padding:0;font-size:12px}#mos-ms-auth .mos-auth-menu{top:48px}}
+    @media(max-width:640px){#mos-ms-auth{right:10px}#mos-ms-auth .mos-auth-btn{width:40px;height:40px;min-height:40px;padding:0;font-size:12px}#mos-ms-auth .mos-auth-menu{top:48px}}
   `;
   document.head.appendChild(css);
   const root = document.createElement('div');
   root.id = 'mos-ms-auth';
   root.innerHTML = '<button class="mos-auth-btn" type="button" id="mos-auth-main" aria-label="Profile and settings" aria-haspopup="true" aria-expanded="false" title="Profile & settings"><svg class="mos-profile-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20c.6-3.4 3.1-5.2 7-5.2s6.4 1.8 7 5.2"></path></svg><span id="mos-auth-label">Profile</span></button><section class="mos-auth-menu" id="mos-auth-menu" aria-label="Account and settings"><div class="mos-profile-title">Profile & settings</div><p id="mos-auth-account">Not signed in</p><div class="mos-auth-status" id="mos-auth-status" role="status"></div><div class="mos-menu-actions"><button type="button" id="mos-auth-action"><span class="mos-ms-logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>Sign in with Microsoft</span></button></div><div class="mos-settings"><div class="mos-profile-title">MosSuite settings</div><label>Appearance <select id="mos-pref-theme"><option value="system">System</option><option value="dark">Dark</option><option value="light">Light</option></select></label><label>Language <select id="mos-pref-language"><option value="en">English</option><option value="el">Ελληνικά</option></select></label><button type="button" id="mos-pref-save">Save preferences</button><p id="mos-pref-status" aria-live="polite"></p></div></section>';
-  document.body.appendChild(root);
+  const headerTarget = document.querySelector('.header-inner') ||
+    document.querySelector('.topbar') ||
+    document.querySelector('.app-header') ||
+    document.querySelector('.toolbar') ||
+    document.querySelector('.menubar') ||
+    document.querySelector('header');
+  if(headerTarget){
+    headerTarget.appendChild(root);
+    if(getComputedStyle(headerTarget).position==='static') headerTarget.style.position='relative';
+    const stickyHeader=headerTarget.matches('.header-inner') ? headerTarget.closest('.site-header') : headerTarget;
+    if(stickyHeader){
+      stickyHeader.style.position='sticky';
+      stickyHeader.style.top='0';
+      stickyHeader.style.zIndex='1000';
+    }
+    if(headerTarget.matches('.header-inner')){
+      headerTarget.style.minHeight='76px';
+    }else{
+      headerTarget.style.paddingRight='68px';
+    }
+  }else{
+    document.body.appendChild(root);
+    root.style.top='16px';
+    root.style.transform='none';
+  }
   const main = root.querySelector('#mos-auth-main');
   const label = root.querySelector('#mos-auth-label');
   const menu = root.querySelector('#mos-auth-menu');
