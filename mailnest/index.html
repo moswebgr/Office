@@ -54,5 +54,5 @@ $('#connect').onclick=connect;$('#refresh').onclick=loadMessages;$('#compose').o
 (async()=>{try{await initAuth();if(account){status('Microsoft account found. Connect to grant MailNest mail permissions.');$('#connect').textContent='Grant Outlook access';}}catch(e){status('Outlook is not connected yet. '+errorMessage(e));}})();
 })();
 </script>
-<script src="../assets/microsoft-auth.js?v=20261014-15" defer></script>
+<script src="../assets/microsoft-auth.js?v=20261015-01" defer></script>
 </body></html>
