@@ -35,6 +35,15 @@
     footer{border-top:1px solid #ffffff12;padding:24px 0 36px;color:var(--muted);font-size:.9rem;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
     @media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.principles{grid-template-columns:1fr}.hero{padding-top:60px}.site-header nav{position:static;left:auto;transform:none;white-space:normal}}
     @media(max-width:540px){.wrap{width:calc(100% - 28px)}.header-inner{width:calc(100% - 28px);align-items:flex-start;flex-direction:column;gap:8px;padding:12px 0}.site-header nav{gap:12px;font-size:.82rem;padding-right:0}.grid{grid-template-columns:1fr}.hero{padding:52px 0 42px}.section-head{display:block}.section-head p{margin-top:10px}.app{min-height:0}}
+    /* Full-width mobile app dock on the landing page */
+    .mobile-app-dock{display:none}
+    @media(max-width:620px){
+      body{padding-bottom:68px}
+      .mobile-app-dock{position:fixed;z-index:9990;left:0;right:0;bottom:0;width:100%;display:flex;gap:4px;overflow-x:auto;overflow-y:hidden;padding:7px 8px calc(7px + env(safe-area-inset-bottom));background:#171717;border-top:1px solid #383838;box-sizing:border-box;scrollbar-width:thin}
+      .mobile-app-dock a{flex:0 0 auto;min-width:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:5px 7px;border-radius:7px;text-decoration:none;color:#f5f5f5;font-size:.68rem;white-space:nowrap}
+      .mobile-app-dock a:hover,.mobile-app-dock a:focus-visible{background:#303030;outline:1px solid #555}
+      .mobile-app-dock .dock-icon{font-size:1.05rem;line-height:1.2}
+    }
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
   </style>
 <link rel="stylesheet" href="assets/microsoft-ui.css">
@@ -80,6 +89,18 @@
       <h2>Help shape MosSuite.</h2><p>Explore the roadmap, report an issue or contribute to the first working app.</p><a class="btn primary" href="https://github.com/moswebgr/Office">Open the GitHub repository ↗</a>
     </section>
   </main>
+  <nav class="mobile-app-dock" aria-label="Εφαρμογές MosSuite">
+    <a href="writeflow/index.html"><span class="dock-icon">✍️</span><span>WriteFlow</span></a>
+    <a href="gridforge/index.html"><span class="dock-icon">▦</span><span>GridForge</span></a>
+    <a href="slidespark/index.html"><span class="dock-icon">▱</span><span>SlideSpark</span></a>
+    <a href="mailnest/index.html"><span class="dock-icon">✉️</span><span>MailNest</span></a>
+    <a href="noteharbor/index.html"><span class="dock-icon">▤</span><span>NoteHarbor</span></a>
+    <a href="cloudshelf/index.html"><span class="dock-icon">☁️</span><span>CloudShelf</span></a>
+    <a href="meetmesh/index.html"><span class="dock-icon">◉</span><span>MeetMesh</span></a>
+    <a href="planpilot/index.html"><span class="dock-icon">✓</span><span>PlanPilot</span></a>
+    <a href="diagramdock/index.html"><span class="dock-icon">◇</span><span>DiagramDock</span></a>
+    <a href="datanest/index.html"><span class="dock-icon">▥</span><span>DataNest</span></a>
+  </nav>
   <footer class="wrap"><span>© MosWeb · MosSuite is an independent open-source project.</span><span>Not affiliated with Microsoft. App names are working titles.</span></footer>
 <script src="assets/microsoft-auth.js?v=20261014-10" defer></script>
 </body>
