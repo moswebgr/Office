@@ -36,7 +36,8 @@ function localFallback(prompt, tasks) {
   }
   return 'Το Cloud AI είναι προσωρινά μη διαθέσιμο επειδή ο πάροχος έχει εξαντλήσει το όριο χρήσης. Ο ενσωματωμένος βοηθός εξακολουθεί να λειτουργεί για πλάνο ημέρας, προτεραιότητες, εβδομαδιαία σύνοψη και διάσπαση project σε βήματα.\n\nΕκκρεμείς: ' + open.length + ' · Υψηλής προτεραιότητας: ' + high.length + ' · Εκπρόθεσμες: ' + overdue.length + ' · Για σήμερα: ' + dueToday.length + '.';
 }
-\nexport default async function handler(req, res) {
+
+export default async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
   const origin = req.headers.origin || '';
   if (origin === 'https://moswebgr.github.io') {
