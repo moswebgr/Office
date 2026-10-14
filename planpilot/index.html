@@ -50,7 +50,7 @@ main{min-width:0;display:flex;flex-direction:column}.topbar{height:60px;display:
 <div class="side-links"><a href="../index.html">MosSuite</a><a href="https://github.com/moswebgr/Office">GitHub</a></div></div>
 </aside>
 <main>
-<header class="topbar"><div class="topbar-title">My workspace</div><div class="top-actions"><span class="pill">Personal planner</span><button class="icon-btn" id="connectAiBtn" title="Connect AI backend">⚙ Connect AI</button><button class="icon-btn" id="exportBtn" title="Export tasks">⇩ Export</button></div></header>
+<header class="topbar"><div class="topbar-title">My workspace</div><div class="top-actions"><span class="pill">Personal planner</span><button class="icon-btn" id="exportBtn" title="Export tasks">⇩ Export</button></div></header>
 <div class="content">
 <section class="greeting"><div class="spark" aria-hidden="true">✦</div><h1>What would you like to plan?</h1><p>Turn your ideas into clear next steps with PlanPilot.</p></section>
 <div class="layout">
@@ -74,24 +74,14 @@ main{min-width:0;display:flex;flex-direction:column}.topbar{height:60px;display:
 <div class="task-list" id="taskList"></div>
 </div></section>
 </div>
-<div class="notice">Tasks stay in this browser. Connect a deployed MosSuite AI endpoint to enable live AI chat; without it, the assistant will explain how to connect.</div>
+<div class="notice">AI chat connects automatically. Tasks stay in this browser.</div>
 </div>
 </main>
 </div>
 <div class="toast" id="toast" role="status"></div>
-<div class="ai-modal-backdrop" id="aiModal" role="dialog" aria-modal="true" aria-labelledby="aiModalTitle">
- <div class="ai-modal"><h2 id="aiModalTitle">Connect PlanPilot AI</h2>
- <p>The live AI endpoint is preconfigured. If the cloud AI provider reaches its usage limit, PlanPilot will continue using its built-in local planning assistant. No API key should be pasted into this page.</p>
- <label for="aiEndpointInput">Backend URL ending in /api/chat</label>
- <input id="aiEndpointInput" type="url" placeholder="https://your-project.vercel.app/api/chat" autocomplete="url">
- <div class="ai-status" id="aiStatus" aria-live="polite"></div>
- <div class="ai-modal-actions"><button class="primary" id="saveAiEndpoint">Save connection</button><button id="testAiEndpoint">Test connection</button><button id="disconnectAiEndpoint">Disconnect</button><button id="closeAiModal">Close</button></div>
- </div>
-</div>
 <script>
 (()=>{'use strict';
-const KEY='mos.planpilot', AI_URL_KEY='mos.planpilot.aiEndpoint', AI_DEFAULT_ENDPOINT='https://office-planpilot.vercel.app/api/chat';let tasks=[],view='all';
-if(!localStorage.getItem(AI_URL_KEY)) localStorage.setItem(AI_URL_KEY,AI_DEFAULT_ENDPOINT);
+const KEY='mos.planpilot', AI_DEFAULT_ENDPOINT='https://office-planpilot.vercel.app/api/chat';let tasks=[],view='all';
 const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
 const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -114,18 +104,6 @@ $$('[data-view]').forEach(b=>b.onclick=()=>{view=b.dataset.view;$('#filter').val
 $('#clearDone').onclick=()=>{const n=tasks.filter(t=>t.done).length;if(!n){toast('No completed tasks to clear');return}if(confirm('Delete '+n+' completed task(s)?')){tasks=tasks.filter(t=>!t.done);save();toast('Completed tasks cleared')}};
 function exportTasks(){const blob=new Blob([JSON.stringify({exportedAt:new Date().toISOString(),tasks},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='planpilot-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Backup exported')}
 $('#exportBtn').onclick=exportTasks;
-const aiModal=$('#aiModal'),aiInput=$('#aiEndpointInput'),aiStatus=$('#aiStatus');
-function setAiStatus(text,kind=''){aiStatus.textContent=text;aiStatus.className='ai-status '+kind}
-function openAiModal(){aiInput.value=localStorage.getItem(AI_URL_KEY)||AI_DEFAULT_ENDPOINT;setAiStatus('PlanPilot API URL is preconfigured. Click “Test connection” to verify the live backend.');aiModal.classList.add('open');aiInput.focus()}
-function closeAiModal(){aiModal.classList.remove('open')}
-function validAiEndpoint(){try{const u=new URL(aiInput.value.trim());if(!['https:','http:'].includes(u.protocol)||!u.pathname.endsWith('/api/chat'))return null;return u.href.endsWith("/") ? u.href.slice(0,-1) : u.href}catch{return null}}
-$('#connectAiBtn').onclick=openAiModal;
-$('#closeAiModal').onclick=closeAiModal;
-aiModal.addEventListener('click',e=>{if(e.target===aiModal)closeAiModal()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAiModal()});
-$('#saveAiEndpoint').onclick=()=>{const endpoint=validAiEndpoint();if(!endpoint){setAiStatus('Enter a valid backend URL ending in /api/chat.','error');return}localStorage.setItem(AI_URL_KEY,endpoint);setAiStatus('Endpoint saved in this browser. Click “Test connection” to verify it.','ok');toast('AI endpoint saved')};
-$('#disconnectAiEndpoint').onclick=()=>{localStorage.setItem(AI_URL_KEY,AI_DEFAULT_ENDPOINT);aiInput.value=AI_DEFAULT_ENDPOINT;setAiStatus('Restored the default PlanPilot Vercel API URL.','ok');toast('Default API restored')};
-$('#testAiEndpoint').onclick=async()=>{const endpoint=validAiEndpoint();if(!endpoint){setAiStatus('Enter a valid backend URL ending in /api/chat first.','error');return}setAiStatus('Testing connection…');try{const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:'Reply with exactly: PlanPilot connection successful.',tasks:[]})});const data=await response.json().catch(()=>({}));if(!response.ok)throw new Error(data.error||('Server returned HTTP '+response.status));if(!data.answer)throw new Error('The server responded but did not return an AI answer.');localStorage.setItem(AI_URL_KEY,endpoint);setAiStatus('Connection successful! AI replied:\\n'+data.answer,'ok')}catch(err){setAiStatus('Live AI test failed: '+(err.message||'network error')+'\\n\\nYour tasks and built-in planning assistant still work locally. A cloud AI quota error must be fixed in the AI provider account; redeploying alone will not add quota.','error')}};
 function assistantReply(text){const lower=text.toLowerCase(),open=tasks.filter(t=>!t.done),urgent=open.filter(t=>t.priority==='High'),overdue=open.filter(t=>t.due&&t.due<today()),dueToday=open.filter(t=>t.due===today());
 if(/^(add task|create task|new task)\s*:/i.test(text.trim())||/add (a )?task/i.test(lower)){
 let title=text.replace(/^(please\s+)?(add|create|new)\s+(a\s+)?task\s*:?\s*/i,'').trim(),priority='Normal',due='';
@@ -142,7 +120,7 @@ if(/(plan my day|today|daily)/.test(lower)){const items=[...overdue,...dueToday.
 if(/(hello|hi|hey|help|what can you do)/.test(lower)){return 'I can help you organize your work using the tasks saved in this browser. Try:\n• “Plan my day”\n• “Show urgent tasks”\n• “Give me a weekly summary”\n• “Break down a project into steps”\n• “Add task: prepare report, high priority, due tomorrow”\n\nI use built-in planning rules here; this demo is not connected to a cloud AI model.'}
 return 'I can help with task planning, priorities and summaries. For example, try “Plan my day”, “Show urgent tasks”, or “Add task: prepare presentation, high priority, due tomorrow”. This version uses local planning rules rather than a live AI model.'}
 function message(text,who){const el=document.createElement('div');el.className='message '+who;el.textContent=text;$('#messages').appendChild(el);el.scrollIntoView({behavior:'smooth',block:'nearest'})}
-async function sendPrompt(text){text=String(text||'').trim();if(!text)return;$('#suggestions').style.display='none';message(text,'user');$('#prompt').value='';const endpoint=(localStorage.getItem(AI_URL_KEY)||AI_DEFAULT_ENDPOINT).trim();const wait=document.createElement('div');wait.className='message assistant';wait.textContent='Thinking…';$('#messages').appendChild(wait);try{const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:text,tasks:tasks.map(t=>({title:t.title,due:t.due,priority:t.priority,done:t.done}))})});const data=await response.json().catch(()=>({}));if(!response.ok)throw new Error(data.error || ('Request failed (HTTP ' + response.status + ')'));if(!data.answer)throw new Error('The AI endpoint returned no answer.');wait.textContent=data.answer;}catch(error){const fallback=assistantReply(text);wait.textContent='Cloud AI is temporarily unavailable ('+(error.message||'network error')+').\\n\\nBuilt-in PlanPilot assistant:\\n'+fallback;}wait.scrollIntoView({behavior:'smooth',block:'nearest'});}
+async function sendPrompt(text){text=String(text||'').trim();if(!text)return;$('#suggestions').style.display='none';message(text,'user');$('#prompt').value='';const endpoint=AI_DEFAULT_ENDPOINT;const wait=document.createElement('div');wait.className='message assistant';wait.textContent='Thinking…';$('#messages').appendChild(wait);try{const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:text,tasks:tasks.map(t=>({title:t.title,due:t.due,priority:t.priority,done:t.done}))})});const data=await response.json().catch(()=>({}));if(!response.ok)throw new Error(data.error || ('Request failed (HTTP ' + response.status + ')'));if(!data.answer)throw new Error('The AI endpoint returned no answer.');wait.textContent=data.answer;}catch(error){const fallback=assistantReply(text);wait.textContent='PlanPilot is using its built-in assistant because cloud AI is temporarily unavailable.\\n\\n'+fallback;}wait.scrollIntoView({behavior:'smooth',block:'nearest'});}
 $('#chatForm').onsubmit=e=>{e.preventDefault();sendPrompt($('#prompt').value)};
 $$('[data-prompt]').forEach(b=>b.onclick=()=>sendPrompt(b.dataset.prompt));
 draw();
