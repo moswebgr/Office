@@ -72,11 +72,9 @@
     if(account){menu.classList.toggle('open');return;}
     try{
       menu.classList.add('open');
-      setBusy(true,'Opening Microsoft sign-in window… If no window appears, allow pop-ups for moswebgr.github.io and click again.');
-      const response=await client.loginPopup({scopes:['openid','profile','email'],prompt:'select_account',redirectUri});
-      if(response.account)client.setActiveAccount(response.account);
-      showAccount(currentAccount());
-      setBusy(false,'');
+      setBusy(true,'Redirecting to Microsoft sign-in…');
+      sessionStorage.setItem('mos-ms-return-url', window.location.href);
+      await client.loginRedirect({scopes:['openid','profile','email'],prompt:'select_account',redirectUri});
     }catch(error){
       setBusy(false,error && error.errorCode==='user_cancelled'?'Sign-in cancelled.':'Sign-in failed: '+(error && (error.errorMessage||error.message)||'check the Microsoft app registration and redirect URI'));
       menu.classList.add('open');
@@ -91,8 +89,8 @@
     }
     try{
       setBusy(true,'Signing out…');
-      await client.logoutPopup({account,postLogoutRedirectUri:redirectUri});
-      showAccount(null);setBusy(false,'');
+      sessionStorage.setItem('mos-ms-return-url', window.location.href);
+      await client.logoutRedirect({account,postLogoutRedirectUri:redirectUri});
     }catch(error){
       setBusy(false,'Sign-out failed. Please try again.');
       console.error('MosSuite Microsoft sign-out error:',error);
