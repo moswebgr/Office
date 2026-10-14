@@ -17,6 +17,9 @@
 html,body{width:100%!important;max-width:100%!important;overflow-x:hidden}
 body{margin:0!important;padding:0!important}
 body>header{width:100%!important;max-width:none!important;margin:0!important;position:relative!important;top:auto!important;left:auto!important;right:auto!important}
+body>header .header-inner{position:relative!important;width:100%!important;max-width:none!important;min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:0 68px 0 16px!important;margin:0!important;box-sizing:border-box}
+body>header .header-inner>.row{margin-left:auto}
+#mos-ms-auth{right:12px!important;top:50%!important;transform:translateY(-50%)!important}
 body>.wrap,main.wrap,.wrap{width:100%!important;max-width:none!important;margin:0!important;padding:0!important}
 .workspace{width:100%!important;max-width:none!important;margin:0!important;grid-template-columns:220px minmax(290px,370px) minmax(0,1fr)!important}
 #mos-ms-auth{position:absolute!important;right:12px!important;top:50%!important;transform:translateY(-50%)!important;z-index:100000!important}
@@ -27,7 +30,7 @@ body>header{padding-right:68px!important}
 </style>
 </head>
 <body>
-<header><a class="brand" href="../index.html"><img class="logo" src="../assets/mossuite-logo.svg" alt="">MosSuite <span style="opacity:.8;font-weight:400"> / MailNest</span></a><div class="row"><span style="font-size:13px">Outlook mail</span><a href="../index.html">MosSuite home</a><a href="https://github.com/moswebgr/Office">Source</a></div></header>
+<header><div class="header-inner"><a class="brand" href="../index.html"><img class="logo" src="../assets/mossuite-logo.svg" alt="">MosSuite <span style="opacity:.8;font-weight:400"> / MailNest</span></a><div class="row"><span style="font-size:13px">Outlook mail</span><a href="../index.html">MosSuite home</a><a href="https://github.com/moswebgr/Office">Source</a></div></div></header>
 <main class="wrap">
 <div class="mail-shell-top"><div class="brand-title">Mail</div><div class="spacer"></div><button class="btn primary" id="compose">＋ New mail</button><button class="btn" id="connect">Connect Outlook</button><button class="btn" id="refresh" disabled>↻ Refresh</button><button class="btn" id="localMode">Local drafts</button><span class="pill" id="connection">Not connected</span></div>
 <section class="toolbar"><div class="row"><input class="field" id="search" placeholder="Search messages" aria-label="Search messages"><select class="field" id="folder" aria-label="Mailbox folder"><option value="inbox">Inbox</option><option value="sentitems">Sent Items</option><option value="drafts">Drafts</option><option value="archive">Archive</option><option value="deleteditems">Deleted Items</option></select><button class="btn" id="searchButton">Search</button><button class="btn" id="export">Export local drafts</button></div><p class="statusline" id="status" role="status" aria-live="polite">Connect your Microsoft account to load your Outlook mailbox.</p></section>
