@@ -36,7 +36,7 @@ h1{font-size:1.25rem;margin:0 0 12px}p{color:#ddd;overflow-wrap:anywhere}a{color
     if(finish.started)return;finish.started=true;
     try{
       const client=new window.msal.PublicClientApplication({
-        auth:{clientId,authority:'https://login.microsoftonline.com/common',redirectUri},
+        auth:{clientId,authority:'https://login.microsoftonline.com/consumers',redirectUri},
         cache:{cacheLocation:'localStorage',storeAuthStateInCookie:false}
       });
       await client.initialize();
