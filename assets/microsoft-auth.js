@@ -71,8 +71,9 @@
     const account=currentAccount();
     if(account){menu.classList.toggle('open');return;}
     try{
-      setBusy(true,'Opening Microsoft sign-in…');
-      const response=await client.loginPopup({scopes:['openid','profile','email'],prompt:'select_account'});
+      menu.classList.add('open');
+      setBusy(true,'Opening Microsoft sign-in window… If no window appears, allow pop-ups for moswebgr.github.io and click again.');
+      const response=await client.loginPopup({scopes:['openid','profile','email'],prompt:'select_account',redirectUri});
       if(response.account)client.setActiveAccount(response.account);
       showAccount(currentAccount());
       setBusy(false,'');
