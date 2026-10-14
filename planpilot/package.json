@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@ai-sdk/openai": "^2.0.0",
     "ai": "^6.0.0"
   }
 }
