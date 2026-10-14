@@ -1,9 +1,11 @@
 /* MosSuite Microsoft account sign-in (client-side MSAL). */
 (function(){
   'use strict';
+  /* Capture currentScript immediately: it is null inside DOMContentLoaded. */
+  const scriptElement = document.currentScript;
+  const scriptUrl = scriptElement && scriptElement.src
+    ? scriptElement.src : new URL('assets/microsoft-auth.js', document.baseURI).href;
   function start(){
-  const scriptUrl = document.currentScript && document.currentScript.src
-    ? document.currentScript.src : new URL('assets/microsoft-auth.js', location.href).href;
   const siteBase = new URL('../', scriptUrl);
   const redirectUri = new URL('auth-callback.html', siteBase).href;
   const clientId = 'bb80cbb4-e711-42b9-96df-9b3eb0d85e94';
