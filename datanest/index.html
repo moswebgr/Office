@@ -10,6 +10,27 @@
 @media(max-width:700px){.topbar{padding:8px 10px;gap:8px}.topbar-links{gap:10px;padding-right:48px}.brand-text small{display:none}.filebar{padding:7px 10px}.saved{display:none}.tabs{padding:0 6px}.ribbon{padding:7px 8px;min-height:74px}.rgroup{padding:0 7px}.rbutton{padding:6px 7px}.workspace{min-height:calc(100vh - 220px)}th,td{min-width:125px}.file-name-input{width:125px}}
 @media(max-width:440px){.topbar-links a:nth-child(2){display:none}.filebar{gap:6px}.file-name-input{width:100px}.tabs .tab{padding:0 12px}.rbutton .label{display:none}.rbutton .ico{font-size:19px}.rgroup-label{font-size:9px}.formula-bar{padding:6px}.name-box{width:58px}}
 
+
+/* Give Import/Export controls a deliberate dark surface, not default grey styling. */
+body .file-actions .rbutton,
+body .ribbon .rbutton:not(.primary),
+body .file-actions label.rbutton {
+  background: #252525 !important;
+  border: 1px solid #4a4a4a !important;
+  color: #fff !important;
+}
+body .file-actions .rbutton:hover,
+body .ribbon .rbutton:not(.primary):hover {
+  background: #383838 !important;
+  border-color: #6a6a6a !important;
+  color: #fff !important;
+}
+body .file-actions .rbutton .label,
+body .file-actions .rbutton .ico,
+body .ribbon .rbutton .label,
+body .ribbon .rbutton .ico {
+  color: #fff !important;
+}
 /* DataNest dark mode: keep all button labels and interactive text white. */
 body button,
 body .btn,
