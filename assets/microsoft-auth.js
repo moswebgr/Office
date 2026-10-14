@@ -132,7 +132,7 @@
       s.onerror=function(){if(index+1<urls.length)tryLoad(index+1);else failLoad();};
       document.head.appendChild(s);
     }
-    function failLoad(){initError='Microsoft sign-in library could not be loaded. Check your connection or content blockers.';setBusy(false,initError);menu.classList.add('open');}
+    function failLoad(){initError='Microsoft sign-in library could not be loaded. Check your connection or content blockers.';setBusy(false,initError);main.setAttribute('aria-expanded','false');}
     tryLoad(0);
   }
   async function init(){
@@ -150,7 +150,8 @@
     }catch(error){
       initError='Microsoft sign-in setup failed: '+(error && (error.errorMessage||error.message)||'verify the Client ID, supported account types, and SPA redirect URI in Microsoft Entra.');
       setBusy(false,initError);
-      menu.classList.add('open');
+      menu.classList.remove('open');
+      main.setAttribute('aria-expanded','false');
       console.error('MosSuite MSAL initialization error:',error);
     }
   }
