@@ -117,7 +117,7 @@ const aiModal=$('#aiModal'),aiInput=$('#aiEndpointInput'),aiStatus=$('#aiStatus'
 function setAiStatus(text,kind=''){aiStatus.textContent=text;aiStatus.className='ai-status '+kind}
 function openAiModal(){aiInput.value=localStorage.getItem(AI_URL_KEY)||'';setAiStatus(aiInput.value?'Saved endpoint is loaded. Test it to check the connection.':'No AI endpoint is configured yet.');aiModal.classList.add('open');aiInput.focus()}
 function closeAiModal(){aiModal.classList.remove('open')}
-function validAiEndpoint(){try{const u=new URL(aiInput.value.trim());if(!['https:','http:'].includes(u.protocol)||!u.pathname.endsWith('/api/chat'))return null;return u.href.replace(/\\/$/,'')}catch{return null}}
+function validAiEndpoint(){try{const u=new URL(aiInput.value.trim());if(!['https:','http:'].includes(u.protocol)||!u.pathname.endsWith('/api/chat'))return null;return u.href.endsWith("/") ? u.href.slice(0,-1) : u.href}catch{return null}}
 $('#connectAiBtn').onclick=openAiModal;
 $('#closeAiModal').onclick=closeAiModal;
 aiModal.addEventListener('click',e=>{if(e.target===aiModal)closeAiModal()});
