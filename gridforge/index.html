@@ -5,7 +5,7 @@
 <meta name="description" content="GridForge Calendar — a Microsoft Outlook-inspired calendar for MosSuite.">
 <title>Calendar — MosSuite</title>
 <link rel="stylesheet" href="../assets/microsoft-ui.css">
-<link rel="stylesheet" href="../assets/responsive.css">
+
 <style>
 :root{color-scheme:dark;--bg:#1b1b1b;--surface:#242424;--surface2:#2d2d2d;--surface3:#383838;--line:#414141;--text:#f5f5f5;--muted:#b8b8b8;--accent:#0f6cbd;--accent-hover:#115ea3;--today:#0f6cbd;--event:#164e78}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 "Segoe UI",system-ui,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;color:inherit}a{color:inherit;text-decoration:none}
@@ -14,6 +14,7 @@
 @media(max-width:850px){.app{grid-template-columns:205px minmax(0,1fr)}.main{padding:16px 12px}.sidebar{padding:14px 10px}.current-title{font-size:21px;margin-right:3px}.search{width:180px}}
 @media(max-width:650px){.app{display:block}.sidebar{display:none}.topbar{padding:0 10px;gap:8px}.top-title{display:none}.search{width:min(42vw,190px)}.toplink{display:none}.main{padding:14px 8px}.toolbar{gap:5px;margin-bottom:14px}.current-title{order:-1;width:100%;margin:0 0 8px;font-size:23px}.spacer{flex:1}.toolbar button,.toolbar select{padding:8px}.calendar-grid{min-width:630px}.day-cell{height:90px}.week-grid{min-width:760px}.form-row{grid-template-columns:1fr}.modal-body{padding:14px}.modal-head{padding:14px}.modal-actions{padding:12px 14px}}
 </style>
+<link rel="stylesheet" href="../assets/responsive.css">
 </head>
 <body>
 <header class="topbar">
