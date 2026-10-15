@@ -25,7 +25,6 @@ This roadmap is intentionally incremental. A feature is not considered complete 
 
 ## Phase 4 — Presentations and planning
 - [x] SlideSpark prototype: create/edit/reorder slides, presentation view and HTML export.
-- [x] PlanPilot prototype: tasks, priorities, due dates, completion status and JSON export.
 - [x] DiagramDock prototype: movable shapes, connectors and SVG export.
 
 ## Phase 5 — Collaboration and integrations
