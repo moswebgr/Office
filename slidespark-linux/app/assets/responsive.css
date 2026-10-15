@@ -1,0 +1,164 @@
+/* MosSuite responsive layer — shared by the landing page, workspace and every app. */
+:root{--responsive-gutter:clamp(12px,3vw,28px)}
+html{width:100%;max-width:100%;overflow-x:clip;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{width:100%;min-width:0;max-width:100%;overflow-x:clip}
+img,svg,video,canvas,iframe{max-width:100%}
+img,video{height:auto}
+*,*::before,*::after{min-width:0}
+button,input,select,textarea{max-width:100%}
+input,select,textarea{min-width:0}
+pre,code{max-width:100%;overflow-x:auto}
+table{max-width:100%;border-collapse:collapse}
+a,button{overflow-wrap:anywhere}
+button,a,input,select,textarea{touch-action:manipulation}
+:focus-visible{outline-offset:3px}
+.wrap{width:min(100% - 2*var(--responsive-gutter),1100px)}
+.grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
+.row,.actions,.toolbar,.actions-row,.controls,.filters{flex-wrap:wrap}
+.card,.panel,.item,.notice,.editor-card,.cta{min-width:0;overflow-wrap:anywhere}
+.field{min-width:0}
+.field input,.field select,.field textarea,input[type=text],input[type=email],input[type=search],input[type=date],input[type=datetime-local],input[type=number],textarea,select{width:100%;max-width:100%}
+.tablewrap,.table-wrap,.sheet-wrap,.table-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tablewrap table,.table-wrap table,.sheet-wrap table,.table-container table{min-width:520px}
+#canvas{display:block;width:100%;max-width:100%;height:auto;touch-action:pan-x pan-y}
+.mobile-app-dock{padding-bottom:calc(7px + env(safe-area-inset-bottom))}
+@media(max-width:900px){
+  .wrap{width:calc(100% - 32px)}
+  .layout{grid-template-columns:220px minmax(0,1fr)}
+  .hero{max-width:100%}
+  .section-head{align-items:flex-start}
+}
+@media(max-width:700px){
+  .wrap{width:calc(100% - 28px);margin-top:18px}
+  header,.top,.topbar,.app-header,.header{gap:10px;flex-wrap:wrap;padding-left:14px!important;padding-right:14px!important}
+  header>* ,.top>* ,.topbar>*{max-width:100%}
+  .brand{max-width:100%;overflow-wrap:anywhere}
+  .actions,.row,.toolbar,.controls,.filters{gap:8px}
+  .actions>* ,.row>* ,.toolbar>* ,.controls>*{max-width:100%}
+  .btn,button,input[type=button],input[type=submit]{min-height:42px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .intro{display:flex;align-items:flex-start;flex-direction:column;gap:10px}
+  .layout{padding-left:0;padding-right:0}
+  .editor-card,.card,.panel{padding:12px}
+  .docbar,.toolbar{overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
+  .toolbar{flex-wrap:nowrap}
+  .toolbar>*{flex:0 0 auto}
+}
+@media(max-width:520px){
+  :root{--responsive-gutter:14px}
+  body{font-size:15px}
+  .wrap{width:calc(100% - 24px);padding-left:0;padding-right:0}
+  .grid{grid-template-columns:minmax(0,1fr)}
+  .section-head{display:block}
+  .section-head p{margin-top:8px}
+  .actions{display:grid;grid-template-columns:minmax(0,1fr);width:100%}
+  .actions .btn,.actions a{width:100%;text-align:center}
+  .app{padding:16px}
+  .cta{padding:20px}
+  .cta h2{font-size:clamp(1.45rem,6vw,2rem)}
+  .field,.field input,.field select,.field textarea{width:100%}
+  .tablewrap,.table-wrap,.sheet-wrap,.table-container{margin-inline:-2px}
+  .mobile-app-dock a{min-width:64px}
+}
+@media(max-width:360px){
+  .wrap{width:calc(100% - 20px)}
+  h1{overflow-wrap:anywhere}
+  .brand{font-size:1rem}
+  header{padding-left:10px!important;padding-right:10px!important}
+  .btn,button{padding:8px 10px}
+}
+@media(orientation:landscape) and (max-height:520px){
+  .hero{padding-top:28px;padding-bottom:28px}
+  .top{position:relative}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+}
+
+/* MosSuite mobile-first application layouts */
+@media (max-width: 700px) {
+  .app, .layout, .workspace, .editor-layout, .app-layout, .main-layout {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: auto minmax(0, 1fr);
+    width: 100%;
+    max-width: 100%;
+  }
+  .sidebar, .nav-pane, .side-panel, .app-sidebar {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .main, .content, .main-content, .editor, .sheet-area, .workspace-main {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .app-header, .header-inner, .topbar, .app-top, .section-head {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .toolbar, .ribbon, .ribbon-tabs, .tool-group, .sheet-nav, .sheet-tabs {
+    max-width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+  .toolbar > *, .ribbon > *, .ribbon-tabs > *, .tool-group > * {
+    flex: 0 0 auto;
+  }
+  .workspace, .sheet-area, .canvas-wrap, .slide-stage, .editor-card, .content {
+    min-height: 0;
+  }
+  .calendar-grid, .week-grid, .month-grid {
+    min-width: 0;
+    overflow-x: auto;
+  }
+  .sheet-area, .table-wrap, .tablewrap, .table-container, .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .sheet-area table, .table-wrap table, .tablewrap table, .table-container table {
+    min-width: 560px;
+  }
+  .modal, .dialog, .popover, .share-panel {
+    width: min(100% - 24px, 560px);
+    max-width: calc(100vw - 24px);
+  }
+  .mobile-app-dock {
+    position: sticky;
+    bottom: 0;
+    z-index: 20;
+    width: 100%;
+    overflow-x: auto;
+    background: var(--bg, #111827);
+  }
+  .mobile-app-dock a, .mobile-app-dock button {
+    min-height: 44px;
+  }
+}
+@media (max-width: 520px) {
+  h1 { font-size: clamp(1.65rem, 7vw, 2.35rem); line-height: 1.12; }
+  h2 { font-size: clamp(1.25rem, 5.5vw, 1.8rem); }
+  .app, .workspace, .content, .main { padding-left: 12px; padding-right: 12px; }
+  .sidebar { padding: 12px; }
+  .toolbar button, .ribbon button, .tool-group button {
+    min-height: 40px;
+    padding-inline: 9px;
+  }
+  .grid { grid-template-columns: minmax(0, 1fr); }
+  .field-row, .form-row, .settings-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .field-row > *, .form-row > *, .settings-row > * { width: 100%; }
+  .sheet-tabs { padding-bottom: max(6px, env(safe-area-inset-bottom)); }
+  .canvas-wrap, .slide-stage, #canvas { max-width: 100%; }
+}
+@media (max-width: 360px) {
+  .brand, .app-title { font-size: 1rem; }
+  .app, .workspace, .content, .main { padding-left: 8px; padding-right: 8px; }
+  .toolbar { gap: 4px; }
+  .toolbar button { padding-inline: 7px; }
+}
