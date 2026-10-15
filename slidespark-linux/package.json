@@ -1,6 +1,6 @@
 {
   "name": "slidespark-mossuite",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "SlideSpark presentation editor for Linux desktops",
   "main": "main.cjs",
   "author": {
@@ -40,7 +40,7 @@
     },
     "deb": {
       "depends": [
-        "libgtk-3-0",
+        "libgtk-3-0 | libgtk-3-0t64",
         "libnss3"
       ],
       "maintainer": "MosSuite <moswebgr@users.noreply.github.com>"
