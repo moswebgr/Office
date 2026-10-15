@@ -28,7 +28,7 @@
     .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:26px 0 76px}
     .app{padding:22px;background:linear-gradient(145deg,var(--panel),#0f1729);border:1px solid var(--line);border-radius:18px;min-height:220px;transition:transform .2s,border-color .2s}
     .app:hover{transform:translateY(-3px);border-color:#718bbd}.app-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
-    .app-icon{width:46px;height:46px;display:grid;place-items:center;border-radius:14px;background:var(--panel2);font-size:1.35rem}
+    .app-icon{width:46px;height:46px;display:block;object-fit:contain;border-radius:14px}
     .status{font-size:.72rem;font-weight:800;color:var(--mint);border:1px solid #7cebd044;border-radius:100px;padding:4px 9px;white-space:nowrap}
     .app h3{margin:17px 0 5px;font-size:1.18rem}.app p{color:var(--muted);margin:0;font-size:.94rem}
     .principles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:25px 0 80px}.principle{border-top:1px solid var(--line);padding:20px 0}.principle h3{margin:0 0 8px}.principle p{color:var(--muted);margin:0}
@@ -59,10 +59,10 @@
     <section id="apps" aria-labelledby="apps-title">
       <div class="section-head"><h2 id="apps-title">One suite. Five tools.</h2><p>Five focused apps, brought together in one workspace.</p></div>
       <div class="grid">
-        <article class="app"><div class="app-top"><span class="app-icon" aria-hidden="true">▦</span><span class="status">FIRST VERSION</span></div><h3>GridForge</h3><p>Keep your schedule clear with calendar views, events, and import/export tools.</p><p style="margin-top:14px"><a href="gridforge/index.html">Open GridForge →</a></p></article>
-        <article class="app"><div class="app-top"><span class="app-icon" aria-hidden="true">▱</span><span class="status">FIRST VERSION</span></div><h3>SlideSpark</h3><p>Build polished presentations with editable slides, design tools, and slideshow mode.</p><p style="margin-top:14px"><a href="slidespark/index.html">Open SlideSpark →</a></p></article>
-        <article class="app"><div class="app-top"><span class="app-icon" aria-hidden="true">▥</span><span class="status">FIRST VERSION</span></div><h3>DataNest</h3><p>Manage structured information with custom fields, editable records, and CSV import/export.</p><p style="margin-top:14px"><a href="datanest/index.html">Open DataNest →</a></p></article>
-        <article class="app"><div class="app-top"><span class="app-icon" aria-hidden="true">✉️</span><span class="status">PROTOTYPE</span></div><h3>MailNest</h3><p>Work with Outlook mail, browse folders, compose messages, and keep local drafts.</p><p style="margin-top:14px"><a href="mailnest/index.html">Open MailNest →</a></p></article>
+        <article class="app"><div class="app-top"><img class="app-icon" src="GridForge.png" alt="GridForge logo"><span class="status">FIRST VERSION</span></div><h3>GridForge</h3><p>Keep your schedule clear with calendar views, events, and import/export tools.</p><p style="margin-top:14px"><a href="gridforge/index.html">Open GridForge →</a></p></article>
+        <article class="app"><div class="app-top"><img class="app-icon" src="SlideSpark.png" alt="SlideSpark logo"><span class="status">FIRST VERSION</span></div><h3>SlideSpark</h3><p>Build polished presentations with editable slides, design tools, and slideshow mode.</p><p style="margin-top:14px"><a href="slidespark/index.html">Open SlideSpark →</a></p></article>
+        <article class="app"><div class="app-top"><img class="app-icon" src="DataNest.png" alt="DataNest logo"><span class="status">FIRST VERSION</span></div><h3>DataNest</h3><p>Manage structured information with custom fields, editable records, and CSV import/export.</p><p style="margin-top:14px"><a href="datanest/index.html">Open DataNest →</a></p></article>
+        <article class="app"><div class="app-top"><img class="app-icon" src="MailNest.png" alt="MailNest logo"><span class="status">PROTOTYPE</span></div><h3>MailNest</h3><p>Work with Outlook mail, browse folders, compose messages, and keep local drafts.</p><p style="margin-top:14px"><a href="mailnest/index.html">Open MailNest →</a></p></article>
       </div>
     </section>
     <section id="values" aria-labelledby="values-title">
