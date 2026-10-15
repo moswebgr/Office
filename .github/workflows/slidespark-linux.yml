@@ -1,0 +1,37 @@
+name: Build SlideSpark for Linux
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: slidespark-linux
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: slidespark-linux/package.json
+      - name: Install dependencies
+        run: npm install
+      - name: Build Linux packages
+        run: npm run dist:linux
+      - name: Publish GitHub Release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            slidespark-linux/dist/*.AppImage
+            slidespark-linux/dist/*.deb
