@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "SlideSpark presentation editor for Linux desktops",
   "main": "main.cjs",
-  "author": "MosSuite",
+  "author": {
+    "name": "MosSuite",
+    "email": "moswebgr@users.noreply.github.com"
+  },
   "license": "MIT",
   "scripts": {
     "start": "electron .",
@@ -28,12 +31,14 @@
       "depends": [
         "libgtk-3-0",
         "libnss3"
-      ]
+      ],
+      "maintainer": "MosSuite <moswebgr@users.noreply.github.com>"
     },
     "appImage": {},
     "artifactName": "SlideSpark-${version}-${arch}.${ext}"
   },
   "dependencies": {
     "pptxgenjs": "^3.12.0"
-  }
+  },
+  "homepage": "https://github.com/moswebgr/Office"
 }
