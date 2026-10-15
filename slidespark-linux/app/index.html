@@ -25,7 +25,7 @@ body.dark-mode{--ink:#f3f3f3;--muted:#b8b8b8;--line:#414141;--ribbon:#252525;--c
 <footer class="statusbar"><span id="statusSlides">1 slide</span><span>English (United States)</span><span class="spacer"></span><button id="zoomOut">−</button><span id="zoomLabel">100%</span><button id="zoomIn">＋</button><button id="fitSlide">Fit slide</button></footer>
 <div class="dialog-back" id="textDialog"><div class="dialog"><h2>Insert text box</h2><label for="newText">Text</label><input id="newText" placeholder="Type your text"><div class="dialog-actions"><button class="office-btn" id="cancelText">Cancel</button><button class="office-btn primary" id="confirmText">Insert</button></div></div></div>
 <input type="file" id="imageFile" accept="image/*" class="hidden">
-<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<script src="../node_modules/pptxgenjs/dist/pptxgen.bundle.js"></script>
 <script>
 (()=>{'use strict';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
