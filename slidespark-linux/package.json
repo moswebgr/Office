@@ -34,6 +34,11 @@
       "build/icon.png",
       "package.json"
     ],
+    "linux": {
+      "category": "Office",
+      "desktopName": "SlideSpark",
+      "syncDesktopName": true
+    },
     "deb": {
       "depends": [
         "libgtk-3-0",
