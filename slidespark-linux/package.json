@@ -10,7 +10,10 @@
   "license": "MIT",
   "scripts": {
     "start": "electron .",
-    "dist:linux": "electron-builder --linux AppImage deb"
+    "dist:linux": "electron-builder --linux AppImage deb rpm tar.gz pacman",
+    "prebuild:linux": "mkdir -p build && cp ../SlideSpark.png build/icon.png",
+    "dist:linux:x64": "electron-builder --linux AppImage deb rpm tar.gz pacman --x64",
+    "dist:linux:arm64": "electron-builder --linux AppImage deb rpm tar.gz pacman --arm64"
   },
   "devDependencies": {
     "electron": "^35.0.0",
@@ -20,11 +23,13 @@
     "appId": "gr.mossuite.slidespark",
     "productName": "SlideSpark",
     "directories": {
-      "output": "dist"
+      "output": "dist",
+      "buildResources": "build"
     },
     "files": [
       "main.cjs",
       "app/**/*",
+      "build/icon.png",
       "package.json"
     ],
     "deb": {
@@ -35,7 +40,20 @@
       "maintainer": "MosSuite <moswebgr@users.noreply.github.com>"
     },
     "appImage": {},
-    "artifactName": "SlideSpark-${version}-${arch}.${ext}"
+    "artifactName": "SlideSpark-${version}-${arch}.${ext}",
+    "icon": "build/icon.png",
+    "rpm": {
+      "depends": [
+        "gtk3",
+        "nss"
+      ]
+    },
+    "pacman": {
+      "depends": [
+        "gtk3",
+        "nss"
+      ]
+    }
   },
   "dependencies": {
     "pptxgenjs": "^3.12.0"
