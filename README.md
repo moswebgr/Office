@@ -14,7 +14,6 @@ MosSuite brings a growing set of browser-based productivity apps together under 
 |---|---|---|
 | **GridForge** | Calendar and schedule management | Calendar views, event management, and event import/export |
 | **SlideSpark** | Presentation creation | Create and edit slides, reorder content, use design tools, and present slides |
-| **PlanPilot** | Tasks and project planning | Tasks, priorities, due dates, progress tracking, and planning views |
 | **DataNest** | Structured data management | Tables, custom fields, records, and CSV import/export |
 | **MailNest** | Email workspace | Mail folders and message views, composing email, local drafts, and Outlook connection controls |
 
@@ -40,7 +39,7 @@ MosSuite should not yet be considered a complete, production-ready replacement f
 
 1. Clone or download this repository.
 2. Open `index.html` in a modern browser to view the landing page.
-3. Open an app from its folder: `gridforge/`, `slidespark/`, `planpilot/`, `datanest/`, or `mailnest/`.
+3. Open an app from its folder: `gridforge/`, `slidespark/`, `datanest/`, or `mailnest/`.
 
 No build step is required for the static pages. Some browser features and provider integrations may require serving the files from a local web server or configuring the relevant service. Data stored locally remains in that browser profile, so use available export options to keep backups.
 
