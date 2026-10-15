@@ -41,5 +41,8 @@
     "appImage": {
       "license": "MIT"
     }
+  },
+  "dependencies": {
+    "pptxgenjs": "^3.12.0"
   }
 }
