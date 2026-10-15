@@ -24,22 +24,14 @@
       "app/**/*",
       "package.json"
     ],
-    "linux": {
-      "category": "Office",
-      "target": [
-        "AppImage",
-        "deb"
-      ],
-      "artifactName": "SlideSpark-${version}-${arch}.${ext}",
-      "desktopName": "SlideSpark"
-    },
     "deb": {
       "depends": [
         "libgtk-3-0",
         "libnss3"
       ]
     },
-    "appImage": {}
+    "appImage": {},
+    "artifactName": "SlideSpark-${version}-${arch}.${ext}"
   },
   "dependencies": {
     "pptxgenjs": "^3.12.0"
