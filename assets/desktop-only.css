@@ -1,0 +1,21 @@
+/* MosSuite desktop-only access gate: apps are intended for PC and laptop screens. */
+@media (max-width: 1023px) {
+  html, body { min-width: 0 !important; overflow: hidden !important; }
+  body::before {
+    content: "MosSuite is available on PC and laptop only.\\A Please open this app on a desktop or laptop with a screen width of at least 1024px.";
+    white-space: pre-line;
+    position: fixed;
+    inset: 0;
+    z-index: 2147483647;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    background: #101525;
+    color: #f4f7ff;
+    text-align: center;
+    font: 600 20px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+    box-sizing: border-box;
+  }
+  body > * { visibility: hidden !important; pointer-events: none !important; }
+}
