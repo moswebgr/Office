@@ -1,5 +1,6 @@
 const { app, BrowserWindow, shell } = require('electron');
 const path = require('node:path');
+const iconPath = path.join(__dirname, 'build', 'icon.png');
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -8,6 +9,7 @@ function createWindow() {
     minWidth: 1024,
     minHeight: 680,
     title: 'SlideSpark — MosSuite',
+    icon: iconPath,
     backgroundColor: '#101114',
     autoHideMenuBar: true,
     webPreferences: {
