@@ -35,7 +35,8 @@
       "package.json"
     ],
     "linux": {
-      "category": "Office"
+      "category": "Office",
+      "icon": "build/icon.png"
     },
     "deb": {
       "depends": [
@@ -46,7 +47,6 @@
     },
     "appImage": {},
     "artifactName": "SlideSpark-${version}-${arch}.${ext}",
-    "icon": "build/icon.png",
     "rpm": {
       "depends": [
         "gtk3",
