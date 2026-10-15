@@ -17,7 +17,7 @@ function createWindow() {
     }
   });
   win.loadFile(path.join(__dirname, 'app', 'index.html'));
-  win.webContents.setWindowOpenHandler(({ url }) => {
+  win.webContents.on('will-navigate', (event, url) => {\n    if (url.startsWith('https://') || url.startsWith('http://')) {\n      event.preventDefault();\n      shell.openExternal(url);\n    }\n  });\n  win.webContents.setWindowOpenHandler(({ url }) => {
     if (url.startsWith('https://') || url.startsWith('http://')) shell.openExternal(url);
     return { action: 'deny' };
   });
