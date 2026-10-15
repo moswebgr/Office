@@ -1,8 +1,10 @@
 const { app, BrowserWindow, shell } = require('electron');
 const path = require('node:path');
-const iconPath = path.join(__dirname, 'build', 'icon.png');
 
 function createWindow() {
+  const iconPath = app.isPackaged
+    ? path.join(__dirname, 'build', 'icon.png')
+    : path.join(__dirname, '..', 'SlideSpark.png');
   const win = new BrowserWindow({
     width: 1440,
     height: 900,
@@ -19,7 +21,13 @@ function createWindow() {
     }
   });
   win.loadFile(path.join(__dirname, 'app', 'index.html'));
-  win.webContents.on('will-navigate', (event, url) => {\n    if (url.startsWith('https://') || url.startsWith('http://')) {\n      event.preventDefault();\n      shell.openExternal(url);\n    }\n  });\n  win.webContents.setWindowOpenHandler(({ url }) => {
+  win.webContents.on('will-navigate', (event, url) => {
+    if (url.startsWith('https://') || url.startsWith('http://')) {
+      event.preventDefault();
+      shell.openExternal(url);
+    }
+  });
+  win.webContents.setWindowOpenHandler(({ url }) => {
     if (url.startsWith('https://') || url.startsWith('http://')) shell.openExternal(url);
     return { action: 'deny' };
   });
