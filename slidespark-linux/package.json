@@ -30,7 +30,9 @@
         "AppImage",
         "deb"
       ],
-      "artifactName": "SlideSpark-${version}-${arch}.${ext}"
+      "artifactName": "SlideSpark-${version}-${arch}.${ext}",
+      "desktopName": "SlideSpark",
+      "icon": "build"
     },
     "deb": {
       "depends": [
@@ -38,9 +40,7 @@
         "libnss3"
       ]
     },
-    "appImage": {
-      "license": "MIT"
-    }
+    "appImage": {}
   },
   "dependencies": {
     "pptxgenjs": "^3.12.0"
