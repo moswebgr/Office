@@ -13,10 +13,12 @@ permissions:
 
 jobs:
   build-linux:
+    name: Linux packages (${{ matrix.arch }})
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: slidespark-linux
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x64, arm64]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -24,26 +26,39 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
+          cache-dependency-path: slidespark-linux/package-lock.json
       - name: Install dependencies
+        working-directory: slidespark-linux
         run: npm install
       - name: Build Linux packages
-        run: npm run dist:linux
-      - name: Upload packages as workflow artifacts
+        working-directory: slidespark-linux
+        run: |
+          mkdir -p build
+          cp ../SlideSpark.png build/icon.png
+          npx electron-builder --linux AppImage deb rpm tar.gz pacman --${{ matrix.arch }}
+      - name: Upload Linux packages
         uses: actions/upload-artifact@v4
         with:
-          name: slidespark-linux-x64
+          name: slidespark-linux-${{ matrix.arch }}
           path: |
             slidespark-linux/dist/*.AppImage
             slidespark-linux/dist/*.deb
+            slidespark-linux/dist/*.rpm
+            slidespark-linux/dist/*.tar.gz
+            slidespark-linux/dist/*.pacman
           if-no-files-found: error
           retention-days: 30
       - name: Publish GitHub Release assets
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || 'v1.0.0' }}
-          name: SlideSpark Linux v1.0.0
+          tag_name: ${{ github.ref_name }}
+          name: SlideSpark ${{ github.ref_name }} for Linux
           generate_release_notes: true
           files: |
             slidespark-linux/dist/*.AppImage
             slidespark-linux/dist/*.deb
+            slidespark-linux/dist/*.rpm
+            slidespark-linux/dist/*.tar.gz
+            slidespark-linux/dist/*.pacman
