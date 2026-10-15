@@ -31,8 +31,7 @@
         "deb"
       ],
       "artifactName": "SlideSpark-${version}-${arch}.${ext}",
-      "desktopName": "SlideSpark",
-      "icon": "build"
+      "desktopName": "SlideSpark"
     },
     "deb": {
       "depends": [
