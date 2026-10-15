@@ -1,0 +1,45 @@
+{
+  "name": "slidespark-mossuite",
+  "version": "1.0.0",
+  "description": "SlideSpark presentation editor for Linux desktops",
+  "main": "main.cjs",
+  "author": "MosSuite",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist:linux": "electron-builder --linux AppImage deb"
+  },
+  "devDependencies": {
+    "electron": "^35.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "gr.mossuite.slidespark",
+    "productName": "SlideSpark",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.cjs",
+      "app/**/*",
+      "package.json"
+    ],
+    "linux": {
+      "category": "Office",
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "artifactName": "SlideSpark-${version}-${arch}.${ext}"
+    },
+    "deb": {
+      "depends": [
+        "libgtk-3-0",
+        "libnss3"
+      ]
+    },
+    "appImage": {
+      "license": "MIT"
+    }
+  }
+}
