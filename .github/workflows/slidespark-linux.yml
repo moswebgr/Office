@@ -52,11 +52,11 @@ jobs:
           if-no-files-found: error
           retention-days: 30
       - name: Publish GitHub Release assets
-        if: startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, 'Publish SlideSpark v1.0.2 release'))
+        if: startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, 'Publish SlideSpark v1.0.3 release'))
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref_type == 'branch' && 'v1.0.2' || github.ref_name }}
-          name: SlideSpark ${{ github.ref_type == 'branch' && 'v1.0.1' || github.ref_name }} for Linux
+          tag_name: ${{ github.ref_type == 'branch' && 'v1.0.3' || github.ref_name }}
+          name: SlideSpark ${{ github.ref_type == 'branch' && 'v1.0.3' || github.ref_name }} for Linux
           generate_release_notes: true
           files: |
             slidespark-linux/dist/*.AppImage
