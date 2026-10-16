@@ -1,6 +1,6 @@
 {
   "name": "slidespark-mossuite",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "SlideSpark presentation editor for Linux desktops",
   "main": "main.cjs",
   "author": {
