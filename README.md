@@ -2,7 +2,7 @@
 
 **A free, open-source productivity suite with its own identity.**
 
-MosSuite brings independent productivity apps together in one workspace. The project aims to make everyday productivity tools more accessible to Linux users and the wider open-source community, while keeping its own names, branding, and direction.
+MosSuite brings independent productivity apps together in one workspace. It aims to provide alternatives to familiar commercial productivity tools, with its own app names, branding, and direction. The project aims to make everyday productivity tools more accessible to Linux users and the wider open-source community.
 
 🌐 **Website:** https://moswebgr.github.io/Office/  
 🧩 **Unified workspace:** https://moswebgr.github.io/Office/workspace.html  
@@ -12,12 +12,14 @@ MosSuite brings independent productivity apps together in one workspace. The pro
 
 ## Applications
 
-| App | Purpose | Current focus |
+MosSuite's apps are independent projects designed to offer alternatives to familiar Microsoft productivity applications. The comparisons below explain the intended category; they do not imply identical features or affiliation with Microsoft.
+
+| MosSuite app | Alternative to | What it is for |
 |---|---|---|
-| **GridForge** | Calendar and schedule management | Calendar views, events, and event import/export |
-| **SlideSpark** | Presentation creation | Create and edit slides, organize content, use design tools, and present slides |
-| **DataNest** | Structured data management | Tables, custom fields, records, and CSV import/export |
-| **MailNest** | Email workspace | Mail folders and message views, composing email, local drafts, and connection controls |
+| **GridForge** | Microsoft Outlook Calendar | Organizing calendars, schedules, and events, with event import/export |
+| **SlideSpark** | Microsoft PowerPoint | Creating, editing, organizing, designing, and presenting slides |
+| **DataNest** | Microsoft Excel | Working with structured data, tables, custom fields, and records, with CSV import/export |
+| **MailNest** | Microsoft Outlook Mail | Working with mail folders and messages, composing email, managing local drafts, and configuring mail connections |
 
 Open apps from the [MosSuite home page](https://moswebgr.github.io/Office/#apps) or use the [unified workspace](https://moswebgr.github.io/Office/workspace.html).
 
@@ -34,11 +36,11 @@ Linux packaging and support can vary by app, release, and CPU architecture. Do n
 - **Practical data portability:** standard formats such as CSV are supported where implemented.
 - **Honest feature status:** some features work locally in the browser; other workflows may require provider access, configuration, or additional development.
 - **Community-led improvement:** issues and pull requests help shape the roadmap.
-- **No affiliation with third-party office-suite vendors:** MosSuite is an independent project.
+- **Independent project:** MosSuite is not affiliated with Microsoft. Product names are used only to describe the types of tools MosSuite aims to provide alternatives to.
 
 ## Current status and limitations
 
-MosSuite is under active development and should not yet be treated as a complete, production-ready replacement for every office or productivity workflow. The repository includes the landing page, shared workspace, and browser-based foundations for its apps. Features and integrations may vary in completeness.
+MosSuite is under active development and should not yet be treated as a complete, feature-for-feature replacement for Microsoft Office or every productivity workflow. The repository includes the landing page, shared workspace, and browser-based foundations for its apps. Features and integrations may vary in completeness.
 
 Some data is stored in the current browser profile, so use available export options to keep backups. Cloud synchronization, shared accounts, and real-time collaboration are not available across the whole suite by default. MailNest's external email workflows require valid provider connection and configuration; an interface control alone does not mean that sending or syncing is enabled.
 
