@@ -79,3 +79,5 @@ jobs:
             slidespark-linux/dist/*.tar.gz
             slidespark-linux/dist/*.pacman
             slidespark-linux/dist/*.snap
+
+# Publish SlideSpark v1.0.5 release after rebuilding both Linux architectures.
