@@ -26,6 +26,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libarchive-tools
+          sudo snap install snapcraft --classic
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -38,7 +39,7 @@ jobs:
         run: |
           mkdir -p build
           cp ../SlideSpark.png build/icon.png
-          npx electron-builder --linux AppImage deb rpm tar.gz pacman --${{ matrix.arch }} --publish never
+          npx electron-builder --linux AppImage deb rpm tar.gz pacman snap --${{ matrix.arch }} --publish never
       - name: Upload Linux packages
         uses: actions/upload-artifact@v4
         with:
@@ -49,6 +50,7 @@ jobs:
             slidespark-linux/dist/*.rpm
             slidespark-linux/dist/*.tar.gz
             slidespark-linux/dist/*.pacman
+            slidespark-linux/dist/*.snap
           if-no-files-found: error
           retention-days: 30
       - name: Publish GitHub Release assets
@@ -64,3 +66,4 @@ jobs:
             slidespark-linux/dist/*.rpm
             slidespark-linux/dist/*.tar.gz
             slidespark-linux/dist/*.pacman
+            slidespark-linux/dist/*.snap
