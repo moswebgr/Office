@@ -51,7 +51,13 @@ jobs:
           convert ../nqdS9.png -filter Lanczos -resize 512x512 build/icon.png
           # Keep electron-builder pinned at 26.0.12; 26.15.x has a broken snap template
           # that omits desktop-init.sh and makes the resulting Snap fail at launch.
-          sudo env "PATH=$PATH" ./node_modules/.bin/electron-builder --linux AppImage deb rpm tar.gz pacman snap --${{ matrix.arch }} --publish never
+          # Snapcraft 7 cannot cross-build ARM64 snaps on the AMD64 GitHub runner,
+          # so publish the other ARM64 formats and build the Snap only for x64.
+          if [ "${{ matrix.arch }}" = "arm64" ]; then
+            sudo env "PATH=$PATH" ./node_modules/.bin/electron-builder --linux AppImage deb rpm tar.gz pacman --arm64 --publish never
+          else
+            sudo env "PATH=$PATH" ./node_modules/.bin/electron-builder --linux AppImage deb rpm tar.gz pacman snap --x64 --publish never
+          fi
       - name: Upload Linux packages
         uses: actions/upload-artifact@v4
         with:
