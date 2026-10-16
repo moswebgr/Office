@@ -1,5 +1,5 @@
 {
-  "name": "slidespark-mossuite",
+  "name": "slidespark",
   "version": "1.0.4",
   "description": "SlideSpark presentation editor for Linux desktops",
   "main": "main.cjs",
