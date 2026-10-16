@@ -1,6 +1,6 @@
 {
   "name": "slidespark",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "SlideSpark presentation editor for Linux desktops",
   "main": "main.cjs",
   "author": {
@@ -13,13 +13,13 @@
     "dist:linux": "electron-builder --linux AppImage deb rpm tar.gz pacman snap",
     "dist:linux:x64": "electron-builder --linux AppImage deb rpm tar.gz pacman snap --x64",
     "dist:linux:arm64": "electron-builder --linux AppImage deb rpm tar.gz pacman snap --arm64",
-    "pre-dist:linux": "mkdir -p build && cp ../SlideSpark.png build/icon.png",
-    "pre-dist:linux:x64": "mkdir -p build && cp ../SlideSpark.png build/icon.png",
-    "pre-dist:linux:arm64": "mkdir -p build && cp ../SlideSpark.png build/icon.png"
+    "pre-dist:linux": "mkdir -p build && cp ../nqdS9.png build/icon.png",
+    "pre-dist:linux:x64": "mkdir -p build && cp ../nqdS9.png build/icon.png",
+    "pre-dist:linux:arm64": "mkdir -p build && cp ../nqdS9.png build/icon.png"
   },
   "devDependencies": {
     "electron": "^35.0.0",
-    "electron-builder": "^26.0.12"
+    "electron-builder": "26.0.12"
   },
   "build": {
     "appId": "gr.mossuite.slidespark",
