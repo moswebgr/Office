@@ -28,6 +28,17 @@ jobs:
           sudo apt-get install -y libarchive-tools
           sudo snap install multipass
           sudo snap install snapcraft --classic --channel=7.x/stable
+          # Multipass exposes its daemon socket to the snap_daemon group.
+          sudo usermod -aG snap_daemon "$USER"
+          sudo snap restart multipass
+          # Wait until the Multipass daemon is ready before building.
+          for attempt in $(seq 1 30); do
+            if sudo multipass version >/dev/null 2>&1; then
+              break
+            fi
+            sleep 2
+          done
+          sudo multipass version
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -40,7 +51,8 @@ jobs:
         run: |
           mkdir -p build
           cp ../SlideSpark.png build/icon.png
-          npx electron-builder --linux AppImage deb rpm tar.gz pacman snap --${{ matrix.arch }} --publish never
+          # Run under snap_daemon so Snapcraft can access the Multipass socket.
+          sg snap_daemon -c 'npx electron-builder --linux AppImage deb rpm tar.gz pacman snap --${{ matrix.arch }} --publish never'
       - name: Upload Linux packages
         uses: actions/upload-artifact@v4
         with:
