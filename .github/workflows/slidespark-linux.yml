@@ -25,7 +25,7 @@ jobs:
       - name: Install Linux packaging tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y libarchive-tools
+          sudo apt-get install -y libarchive-tools imagemagick
           sudo snap install multipass
           sudo snap install snapcraft --classic --channel=7.x/stable
           # Wait until Multipass is ready. Snapcraft will run with sudo in the build step
@@ -48,7 +48,7 @@ jobs:
         working-directory: slidespark-linux
         run: |
           mkdir -p build
-          cp ../nqdS9.png build/icon.png
+          convert ../nqdS9.png -filter Lanczos -resize 512x512 build/icon.png
           # Keep electron-builder pinned at 26.0.12; 26.15.x has a broken snap template
           # that omits desktop-init.sh and makes the resulting Snap fail at launch.
           sudo env "PATH=$PATH" ./node_modules/.bin/electron-builder --linux AppImage deb rpm tar.gz pacman snap --${{ matrix.arch }} --publish never
