@@ -6,7 +6,8 @@ MosSuite brings a growing set of browser-based productivity apps together under 
 
 🌐 **Website:** https://moswebgr.github.io/Office/  
 🧩 **Open the unified workspace:** https://moswebgr.github.io/Office/workspace.html  
-📦 **Source code:** https://github.com/moswebgr/Office
+📦 **Source code:** https://github.com/moswebgr/Office  
+💬 **Join the Discord community:** https://discord.gg/jhTGyEAtV
 
 ## Applications
 
