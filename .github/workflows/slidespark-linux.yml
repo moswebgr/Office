@@ -58,6 +58,21 @@ jobs:
           else
             sudo env "PATH=$PATH" ./node_modules/.bin/electron-builder --linux AppImage deb rpm tar.gz pacman snap --x64 --publish never
           fi
+      - name: Publish Snap to Snap Store
+        if: matrix.arch == 'x64'
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
+        run: |
+          if [ -z "$SNAPCRAFT_STORE_CREDENTIALS" ]; then
+            echo "SNAPCRAFT_STORE_CREDENTIALS is not configured; skipping Snap Store upload."
+            exit 0
+          fi
+          SNAP_FILE=$(find slidespark-linux/dist -maxdepth 1 -name '*.snap' -print -quit)
+          if [ -z "$SNAP_FILE" ]; then
+            echo "No Snap package was produced."
+            exit 1
+          fi
+          sudo env SNAPCRAFT_STORE_CREDENTIALS="$SNAPCRAFT_STORE_CREDENTIALS" snapcraft upload "$SNAP_FILE" --release=stable
       - name: Upload Linux packages
         uses: actions/upload-artifact@v4
         with:
