@@ -13,9 +13,9 @@
     "dist:linux": "electron-builder --linux AppImage deb rpm tar.gz pacman snap",
     "dist:linux:x64": "electron-builder --linux AppImage deb rpm tar.gz pacman snap --x64",
     "dist:linux:arm64": "electron-builder --linux AppImage deb rpm tar.gz pacman snap --arm64",
-    "pre-dist:linux": "mkdir -p build && cp ../nqdS9.png build/icon.png",
-    "pre-dist:linux:x64": "mkdir -p build && cp ../nqdS9.png build/icon.png",
-    "pre-dist:linux:arm64": "mkdir -p build && cp ../nqdS9.png build/icon.png"
+    "pre-dist:linux": "mkdir -p build && convert ../nqdS9.png -filter Lanczos -resize 512x512 build/icon.png",
+    "pre-dist:linux:x64": "mkdir -p build && convert ../nqdS9.png -filter Lanczos -resize 512x512 build/icon.png",
+    "pre-dist:linux:arm64": "mkdir -p build && convert ../nqdS9.png -filter Lanczos -resize 512x512 build/icon.png"
   },
   "devDependencies": {
     "electron": "^35.0.0",
