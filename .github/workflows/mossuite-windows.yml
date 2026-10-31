@@ -31,7 +31,7 @@ jobs:
           New-Item -ItemType Directory -Force dist/MosSuite-Windows-1.0.4/app, dist/MosSuite-Windows-1.0.4/assets | Out-Null
           $env:INCLUDE = "$sdk/include;$env:INCLUDE"
           $lib = "$sdk/x64"
-          cl /nologo /std:c++17 /EHsc /O2 /DUNICODE /D_UNICODE mossuite-windows/src/main.cpp /link /SUBSYSTEM:WINDOWS /LIBPATH:$lib WebView2LoaderStatic.lib urlmon.lib shell32.lib ole32.lib user32.lib /OUT:dist/MosSuite-Windows-1.0.4/MosSuite.exe
+          cl /nologo /std:c++17 /EHsc /O2 /DUNICODE /D_UNICODE mossuite-windows/src/main.cpp /link /SUBSYSTEM:WINDOWS /LIBPATH:$lib WebView2LoaderStatic.lib urlmon.lib shell32.lib ole32.lib user32.lib advapi32.lib /OUT:dist/MosSuite-Windows-1.0.4/MosSuite.exe
           Copy-Item mossuite-windows/app/index.html dist/MosSuite-Windows-1.0.4/app/index.html
           Copy-Item mossuite-launcher/assets/mossuite-logo.svg dist/MosSuite-Windows-1.0.4/assets/
           Copy-Item mossuite-launcher/assets/icon.png dist/MosSuite-Windows-1.0.4/
