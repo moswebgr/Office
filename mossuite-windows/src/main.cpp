@@ -1,6 +1,7 @@
 #define UNICODE
 #define _UNICODE
 #include <windows.h>
+#include <algorithm>
 #include <shellapi.h>
 #include <urlmon.h>
 #include <shlobj.h>
