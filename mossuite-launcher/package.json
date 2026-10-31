@@ -1,7 +1,7 @@
 {
   "name": "mossuite-launcher",
-  "version": "1.0.2",
-  "description": "MosSuite Linux desktop application launcher",
+  "version": "1.0.3",
+  "description": "MosSuite Linux desktop application launcher with offline app downloads",
   "homepage": "https://moswebgr.github.io/Office",
   "author": {
     "name": "MosSuite",
@@ -26,6 +26,7 @@
     },
     "files": [
       "main.cjs",
+      "preload.cjs",
       "app/**/*",
       "assets/**/*",
       "package.json"
