@@ -35,11 +35,14 @@ jobs:
           else
             npx electron-builder --linux AppImage deb rpm tar.gz --x64 --publish never
           fi
-      - name: Verify Debian packages
+      - name: Verify Debian package for this architecture
         working-directory: mossuite-launcher
         run: |
-          dpkg-deb --info dist/MosSuite-Linux-1.0.2-amd64.deb
-          dpkg-deb --info dist/MosSuite-Linux-1.0.2-arm64.deb
+          if [ "${{ matrix.arch }}" = "arm64" ]; then
+            dpkg-deb --info dist/MosSuite-Linux-1.0.2-arm64.deb
+          else
+            dpkg-deb --info dist/MosSuite-Linux-1.0.2-amd64.deb
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: mossuite-linux-${{ matrix.arch }}
