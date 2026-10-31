@@ -1,0 +1,59 @@
+name: Build and publish MosSuite Windows desktop app
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'mossuite-windows/**'
+      - '.github/workflows/mossuite-windows.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download WebView2 SDK
+        shell: pwsh
+        run: |
+          Invoke-WebRequest 'https://www.nuget.org/api/v2/package/Microsoft.Web.WebView2/1.0.2903.40' -OutFile webview2.zip
+          Expand-Archive webview2.zip -DestinationPath webview2
+      - name: Compile native C++ launcher
+        shell: pwsh
+        run: |
+          $sdk = Resolve-Path 'webview2/build/native'
+          New-Item -ItemType Directory -Force dist/MosSuite-Windows-1.0.4/app, dist/MosSuite-Windows-1.0.4/assets | Out-Null
+          $env:INCLUDE = "$sdk/include;$env:INCLUDE"
+          $lib = "$sdk/x64"
+          cl /nologo /std:c++17 /EHsc /O2 /DUNICODE /D_UNICODE mossuite-windows/src/main.cpp /link /SUBSYSTEM:WINDOWS /LIBPATH:$lib WebView2LoaderStatic.lib urlmon.lib shell32.lib ole32.lib user32.lib /OUT:dist/MosSuite-Windows-1.0.4/MosSuite.exe
+          Copy-Item mossuite-windows/app/index.html dist/MosSuite-Windows-1.0.4/app/index.html
+          Copy-Item mossuite-launcher/assets/mossuite-logo.svg dist/MosSuite-Windows-1.0.4/assets/
+          Copy-Item mossuite-launcher/assets/icon.png dist/MosSuite-Windows-1.0.4/
+          Compress-Archive -Path dist/MosSuite-Windows-1.0.4/* -DestinationPath dist/MosSuite-Windows-1.0.4.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mossuite-windows-x64
+          path: dist/MosSuite-Windows-1.0.4.zip
+          if-no-files-found: error
+          retention-days: 14
+
+  publish:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: windows-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: mossuite-windows-x64
+          path: release-assets
+      - name: Publish Windows release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: launcher-windows-v1.0.4
+          target_commitish: main
+          name: MosSuite Windows Desktop v1.0.4
+          generate_release_notes: true
+          files: release-assets/*
