@@ -1,7 +1,7 @@
 {
   "name": "mossuite-launcher",
-  "version": "1.0.3",
-  "description": "MosSuite Linux desktop application launcher with offline app downloads",
+  "version": "1.0.4",
+  "description": "MosSuite Linux desktop launcher with offline app bundles",
   "homepage": "https://moswebgr.github.io/Office",
   "author": {
     "name": "MosSuite",
