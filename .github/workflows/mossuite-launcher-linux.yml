@@ -39,9 +39,9 @@ jobs:
         working-directory: mossuite-launcher
         run: |
           if [ "${{ matrix.arch }}" = "arm64" ]; then
-            dpkg-deb --info dist/MosSuite-Linux-1.0.3-arm64.deb
+            dpkg-deb --info dist/MosSuite-Linux-1.0.4-arm64.deb
           else
-            dpkg-deb --info dist/MosSuite-Linux-1.0.3-amd64.deb
+            dpkg-deb --info dist/MosSuite-Linux-1.0.4-amd64.deb
           fi
       - uses: actions/upload-artifact@v4
         with:
@@ -63,14 +63,14 @@ jobs:
           merge-multiple: true
       - name: Verify installer files
         run: |
-          test -s release-assets/MosSuite-Linux-1.0.3-amd64.deb
-          test -s release-assets/MosSuite-Linux-1.0.3-arm64.deb
-          test -s release-assets/MosSuite-Linux-1.0.3-x86_64.AppImage
+          test -s release-assets/MosSuite-Linux-1.0.4-amd64.deb
+          test -s release-assets/MosSuite-Linux-1.0.4-arm64.deb
+          test -s release-assets/MosSuite-Linux-1.0.4-x86_64.AppImage
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: launcher-v1.0.3
+          tag_name: launcher-v1.0.4
           target_commitish: main
-          name: MosSuite Linux Desktop v1.0.3
+          name: MosSuite Linux Desktop v1.0.4
           generate_release_notes: true
           files: release-assets/*
