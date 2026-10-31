@@ -2,6 +2,11 @@
   "name": "mossuite-launcher",
   "version": "1.0.1",
   "description": "MosSuite Linux desktop application launcher",
+  "homepage": "https://moswebgr.github.io/Office",
+  "author": {
+    "name": "MosSuite",
+    "email": "moswebgr@users.noreply.github.com"
+  },
   "main": "main.cjs",
   "license": "MIT",
   "scripts": {
