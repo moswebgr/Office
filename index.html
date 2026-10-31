@@ -86,5 +86,26 @@
   </main>
   <footer class="wrap"><span>© MosWeb · MosSuite is an independent open-source project.</span><span>Made by Vasilis Moskofidis.</span></footer>
 
+  <script>
+    (() => {
+      const button = document.querySelector('.menu-toggle');
+      const menu = document.getElementById('fullscreen-menu');
+      if (!button || !menu) return;
+      const setMenu = (open) => {
+        button.setAttribute('aria-expanded', String(open));
+        button.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        menu.classList.toggle('open', open);
+        menu.setAttribute('aria-hidden', String(!open));
+        document.body.classList.toggle('menu-open', open);
+      };
+      button.addEventListener('click', () => {
+        setMenu(button.getAttribute('aria-expanded') !== 'true');
+      });
+      menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenu(false)));
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') setMenu(false);
+      });
+    })();
+  </script>
 </body>
 </html>
