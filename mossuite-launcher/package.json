@@ -32,15 +32,7 @@
         "rpm",
         "tar.gz"
       ],
-      "maintainer": "MosSuite <moswebgr@users.noreply.github.com>",
-      "desktop": {
-        "Name": "MosSuite",
-        "Comment": "Open your MosSuite desktop workspace",
-        "GenericName": "Office Suite",
-        "Categories": "Office;Utility;",
-        "Terminal": "false",
-        "StartupWMClass": "mossuite"
-      }
+      "maintainer": "MosSuite <moswebgr@users.noreply.github.com>"
     },
     "deb": {
       "depends": [
