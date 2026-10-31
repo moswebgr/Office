@@ -48,7 +48,7 @@ jobs:
         working-directory: slidespark-linux
         run: |
           mkdir -p build
-          convert ../nqdS9.png -filter Lanczos -resize 512x512 build/icon.png
+          convert ../SlideSpark.png -filter Lanczos -resize 512x512 build/icon.png
           # Keep electron-builder pinned at 26.0.12; 26.15.x has a broken snap template
           # that omits desktop-init.sh and makes the resulting Snap fail at launch.
           # Snapcraft 7 cannot cross-build ARM64 snaps on the AMD64 GitHub runner,

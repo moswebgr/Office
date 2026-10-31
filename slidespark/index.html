@@ -101,4 +101,4 @@ document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLower
 const originalApply=applySlide;function applySlideWithImage(){originalApply();const old=$('#slideCanvas').querySelector('.inserted-image');if(old)old.remove();if(current().image){const img=document.createElement('img');img.src=current().image;img.className='inserted-image';img.alt='Slide image';img.style.cssText='position:absolute;right:8%;bottom:10%;max-width:35%;max-height:35%;object-fit:contain';$('#slideCanvas').append(img)}}
 const baseRender=renderAll;renderAll=function(){applySlideWithImage();renderRibbon(activeTab);renderThumbsOnly();persist()};renderAll();
 })();
-</script><script src="../assets/microsoft-auth.js?v=20261015-01" defer></script></body></html>
+</script></body></html>
