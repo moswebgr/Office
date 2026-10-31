@@ -2,8 +2,11 @@ name: Build and publish MosSuite Linux desktop app
 
 on:
   push:
-    tags:
-      - 'launcher-v*'
+    branches:
+      - main
+    paths:
+      - 'mossuite-launcher/**'
+      - '.github/workflows/mossuite-launcher-linux.yml'
   workflow_dispatch:
 
 permissions:
@@ -42,7 +45,7 @@ jobs:
 
   publish:
     name: Publish installers to GitHub Release
-    if: startsWith(github.ref, 'refs/tags/launcher-v')
+    if: github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -53,11 +56,13 @@ jobs:
           merge-multiple: true
       - name: Verify installer files
         run: |
-          find release-assets -maxdepth 1 -type f -printf '%f\n'
+          find release-assets -maxdepth 1 -type f -printf '%f\\n'
           test -n "$(find release-assets -maxdepth 1 -type f)"
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          name: MosSuite Linux Desktop ${{ github.ref_name }}
+          tag_name: launcher-v1.0.1
+          target_commitish: main
+          name: MosSuite Linux Desktop v1.0.1
           generate_release_notes: true
           files: release-assets/*
