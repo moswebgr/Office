@@ -54,9 +54,9 @@ jobs:
         working-directory: mossuite-launcher
         run: |
           if [ "${{ matrix.arch }}" = "arm64" ]; then
-            dpkg-deb --info dist/MosSuite-Linux-1.0.4-arm64.deb
+            dpkg-deb --info dist/MosSuite-Linux-1.0.5-arm64.deb
           else
-            dpkg-deb --info dist/MosSuite-Linux-1.0.4-amd64.deb
+            dpkg-deb --info dist/MosSuite-Linux-1.0.5-amd64.deb
           fi
       - uses: actions/upload-artifact@v4
         with:
@@ -78,17 +78,21 @@ jobs:
           merge-multiple: true
       - name: Verify required installer files
         run: |
-          test -s release-assets/MosSuite-Linux-1.0.4-amd64.deb
-          test -s release-assets/MosSuite-Linux-1.0.4-arm64.deb
-          test -s release-assets/MosSuite-Linux-1.0.4-x86_64.AppImage
-          test -s release-assets/MosSuite-Linux-1.0.4-arm64.AppImage
-          test -s release-assets/MosSuite-Linux-1.0.4-x64.tar.gz
-          test -s release-assets/MosSuite-Linux-1.0.4-arm64.tar.gz
+          test -s release-assets/MosSuite-Linux-1.0.5-amd64.deb
+          test -s release-assets/MosSuite-Linux-1.0.5-arm64.deb
+          test -s release-assets/MosSuite-Linux-1.0.5-x86_64.AppImage
+          test -s release-assets/MosSuite-Linux-1.0.5-arm64.AppImage
+          test -s release-assets/MosSuite-Linux-1.0.5-x64.tar.gz
+          test -s release-assets/MosSuite-Linux-1.0.5-arm64.tar.gz
+      - name: Remove previous Linux release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release delete launcher-v1.0.4 --yes --cleanup-tag || true
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: launcher-v1.0.4
+          tag_name: launcher-v1.0.5
           target_commitish: main
-          name: MosSuite Linux Desktop v1.0.4
+          name: MosSuite Linux Desktop v1.0.5
           generate_release_notes: true
           files: release-assets/*
