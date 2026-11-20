@@ -53,7 +53,7 @@
         "gtk3",
         "nss"
       ],
-      "compression": "gzip"
+      "compression": "gz"
     },
     "artifactName": "MosSuite-Linux-${version}-${arch}.${ext}"
   }
