@@ -58,7 +58,7 @@ jobs:
         shell: pwsh
         run: |
           $version = $env:MOSSUITE_VERSION
-          & "$env:ProgramFiles(x86)\Inno Setup 6\ISCC.exe" "/DAppVersion=$version" "/DSourceDir=dist/MosSuite-Windows-$version" mossuite-windows/MosSuite.iss
+          & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" "/DAppVersion=$version" "/DSourceDir=$((Resolve-Path "dist/MosSuite-Windows-$version").Path)" mossuite-windows/MosSuite.iss
           if ($LASTEXITCODE -ne 0) { throw "Inno Setup failed with exit code $LASTEXITCODE" }
           if (!(Test-Path "mossuite-windows/dist/MosSuite-Setup-$version.exe")) {
             # Inno Setup output is relative to the script; also accept repository-root dist.
