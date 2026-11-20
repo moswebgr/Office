@@ -13,6 +13,28 @@ const ROOT = "https://raw.githubusercontent.com/moswebgr/Office/main/";
 const SHARED_FILES = ["index.html", "assets/microsoft-ui.css", "assets/responsive.css", "assets/desktop-only.css", "assets/mossuite-logo.svg", "assets/microsoft-auth.js", "assets/mossuite-modern.css", "gridforge.png", "SlideSpark.png", "datanest-removebg-preview.png", "mailnest.jpg"];
 
 function appDir() { return path.join(app.getPath("userData"), "offline-apps"); }
+function desktopEntryPath(id) { return path.join(app.getPath("home"), ".local", "share", "applications", "mossuite-" + id + ".desktop"); }
+function createDesktopEntry(id, item) {
+  const launcher = process.execPath.replace(/"/g, '\\"');
+  const icon = path.join(__dirname, "assets", "icon.png");
+  const content = [
+    "[Desktop Entry]",
+    "Type=Application",
+    "Name=" + item.name,
+    "Comment=" + item.description,
+    'Exec="' + launcher + '" --app ' + id,
+    'Icon=' + icon,
+    "Terminal=false",
+    "Categories=Office;",
+    "StartupNotify=true",
+    "StartupWMClass=MosSuite-" + id,
+    ""
+  ].join("\\n");
+  const target = desktopEntryPath(id);
+  fs.mkdirSync(path.dirname(target), { recursive: true });
+  fs.writeFileSync(target, content, { mode: 0o755 });
+  try { fs.chmodSync(target, 0o755); } catch {}
+}
 function download(url, destination, redirects = 5) {
   return new Promise((resolve, reject) => {
     https.get(url, response => {
@@ -82,5 +104,27 @@ function createWindow() {
  });
  win.loadFile(path.join(__dirname,"app","index.html"));
 }
-app.whenReady().then(()=>{app.setName("MosSuite");createWindow();app.on("activate",()=>{if(BrowserWindow.getAllWindows().length===0)createWindow();});});
+function openInstalledApp(id) {
+  const item = APPS[id];
+  if (!item || !isInstalled(id)) return false;
+  const win = new BrowserWindow({
+    width:1200,height:820,minWidth:800,minHeight:600,title:"MosSuite · " + item.name,
+    icon:path.join(__dirname,"assets","icon.png"),autoHideMenuBar:true,backgroundColor:"#111214",
+    webPreferences:{contextIsolation:true,nodeIntegration:false,sandbox:true}
+  });
+  win.webContents.setWindowOpenHandler(({url}) => {
+    if (url.startsWith("https://") || url.startsWith("http://")) shell.openExternal(url);
+    return {action:"deny"};
+  });
+  win.loadFile(appEntry(id));
+  return true;
+}
+app.whenReady().then(()=>{
+  app.setName("MosSuite");
+  const appArg = process.argv.indexOf("--app");
+  if (appArg >= 0 && process.argv[appArg + 1]) {
+    if (!openInstalledApp(process.argv[appArg + 1])) createWindow();
+  } else createWindow();
+  app.on("activate",()=>{if(BrowserWindow.getAllWindows().length===0)createWindow();});
+});
 app.on("window-all-closed",()=>{if(process.platform!=="darwin")app.quit();});
