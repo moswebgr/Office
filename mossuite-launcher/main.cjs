@@ -15,8 +15,11 @@ const SHARED_FILES = ["index.html", "assets/microsoft-ui.css", "assets/responsiv
 function appDir() { return path.join(app.getPath("userData"), "offline-apps"); }
 function desktopEntryPath(id) { return path.join(app.getPath("home"), ".local", "share", "applications", "mossuite-" + id + ".desktop"); }
 function createDesktopEntry(id, item) {
-  const launcher = process.execPath.replace(/"/g, '\\"');
-  const icon = path.join(__dirname, "assets", "icon.png");
+  const launcher = (process.env.APPIMAGE || process.execPath).replace(/"/g, '\\"');
+  const iconDir = path.join(app.getPath("home"), ".local", "share", "icons", "hicolor", "256x256", "apps");
+  fs.mkdirSync(iconDir, { recursive: true });
+  const icon = path.join(iconDir, "mossuite.png");
+  fs.copyFileSync(path.join(__dirname, "assets", "icon.png"), icon);
   const content = [
     "[Desktop Entry]",
     "Type=Application",
