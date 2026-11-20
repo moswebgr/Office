@@ -25,7 +25,7 @@ static const App APPS[] = {
  {L"datanest",L"DataNest",L"Data & tables",L"Keep information structured with tables and records.",L"https://moswebgr.github.io/Office/datanest/",L"datanest\\index.html"},
  {L"mailnest",L"MailNest",L"Email",L"Work with your Outlook mailbox and local drafts.",L"https://moswebgr.github.io/Office/mailnest/",L"mailnest\\index.html"}
 };
-static const wchar_t* SHARED[] = {L"index.html",L"assets/microsoft-ui.css",L"assets/responsive.css",L"assets/desktop-only.css",L"assets/mossuite-logo.svg",L"assets/microsoft-auth.js"};
+static const wchar_t* SHARED[] = {L"index.html",L"assets/microsoft-ui.css",L"assets/responsive.css",L"assets/desktop-only.css",L"assets/mossuite-logo.svg",L"assets/microsoft-auth.js",L"assets/mossuite-modern.css",L"gridforge.png",L"SlideSpark.png",L"datanest-removebg-preview.png",L"mailnest.jpg"};
 static HWND g_hwnd=nullptr;
 static ComPtr<ICoreWebView2Controller> g_controller;
 static ComPtr<ICoreWebView2> g_webview;
