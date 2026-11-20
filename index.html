@@ -1,133 +1,44 @@
 <!doctype html>
-<!-- MosSuite app catalog -->
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101525">
-  <meta name="description" content="MosSuite by VasilisMoskofidis (MosWeb) — a free, open-source family of productivity tools.">
-  <meta name="author" content="VasilisMoskofidis">
-  <meta name="creator" content="VasilisMoskofidis">
-  <meta name="publisher" content="MosWeb">
-  <meta property="og:title" content="MosSuite — Four tools. One workspace.">
-  <meta property="og:description" content="MosSuite by VasilisMoskofidis (MosWeb) — free, open-source productivity tools.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://moswebgr.github.io/Office/assets/mossuite-logo.svg">
-  <link rel="icon" type="image/svg+xml" href="assets/mossuite-logo.svg">
-  <link rel="apple-touch-icon" href="assets/mossuite-logo.svg">
-  <title>MosSuite — Four tools. One workspace.</title>
-  <style>
-    :root{color-scheme:dark;--bg:#0b1020;--panel:#121a2e;--panel2:#18223a;--text:#fff;--muted:#fff;--line:#293550;--blue:#8ab4ff;--mint:#7cebd0}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 75% -10%,#233b70 0,transparent 40%),var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-    a{color:inherit} .wrap{width:calc(100% - 64px);max-width:none;margin-inline:auto}
-    .site-header{width:100%;background:#171717;border-bottom:1px solid #383838}
-    .header-inner{width:calc(100% - 64px);max-width:none;min-height:76px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:16px 0;position:relative}
-    .site-header .brand{flex:none}
-    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:800;font-size:1.25rem;letter-spacing:-.04em}
-    .logo{display:block;width:42px;height:42px;object-fit:contain}
-    .menu-toggle{width:48px;height:48px;border:1px solid #ffffff35;border-radius:12px;background:#ffffff0b;color:#fff;display:grid;place-content:center;gap:6px;cursor:pointer;z-index:1002}
-    .menu-toggle span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:transform .2s,opacity .2s}
-    .menu-toggle[aria-expanded="true"] span:first-child{transform:translateY(4px) rotate(45deg)}.menu-toggle[aria-expanded="true"] span:last-child{transform:translateY(-4px) rotate(-45deg)}
-    .fullscreen-menu{position:fixed;inset:0;z-index:1001;background:rgba(8,12,24,.98);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s,visibility .25s}
-    .fullscreen-menu.open{opacity:1;visibility:visible;pointer-events:auto}.fullscreen-menu a{font-size:clamp(2rem,6vw,4rem);font-weight:750;letter-spacing:-.04em;text-decoration:none;color:#fff}.fullscreen-menu a:hover{color:var(--mint)}
-    body.menu-open{overflow:hidden}
-    .hero{padding:84px 0 64px;max-width:850px}.eyebrow{color:var(--mint);font-size:.8rem;text-transform:uppercase;letter-spacing:.16em;font-weight:800}
-    h1{font-size:clamp(2.8rem,7vw,5.6rem);line-height:1.02;letter-spacing:-.065em;margin:18px 0 24px}
-    .gradient{background:linear-gradient(90deg,#a7c6ff,#7cebd0);-webkit-background-clip:text;background-clip:text;color:transparent}
-    .hero p{font-size:1.18rem;color:var(--muted);max-width:690px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:12px;text-decoration:none;font-weight:750;border:1px solid var(--line)}
-    .primary{background:var(--text);color:#101525;border-color:var(--text)}.secondary{background:#ffffff08}
-    .section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin:24px 0}.section-head h2{font-size:clamp(1.7rem,4vw,2.4rem);letter-spacing:-.04em;margin:0}.section-head p{margin:0;color:var(--muted);max-width:460px}
-    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:26px 0 76px}
-    .app{padding:22px;background:linear-gradient(145deg,var(--panel),#0f1729);border:1px solid var(--line);border-radius:18px;min-height:220px;transition:transform .2s,border-color .2s}
-    .app:hover{transform:translateY(-3px);border-color:#718bbd}.app-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
-    .app-icon{width:64px;height:64px;display:block;object-fit:contain;border-radius:14px}
-    .status{font-size:.72rem;font-weight:800;color:var(--mint);border:1px solid #7cebd044;border-radius:100px;padding:4px 9px;white-space:nowrap}
-    .app h3{margin:17px 0 5px;font-size:1.18rem}.app p{color:var(--muted);margin:0;font-size:.94rem}
-    .principles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:25px 0 80px}.principle{border-top:1px solid var(--line);padding:20px 0}.principle h3{margin:0 0 8px}.principle p{color:var(--muted);margin:0}
-    .cta{padding:32px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(120deg,#182847,#111a2c);margin-bottom:72px}.cta h2{font-size:2rem;letter-spacing:-.04em;margin:0 0 8px}.cta p{color:var(--muted);margin:0 0 20px}
-    footer{border-top:1px solid #ffffff12;padding:24px 0 36px;color:#fff;font-size:.9rem;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-    @media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.principles{grid-template-columns:1fr}.hero{padding-top:60px}}
-    @media(max-width:540px){.wrap{width:calc(100% - 28px)}.header-inner{width:calc(100% - 28px);padding:12px 0}.grid{grid-template-columns:1fr}.hero{padding:52px 0 42px}.section-head{display:block}.section-head p{margin-top:10px}.app{min-height:0}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
-  .discord-icon{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;color:#fff;opacity:.9;transition:opacity .2s,transform .2s}.discord-icon:hover{opacity:1;transform:translateY(-2px)}.discord-icon svg{width:25px;height:20px;display:block}
-  .youtube-icon{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;color:#fff;opacity:.9;transition:opacity .2s,transform .2s}.youtube-icon:hover{opacity:1;transform:translateY(-2px)}.youtube-icon svg{width:25px;height:25px;display:block}
-  </style>
-<link rel="stylesheet" href="assets/microsoft-ui.css">
-
-    <link rel="stylesheet" href="assets/responsive.css" />
-  </head>
-<body>
-  <header class="site-header">
-    <div class="header-inner">
-      <a class="brand" href="#" aria-label="MosSuite home"><img class="logo" src="assets/mossuite-logo.svg" alt=""><span>MosSuite</span></a>
-      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="fullscreen-menu"><span></span><span></span></button>
-    </div>
-  </header>
-  <nav class="fullscreen-menu" id="fullscreen-menu" aria-label="Main navigation" aria-hidden="true">
-    <a href="#apps">Apps</a><a href="#values">Our values</a><a href="https://github.com/moswebgr/Office">GitHub</a>
-  </nav>
-  <main class="wrap">
-    <section class="hero">
-      <div class="eyebrow">An open-source project by MosWeb</div>
-      <h1>Four tools.<br><span class="gradient">One workspace.</span></h1>
-      <p>A focused suite of four free productivity apps for calendars, presentations, structured data, and email. Open all four apps inside one unified workspace, with shared navigation and a consistent experience across the suite.</p>
-      <div class="actions"><a class="btn primary" href="https://github.com/moswebgr/Office/releases/download/launcher-windows-v1.0.4/MosSuite-Windows-1.0.4.zip">Download for Windows ↓</a><a class="btn secondary" href="workspace.html">Open all apps in one workspace ↗</a><a class="btn secondary" href="#apps">Explore the apps ↓</a><a class="btn secondary" href="https://github.com/moswebgr/Office">View source on GitHub ↗</a></div>
-    </section>
-    <section id="apps" aria-labelledby="apps-title">
-      <div class="section-head"><h2 id="apps-title">One suite. Four tools.</h2><p>Four focused apps, brought together in one workspace.</p></div>
-      <div class="grid">
-        <article class="app"><div class="app-top"><img class="app-icon" src="gridforge.png" alt="GridForge logo"><span class="status">FIRST VERSION</span></div><h3>GridForge</h3><p>Organize your schedule with calendar views, events, and import/export tools.</p><p style="margin-top:14px"><a href="gridforge/index.html">Open GridForge →</a></p></article>
-        <article class="app"><div class="app-top"><img class="app-icon" src="SlideSpark.png" alt="SlideSpark logo"><span class="status">FIRST VERSION</span></div><h3>SlideSpark</h3><p>Build polished presentations with editable slides, design tools, and slideshow mode.</p><p style="margin-top:14px"><a href="slidespark/index.html?v=20261016-fonts75">Open SlideSpark →</a></p></article>
-        <article class="app"><div class="app-top"><img class="app-icon" src="datanest-removebg-preview.png" alt="DataNest logo"><span class="status">FIRST VERSION</span></div><h3>DataNest</h3><p>Manage structured information with custom fields, editable records, and CSV import/export.</p><p style="margin-top:14px"><a href="datanest/index.html">Open DataNest →</a></p></article>
-        <article class="app"><div class="app-top"><img class="app-icon" src="mailnest.jpg" alt="MailNest logo"><span class="status">PROTOTYPE</span></div><h3>MailNest</h3><p>Work with Outlook mail, browse folders, compose messages, and keep local drafts.</p><p style="margin-top:14px"><a href="mailnest/index.html">Open MailNest →</a></p></article>
-      </div>
-    </section>
-    <section id="values" aria-labelledby="values-title">
-      <div class="section-head"><h2 id="values-title">Built on better principles.</h2><p>Useful software should be transparent, portable and respectful of the people who use it.</p></div>
-      <div class="principles">
-        <div class="principle"><h3>Free and open</h3><p>Source code available under a permissive license, with community contributions welcome.</p></div>
-        <div class="principle"><h3>Your data, your choice</h3><p>Prioritize portable formats and local-first features; explain clearly when a server is required.</p></div>
-        <div class="principle"><h3>One coherent experience</h3><p>Shared design, accessibility, responsive layouts and integrations that are added carefully.</p></div>
-      </div>
-    </section>
-    <section class="cta">
-      <h2>Help shape MosSuite.</h2><p>Explore the roadmap, report an issue or help improve the four apps.</p><a class="btn primary" href="https://github.com/moswebgr/Office">Open the GitHub repository ↗</a>
-    </section>
-  </main>
-  <footer class="wrap">
-    <span>© MosWeb · MosSuite is an independent open-source project.</span>
-    <div class="social-links">
-      <a class="discord-icon" href="https://discord.gg/jhTGyEAtV" target="_blank" rel="noopener noreferrer" aria-label="Join the MosSuite Discord community" title="Discord community">
-        <svg viewBox="0 0 127.14 96.36" aria-hidden="true" focusable="false"><path fill="currentColor" d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.85 97.68 97.68 0 0 0-29.08 0A72.37 72.37 0 0 0 45.67 0a105.89 105.89 0 0 0-26.25 8.09C2.8 32.65-1.69 56.6.55 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.15 68.42 68.42 0 0 1-10.85-5.18c.91-.67 1.8-1.37 2.66-2.09a75.76 75.76 0 0 0 64.25 0c.87.72 1.76 1.42 2.66 2.09a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.14 105.25 105.25 0 0 0 32.18-16.14c2.63-27.38-4.5-51.1-18.83-72.15ZM42.45 65.69c-6.27 0-11.45-5.75-11.45-12.82s5.05-12.87 11.45-12.87 11.56 5.8 11.45 12.87-5.05 12.82-11.45 12.82Zm42.24 0c-6.27 0-11.45-5.75-11.45-12.82S78.29 40 84.69 40s11.56 5.8 11.45 12.87-5.05 12.82-11.45 12.82Z"/></svg>
-      </a>
-      <a class="youtube-icon" href="https://www.youtube.com/@mosweb-net" target="_blank" rel="noopener noreferrer" aria-label="MosWeb YouTube channel" title="YouTube">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z"/></svg>
-      </a>
-    </div>
-    <span>Made by Vasilis Moskofidis.</span>
-  </footer>
-
-  <script>
-    (() => {
-      const button = document.querySelector('.menu-toggle');
-      const menu = document.getElementById('fullscreen-menu');
-      if (!button || !menu) return;
-      const setMenu = (open) => {
-        button.setAttribute('aria-expanded', String(open));
-        button.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-        menu.classList.toggle('open', open);
-        menu.setAttribute('aria-hidden', String(!open));
-        document.body.classList.toggle('menu-open', open);
-      };
-      button.addEventListener('click', () => {
-        setMenu(button.getAttribute('aria-expanded') !== 'true');
-      });
-      menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenu(false)));
-      document.addEventListener('keydown', event => {
-        if (event.key === 'Escape') setMenu(false);
-      });
-    })();
-  </script>
-</body>
-</html>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b1220">
+<meta name="description" content="MosSuite — a modern, free and open-source productivity workspace.">
+<meta name="author" content="Vasilis Moskofidis"><meta name="publisher" content="MosWeb">
+<meta property="og:title" content="MosSuite — Your work, in one place"><meta property="og:description" content="Four focused productivity apps. One connected workspace.">
+<meta property="og:type" content="website"><meta property="og:image" content="https://moswebgr.github.io/Office/assets/mossuite-logo.svg">
+<link rel="icon" href="assets/mossuite-logo.svg" type="image/svg+xml"><title>MosSuite — Your work, in one place</title>
+<style>
+:root{color-scheme:dark;--bg:#080f1c;--panel:#101d30;--panel2:#15263d;--line:#263b56;--text:#edf4ff;--muted:#9eafc7;--blue:#6aa8ff;--mint:#7cebd0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 75% -10%,#1b3d67 0,transparent 40%),var(--bg);color:var(--text);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}a{color:inherit}.shell{max-width:1320px;width:calc(100% - 64px);margin:auto}
+header{height:78px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff12;gap:20px}.brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:800;font-size:1.22rem;letter-spacing:-.04em}.brand img{width:42px;height:42px;object-fit:contain}.nav{display:flex;align-items:center;gap:22px}.nav a{text-decoration:none;color:#b7c6d9;font-size:13px}.nav a:hover{color:white}.nav .nav-cta{border:1px solid #45658b;background:#152b46;color:#eaf3ff;padding:9px 14px;border-radius:10px}
+.hero{padding:76px 0 48px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(270px,.8fr);align-items:center;gap:48px}.eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--mint);font-size:11px;font-weight:800;letter-spacing:.17em;text-transform:uppercase}.eyebrow:before{content:"";width:24px;height:1px;background:var(--mint)}h1{font-size:clamp(3rem,6.8vw,6rem);line-height:.99;letter-spacing:-.075em;margin:18px 0 22px;max-width:850px}.gradient{background:linear-gradient(100deg,#9fc5ff,#79e4d0);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{max-width:650px;color:#b3c1d5;font-size:17px;margin:0}.hero-actions{display:flex;gap:11px;flex-wrap:wrap;margin-top:28px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;font-weight:750;font-size:13px;padding:12px 17px;border-radius:11px;border:1px solid var(--line);transition:.18s}.btn:hover{transform:translateY(-2px);border-color:#6488b3}.btn.primary{background:#edf4ff;color:#0b1422;border-color:#edf4ff}.btn.secondary{background:#ffffff08;color:#eaf3ff}.preview{border:1px solid #365273;border-radius:22px;padding:17px;background:linear-gradient(145deg,#172c47,#0d192a);box-shadow:0 28px 80px #0005;transform:rotate(1deg)}.preview-top{display:flex;justify-content:space-between;align-items:center;padding:3px 3px 15px;color:#a9bdd7;font-size:11px}.lights{display:flex;gap:5px}.lights i{width:7px;height:7px;border-radius:50%;background:#6783a5}.preview-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.preview-tile{border:1px solid #ffffff14;background:#ffffff08;border-radius:13px;padding:14px;min-height:116px}.preview-tile b{display:block;font-size:13px;margin-top:11px}.preview-tile small{color:#91a7c3;font-size:10px}.tile-icon{font-size:22px}.preview-foot{margin-top:10px;border-radius:10px;background:#7cebd014;color:#9cebd7;padding:9px 12px;font-size:10px}
+.section{padding:38px 0 70px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:22px}.section-head h2{font-size:clamp(1.7rem,3vw,2.35rem);letter-spacing:-.05em;margin:0}.section-head p{color:var(--muted);margin:0;max-width:440px;font-size:13px}.tools-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:24px 0 18px}.search{flex:1;min-width:220px;max-width:390px;background:#101d30;border:1px solid #304762;color:white;border-radius:10px;padding:11px 13px;font:inherit;font-size:13px}.search:focus{outline:2px solid var(--blue);outline-offset:2px}.filters{display:flex;gap:7px;flex-wrap:wrap}.filter{border:1px solid #304762;background:#101d30;color:#aebed2;border-radius:99px;padding:8px 12px;font-size:11px;cursor:pointer}.filter.active,.filter:hover{background:#1b3657;color:white;border-color:#5b8ec7}.apps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.app{position:relative;display:flex;flex-direction:column;min-height:260px;padding:20px;border:1px solid var(--line);border-radius:17px;background:linear-gradient(150deg,#14263d,#0e192a);transition:transform .2s,border-color .2s,box-shadow .2s;overflow:hidden}.app:hover{transform:translateY(-4px);border-color:#537aa8;box-shadow:0 18px 42px #0003}.app-icon{width:54px;height:54px;object-fit:contain;border-radius:13px;background:#ffffff08;padding:5px}.app-tag{position:absolute;right:16px;top:19px;color:#9bc5fa;border:1px solid #40638a;border-radius:99px;padding:4px 8px;font-size:9px;font-weight:800;letter-spacing:.08em}.app h3{font-size:18px;letter-spacing:-.03em;margin:17px 0 5px}.app p{color:#9eafc7;font-size:12px;margin:0 0 18px}.app-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}.app-actions a{font-size:11px;text-decoration:none;border-radius:8px;padding:8px 10px;border:1px solid #385372;background:#ffffff08}.app-actions a:first-child{background:#eaf3ff;color:#0c1727;border-color:#eaf3ff;font-weight:800}.empty{display:none;padding:28px;border:1px dashed #365273;border-radius:14px;color:var(--muted);text-align:center}
+.values{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.value{border:1px solid #263b56;background:#0e1a2b;border-radius:14px;padding:18px}.value b{font-size:13px}.value p{font-size:12px;color:var(--muted);margin:7px 0 0}
+.cta{display:flex;align-items:center;justify-content:space-between;gap:22px;padding:28px;border:1px solid #365273;border-radius:18px;background:linear-gradient(110deg,#172f4c,#101c2e);margin:0 0 65px}.cta h2{font-size:22px;margin:0 0 5px;letter-spacing:-.04em}.cta p{color:#a8bad1;font-size:12px;margin:0}
+footer{border-top:1px solid #ffffff14;padding:23px 0 34px;color:#8295af;font-size:11px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+@media(max-width:1000px){.apps{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{grid-template-columns:1fr .75fr;gap:25px}}
+@media(max-width:700px){.shell{width:calc(100% - 32px)}header{height:66px}.nav{gap:12px}.nav a:not(.nav-cta){display:none}.hero{display:block;padding:54px 0 28px}.preview{margin-top:35px;transform:none}.apps{grid-template-columns:1fr 1fr}.app{min-height:240px;padding:15px}.section-head{display:block}.section-head p{margin-top:8px}.values{grid-template-columns:1fr}.cta{display:block}.cta .btn{margin-top:17px}}
+@media(max-width:460px){.apps{grid-template-columns:1fr}.app{min-height:0}.hero h1{font-size:3.1rem}.hero p{font-size:15px}.preview-tile{min-height:100px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+</style>
+</head>
+<body><div class="shell">
+<header><a class="brand" href="#"><img src="assets/mossuite-logo.svg" alt="">MosSuite</a><nav class="nav"><a href="#apps">Apps</a><a href="workspace.html">Workspace</a><a href="https://github.com/moswebgr/Office">GitHub</a><a class="nav-cta" href="https://github.com/moswebgr/Office/releases/latest">Get desktop app ↗</a></nav></header>
+<main>
+<section class="hero"><div><div class="eyebrow">Open source · Built by MosWeb</div><h1>Your work.<br><span class="gradient">In one place.</span></h1><p>A modern workspace for planning, presentations, structured data and email. Four focused tools, designed to work together — with your existing workflows right where you left them.</p><div class="hero-actions"><a class="btn primary" href="workspace.html">Open unified workspace <span>↗</span></a><a class="btn secondary" href="#apps">Explore the apps ↓</a></div></div><aside class="preview" aria-label="MosSuite app preview"><div class="preview-top"><span class="lights"><i></i><i></i><i></i></span><span>MOS SUITE / WORKSPACE</span><span>● Online</span></div><div class="preview-grid"><div class="preview-tile"><span class="tile-icon">▦</span><b>GridForge</b><small>Plan your time</small></div><div class="preview-tile"><span class="tile-icon">▤</span><b>SlideSpark</b><small>Present ideas</small></div><div class="preview-tile"><span class="tile-icon">▥</span><b>DataNest</b><small>Organize information</small></div><div class="preview-tile"><span class="tile-icon">✉</span><b>MailNest</b><small>Manage messages</small></div></div><div class="preview-foot">One suite · Four focused apps · Your browser</div></aside></section>
+<section class="section" id="apps"><div class="section-head"><h2>Everything you need to get moving.</h2><p>Choose an app to open it directly, or launch the full workspace and switch tools without leaving the page.</p></div>
+<div class="tools-head"><input class="search" id="appSearch" type="search" placeholder="Search apps and capabilities…" aria-label="Search apps"><div class="filters" role="group" aria-label="Filter apps"><button class="filter active" data-filter="all">All apps</button><button class="filter" data-filter="planning">Planning</button><button class="filter" data-filter="creative">Creative</button><button class="filter" data-filter="data">Data</button><button class="filter" data-filter="communication">Communication</button></div></div>
+<div class="apps" id="appGrid">
+<article class="app" data-category="planning" data-search="gridforge calendar planning schedule events import export"><img class="app-icon" src="gridforge.png" alt="GridForge"><span class="app-tag">PLANNING</span><h3>GridForge</h3><p>Calendar views, events, schedules and import/export tools to keep your day organized.</p><div class="app-actions"><a href="gridforge/index.html">Open GridForge ↗</a><a href="workspace.html">In workspace</a></div></article>
+<article class="app" data-category="creative" data-search="slidespark presentation slides design slideshow export"><img class="app-icon" src="SlideSpark.png" alt="SlideSpark"><span class="app-tag">CREATIVE</span><h3>SlideSpark</h3><p>Create and present slide decks with editable content, design controls and slideshow mode.</p><div class="app-actions"><a href="slidespark/index.html?v=20261120-modern">Open SlideSpark ↗</a><a href="workspace.html">In workspace</a></div></article>
+<article class="app" data-category="data" data-search="datanest structured data spreadsheet tables records csv import export"><img class="app-icon" src="datanest-removebg-preview.png" alt="DataNest"><span class="app-tag">DATA</span><h3>DataNest</h3><p>Build flexible tables with custom fields, editable records and CSV import/export.</p><div class="app-actions"><a href="datanest/index.html">Open DataNest ↗</a><a href="workspace.html">In workspace</a></div></article>
+<article class="app" data-category="communication" data-search="mailnest email outlook messages folders drafts microsoft"><img class="app-icon" src="mailnest.jpg" alt="MailNest"><span class="app-tag">COMMUNICATION</span><h3>MailNest</h3><p>Connect Outlook, browse folders, compose messages and keep local drafts.</p><div class="app-actions"><a href="mailnest/index.html">Open MailNest ↗</a><a href="workspace.html">In workspace</a></div></article>
+</div><div class="empty" id="emptyState">No apps match your search. Try another keyword or filter.</div></section>
+<section class="section"><div class="section-head"><h2>Designed around your work.</h2><p>A consistent experience, without taking away the individual tools that make each app useful.</p></div><div class="values"><article class="value"><b>Familiar tools, clearer design</b><p>Modern navigation and visual polish while keeping the existing controls, options and workflows available.</p></article><article class="value"><b>Your data stays yours</b><p>Local-first features and portable formats, with clear sign-in and online-service requirements.</p></article><article class="value"><b>Open and evolving</b><p>Free, open-source software with a public roadmap and room for community contributions.</p></article></div></section>
+<section class="cta"><div><h2>One workspace. A better flow.</h2><p>Open all four tools in one place, or download the desktop launcher for offline app copies.</p></div><a class="btn primary" href="workspace.html">Launch MosSuite ↗</a></section>
+</main>
+<footer><span>© MosWeb · MosSuite is an independent open-source project.</span><span><a href="https://github.com/moswebgr/Office">GitHub</a> · <a href="https://discord.gg/jhTGyEAtV">Community</a> · Made by Vasilis Moskofidis</span></footer>
+</div>
+<script>
+(()=>{const search=document.getElementById('appSearch'),cards=[...document.querySelectorAll('.app[data-category]')],filters=[...document.querySelectorAll('[data-filter]')],empty=document.getElementById('emptyState');let active='all';function update(){const q=search.value.trim().toLowerCase();let visible=0;cards.forEach(card=>{const matchCategory=active==='all'||card.dataset.category===active;const matchQuery=(card.dataset.search+' '+card.innerText).toLowerCase().includes(q);const show=matchCategory&&matchQuery;card.hidden=!show;if(show)visible++;});empty.style.display=visible?'none':'block';}filters.forEach(btn=>btn.addEventListener('click',()=>{active=btn.dataset.filter;filters.forEach(x=>x.classList.toggle('active',x===btn));update();}));search.addEventListener('input',update);})();
+</script></body></html>

@@ -1,0 +1,78 @@
+/* MosSuite Modern UI layer — presentation-only overrides; app controls and data logic remain untouched. */
+:root{--mos-accent:#5b9cff;--mos-accent-2:#72e0c1;--mos-radius:14px}
+:focus-visible{outline:2px solid var(--mos-accent)!important;outline-offset:2px}
+button,a,input,select,textarea{transition:background-color .16s ease,border-color .16s ease,box-shadow .16s ease,transform .16s ease}
+@media(prefers-reduced-motion:reduce){button,a,input,select,textarea{transition:none!important}}
+/* GridForge */
+body:has(.calendar-wrap){--bg:#0b1220;--surface:#111c2e;--surface2:#192840;--surface3:#223550;--line:#2b3d57;--text:#edf4ff;--muted:#a9b9cf;--accent:#5b9cff;background:radial-gradient(ellipse at 70% -20%,#1b3b68 0,transparent 42%),#0b1220;color:var(--text)}
+body:has(.calendar-wrap) .topbar{height:64px;background:#101b2deF;border-color:#263a56;backdrop-filter:blur(18px);padding-inline:clamp(14px,3vw,32px)}
+body:has(.calendar-wrap) .app{grid-template-columns:270px minmax(0,1fr)}
+body:has(.calendar-wrap) .sidebar{background:#0e192a;border-color:#263a56;padding:22px 18px}
+body:has(.calendar-wrap) .main{padding:24px clamp(14px,3vw,34px)}
+body:has(.calendar-wrap) .new-event{border-radius:11px;padding:13px 16px;background:linear-gradient(120deg,#367ee8,#5b9cff);box-shadow:0 8px 22px #367ee833}
+body:has(.calendar-wrap) .toolbar button,body:has(.calendar-wrap) .toolbar select{border:1px solid #304762;background:#17263b;color:#eaf2ff;border-radius:9px;padding:9px 13px}
+body:has(.calendar-wrap) .toolbar button:hover{background:#243a58;border-color:#5b9cff}
+body:has(.calendar-wrap) .current-title{font-size:clamp(22px,2.3vw,30px);letter-spacing:-.8px}
+body:has(.calendar-wrap) .calendar-wrap{background:#101c2e;border:1px solid #2b405d;border-radius:15px;box-shadow:0 18px 50px #0002}
+body:has(.calendar-wrap) .day-head{background:#142239;border-color:#2b405d;color:#b9c9df}
+body:has(.calendar-wrap) .day-cell{border-color:#243750}
+body:has(.calendar-wrap) .day-cell:hover,body:has(.calendar-wrap) .time-slot:hover{background:#1b2d46}
+body:has(.calendar-wrap) .day-cell.outside{background:#0d1727;color:#65768d}
+body:has(.calendar-wrap) .event-chip,body:has(.calendar-wrap) .time-event{border-radius:6px;padding:5px 7px}
+body:has(.calendar-wrap) .modal{background:#142239;border:1px solid #36506f;border-radius:16px;box-shadow:0 28px 90px #0009}
+body:has(.calendar-wrap) .field{background:#0d1929;border:1px solid #3a506c;border-radius:9px;color:#f2f7ff}
+body:has(.calendar-wrap) .modal-actions button{border-radius:9px}
+/* SlideSpark — retain its existing ribbon, slide editor, themes and presentation controls. */
+body:has(.slide-thumb){background:#111827;color:#20242b}
+body:has(.slide-thumb) .topbar{height:54px;background:linear-gradient(100deg,#a9361e,#d45b37);box-shadow:0 3px 16px #0002}
+body:has(.slide-thumb) .tabs{background:#fff;border-color:#e5e7eb}
+body:has(.slide-thumb) .tab{padding-inline:18px}
+body:has(.slide-thumb) .ribbon{background:#f8fafc;border-color:#dbe2ea;box-shadow:0 4px 14px #18283d0b}
+body:has(.slide-thumb) .tool{border-radius:8px}
+body:has(.slide-thumb) .tool:hover{background:#eef3f9;border-color:#d7e1ed}
+body:has(.slide-thumb) .workspace{background:#e8edf4}
+body:has(.slide-thumb) .sidebar{background:#f7f9fc;border-color:#dce3ec}
+body:has(.slide-thumb) .slide-thumb{border-radius:9px}
+body:has(.slide-thumb) .slide-thumb.active{background:#fff;box-shadow:0 3px 12px #172b4418}
+body:has(.slide-thumb) .slide{box-shadow:0 12px 36px #15253d26}
+body:has(.slide-thumb) .stage-head,body:has(.slide-thumb) .notes,body:has(.slide-thumb) .statusbar{background:#f8fafc}
+/* DataNest */
+body:has(.sheet-area){background:#0c1522;color:#eaf1fb}
+body:has(.sheet-area) .topbar{background:linear-gradient(100deg,#123e30,#176246);min-height:56px;padding-inline:22px}
+body:has(.sheet-area) .filebar{background:#111e2e;border-color:#2b3d52;padding-inline:20px}
+body:has(.sheet-area) .field{border-radius:8px}
+body:has(.sheet-area) .tabs{background:#142237;border-color:#2b3d52}
+body:has(.sheet-area) .tab{color:#c4d2e4}
+body:has(.sheet-area) .tab.active{color:#8de2b3}
+body:has(.sheet-area) .tab.active:after{background:#39b878;border-radius:4px 4px 0 0}
+body:has(.sheet-area) .ribbon{background:#17263a;border-color:#2b3d52}
+body:has(.sheet-area) .rbutton,body:has(.sheet-area) .btn{border-radius:8px}
+body:has(.sheet-area) .rbutton:hover,body:has(.sheet-area) .btn:hover{background:#263b55;border-color:#3e5c7c}
+body:has(.sheet-area) .rbutton.primary,body:has(.sheet-area) .primary{background:#168451;border-color:#168451}
+body:has(.sheet-area) .workspace,body:has(.sheet-area) .sheet-area{background:#0e1928}
+body:has(.sheet-area) table{border-color:#293b51}
+body:has(.sheet-area) th{background:#1b2b40}
+body:has(.sheet-area) td,body:has(.sheet-area) th{border-color:#293b51}
+body:has(.sheet-area) .formula-bar{background:#132237;border-color:#293b51}
+body:has(.sheet-area) .sheet-tabs{background:#142237;border-color:#293b51}
+body:has(.sheet-area) .sheet-tab{background:#0f1d2d;border-color:#39b878;color:#9be5bb}
+body:has(.sheet-area) .statusbar{background:#14563b}
+/* MailNest */
+body:has(.mail-shell-top){background:#0c1522;color:#edf4ff}
+body:has(.mail-shell-top)>header{background:#111e2e;border-color:#2b3d52;height:60px;padding-inline:22px}
+body:has(.mail-shell-top) .wrap{background:#0d1929}
+body:has(.mail-shell-top) .mail-shell-top{background:#142237;border-color:#2b3d52;padding:12px 18px}
+body:has(.mail-shell-top) .toolbar{background:#111e2e;border-color:#2b3d52;padding:12px 18px}
+body:has(.mail-shell-top) .workspace{background:#0e1928;border-color:#2b3d52}
+body:has(.mail-shell-top) .nav-pane,body:has(.mail-shell-top) .list{background:#111e2e;border-color:#2b3d52}
+body:has(.mail-shell-top) .nav-btn{border-radius:9px;margin-block:3px}
+body:has(.mail-shell-top) .nav-btn.active,body:has(.mail-shell-top) .item.active{background:#183a5a}
+body:has(.mail-shell-top) .item{padding:15px 16px;border-color:#293b51}
+body:has(.mail-shell-top) .item:hover{background:#1a2b40}
+body:has(.mail-shell-top) #detail{background:#101d2f}
+body:has(.mail-shell-top) .card,body:has(.mail-shell-top) .item{border-radius:0}
+body:has(.mail-shell-top) .btn{border-radius:9px;border-color:#3a506c;background:#1a2b40}
+body:has(.mail-shell-top) .btn.primary{background:#2676c9;border-color:#2676c9}
+body:has(.mail-shell-top) .field{background:#0c1828;border-color:#3a506c;border-radius:9px}
+body:has(.mail-shell-top) .pill{border-radius:99px;background:#172b43;border-color:#3a506c}
+@media(max-width:760px){body:has(.calendar-wrap) .app{grid-template-columns:1fr}body:has(.calendar-wrap) .main{padding:14px 10px}body:has(.calendar-wrap) .sidebar{display:none}}
