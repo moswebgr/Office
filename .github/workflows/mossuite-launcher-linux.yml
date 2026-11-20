@@ -27,14 +27,29 @@ jobs:
       - name: Install dependencies
         working-directory: mossuite-launcher
         run: npm install
-      - name: Build Linux packages
+      - name: Build AppImage, Debian and tarball packages
         working-directory: mossuite-launcher
         run: |
           if [ "${{ matrix.arch }}" = "arm64" ]; then
-            npx electron-builder --linux AppImage deb rpm tar.gz --arm64 --publish never
+            npx electron-builder --linux AppImage deb tar.gz --arm64 --publish never
           else
-            npx electron-builder --linux AppImage deb rpm tar.gz --x64 --publish never
+            npx electron-builder --linux AppImage deb tar.gz --x64 --publish never
           fi
+      - name: Build RPM package (gzip payload)
+        id: rpm
+        continue-on-error: true
+        working-directory: mossuite-launcher
+        env:
+          DEBUG: electron-builder
+        run: |
+          if [ "${{ matrix.arch }}" = "arm64" ]; then
+            npx electron-builder --linux rpm --arm64 --publish never
+          else
+            npx electron-builder --linux rpm --x64 --publish never
+          fi
+      - name: Report RPM fallback
+        if: steps.rpm.outcome == 'failure'
+        run: echo "::warning::RPM packaging failed for ${{ matrix.arch }}. AppImage, DEB and tar.gz will still be published; inspect the RPM step debug output."
       - name: Verify Debian package for this architecture
         working-directory: mossuite-launcher
         run: |
@@ -61,11 +76,14 @@ jobs:
           pattern: mossuite-linux-*
           path: release-assets
           merge-multiple: true
-      - name: Verify installer files
+      - name: Verify required installer files
         run: |
           test -s release-assets/MosSuite-Linux-1.0.4-amd64.deb
           test -s release-assets/MosSuite-Linux-1.0.4-arm64.deb
           test -s release-assets/MosSuite-Linux-1.0.4-x86_64.AppImage
+          test -s release-assets/MosSuite-Linux-1.0.4-arm64.AppImage
+          test -s release-assets/MosSuite-Linux-1.0.4-x64.tar.gz
+          test -s release-assets/MosSuite-Linux-1.0.4-arm64.tar.gz
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
