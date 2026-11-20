@@ -52,7 +52,10 @@ function download(url, destination, onProgress, redirects = 5) {
       fs.mkdirSync(path.dirname(destination), { recursive: true });
       const temp = destination + ".tmp";
       const file = fs.createWriteStream(temp);
-      let receivedBytes = 0;\n      const totalBytes = Number(response.headers["content-length"]) || 0;\n      response.on("data", chunk => { receivedBytes += chunk.length; if (onProgress) onProgress(receivedBytes, totalBytes); });\n      response.pipe(file);
+      let receivedBytes = 0;
+      const totalBytes = Number(response.headers["content-length"]) || 0;
+      response.on("data", chunk => { receivedBytes += chunk.length; if (onProgress) onProgress(receivedBytes, totalBytes); });
+      response.pipe(file);
       file.on("finish", () => file.close(() => {
         try { fs.renameSync(temp, destination); if (onProgress) onProgress(totalBytes || receivedBytes, totalBytes || receivedBytes); resolve(destination); }
         catch (err) { fs.rmSync(temp, {force:true}); reject(err); }
