@@ -61,9 +61,11 @@ function download(url, destination, redirects = 5) {
 function appEntry(id) { return path.join(appDir(), id, ...APPS[id].file.split("/")); }
 function isInstalled(id) { return fs.existsSync(appEntry(id)) && fs.existsSync(path.join(appDir(), id, "assets", "mossuite-logo.svg")); }
 
-ipcMain.handle("apps:list", () => Object.entries(APPS).map(([id, item]) => ({
-  id, name:item.name, category:item.category, description:item.description, installed:isInstalled(id)
-})));
+ipcMain.handle("apps:list", () => Object.entries(APPS).map(([id, item]) => {
+  const installed = isInstalled(id);
+  if (installed && process.platform === "linux") createDesktopEntry(id, item);
+  return { id, name:item.name, category:item.category, description:item.description, installed };
+}));
 
 ipcMain.handle("apps:install", async (_event, id) => {
   const item = APPS[id];
@@ -73,6 +75,7 @@ ipcMain.handle("apps:install", async (_event, id) => {
   for (const file of SHARED_FILES) {
     await download(ROOT + file, path.join(base, ...file.split("/")));
   }
+  if (process.platform === "linux") createDesktopEntry(id, item);
   return {id, installed:true};
 });
 
