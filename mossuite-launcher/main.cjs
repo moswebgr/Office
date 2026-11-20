@@ -29,7 +29,7 @@ function createDesktopEntry(id, item) {
     "StartupNotify=true",
     "StartupWMClass=MosSuite-" + id,
     ""
-  ].join("\\n");
+  ].join("\n");
   const target = desktopEntryPath(id);
   fs.mkdirSync(path.dirname(target), { recursive: true });
   fs.writeFileSync(target, content, { mode: 0o755 });
