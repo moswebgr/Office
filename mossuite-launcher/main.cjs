@@ -38,12 +38,12 @@ function createDesktopEntry(id, item) {
   fs.writeFileSync(target, content, { mode: 0o755 });
   try { fs.chmodSync(target, 0o755); } catch {}
 }
-function download(url, destination, redirects = 5) {
+function download(url, destination, onProgress, redirects = 5) {
   return new Promise((resolve, reject) => {
     https.get(url, response => {
       if ([301,302,303,307,308].includes(response.statusCode) && response.headers.location && redirects) {
         response.resume();
-        return resolve(download(new URL(response.headers.location, url).toString(), destination, redirects - 1));
+        return resolve(download(new URL(response.headers.location, url).toString(), destination, onProgress, redirects - 1));
       }
       if (response.statusCode !== 200) {
         response.resume();
@@ -54,7 +54,7 @@ function download(url, destination, redirects = 5) {
       const file = fs.createWriteStream(temp);
       response.pipe(file);
       file.on("finish", () => file.close(() => {
-        try { fs.renameSync(temp, destination); resolve(destination); }
+        try { fs.renameSync(temp, destination); if (onProgress) onProgress(totalBytes || receivedBytes, totalBytes || receivedBytes); resolve(destination); }
         catch (err) { fs.rmSync(temp, {force:true}); reject(err); }
       }));
       file.on("error", err => { fs.rmSync(temp, {force:true}); reject(err); });
@@ -70,15 +70,25 @@ ipcMain.handle("apps:list", () => Object.entries(APPS).map(([id, item]) => {
   return { id, name:item.name, category:item.category, description:item.description, installed };
 }));
 
-ipcMain.handle("apps:install", async (_event, id) => {
+ipcMain.handle("apps:install", async (event, id) => {
   const item = APPS[id];
   if (!item) throw new Error("Unknown app");
   const base = path.join(appDir(), id);
-  await download(ROOT + item.file, appEntry(id));
-  for (const file of SHARED_FILES) {
-    await download(ROOT + file, path.join(base, ...file.split("/")));
+  const files = [
+    {remote:item.file, destination:appEntry(id), label:item.file},
+    ...SHARED_FILES.map(file => ({remote:file, destination:path.join(base, ...file.split("/")), label:file}))
+  ];
+  for (let index = 0; index < files.length; index++) {
+    const file = files[index];
+    await download(ROOT + file.remote, file.destination, (received, total) => {
+      const fraction = total > 0 ? Math.min(1, received / total) : 0;
+      const percent = Math.min(99, Math.floor(((index + fraction) / files.length) * 100));
+      event.sender.send("apps:install-progress", {id, percent, file:file.label, current:index + 1, total:files.length});
+    });
+    event.sender.send("apps:install-progress", {id, percent:Math.floor(((index + 1) / files.length) * 100), file:file.label, current:index + 1, total:files.length});
   }
   if (process.platform === "linux") createDesktopEntry(id, item);
+  event.sender.send("apps:install-progress", {id, percent:100, file:"Complete", current:files.length, total:files.length, complete:true});
   return {id, installed:true};
 });
 
