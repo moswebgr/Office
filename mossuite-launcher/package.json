@@ -52,7 +52,8 @@
       "depends": [
         "gtk3",
         "nss"
-      ]
+      ],
+      "compression": "gzip"
     },
     "artifactName": "MosSuite-Linux-${version}-${arch}.${ext}"
   }
