@@ -10,7 +10,7 @@ const APPS = {
   mailnest: { name: "MailNest", category: "Email", description: "Work with your Outlook mailbox and local drafts.", url: "https://moswebgr.github.io/Office/mailnest/", file: "mailnest/index.html" }
 };
 const ROOT = "https://raw.githubusercontent.com/moswebgr/Office/main/";
-const SHARED_FILES = ["index.html", "assets/microsoft-ui.css", "assets/responsive.css", "assets/desktop-only.css", "assets/mossuite-logo.svg", "assets/microsoft-auth.js"];
+const SHARED_FILES = ["index.html", "assets/microsoft-ui.css", "assets/responsive.css", "assets/desktop-only.css", "assets/mossuite-logo.svg", "assets/microsoft-auth.js", "assets/mossuite-modern.css"];
 
 function appDir() { return path.join(app.getPath("userData"), "offline-apps"); }
 function download(url, destination, redirects = 5) {
